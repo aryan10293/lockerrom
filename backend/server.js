@@ -60,6 +60,7 @@ app.use(cors({
 //   res.send(req.user);
 // });
   //Server Running
+  console.log(1+1)
   app.listen(process.env.PORT, () => {
     console.log("Server is running, you better catch it!");
   });
