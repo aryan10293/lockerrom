@@ -1,11 +1,19 @@
 import React from 'react';
 import './App.css';
-import Header from './Header';
+import { Routes, Route, Navigate } from 'react-router-dom'
+import { Fragment } from 'react';
+import RegisterDisplay from './pages/RegisterDisplay';
+import LoginDisplay from './pages/LoginDisplay';
 function App() {
   return (
-    <div className="App">
-      <Header />
-    </div>
+    <Routes>
+          <Route 
+          path="/register"
+          element={ <RegisterDisplay /> } />
+          <Route 
+          path="/login"
+          element={ <LoginDisplay /> } />
+    </Routes>
   );
 }
 
