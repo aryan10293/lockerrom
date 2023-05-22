@@ -9,4 +9,5 @@ const { ensureAuth, ensureGuest } = require("../middleware/auth")
 
 router.post('/createaccount', authController.postCreateAccount)
 router.post('/login', authController.postLogin)
+router.get("/checkuser", authController.checkUser)
 module.exports = router;

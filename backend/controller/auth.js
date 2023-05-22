@@ -60,6 +60,7 @@ module.exports = {
                 }
                 //return next()
                 // res.redirect("/profile");
+                console.log('login was good')
                 res.send({
                   "newUser": user
                 })
@@ -96,11 +97,6 @@ module.exports = {
               return next(err);
             }
             req.flash("success", { msg: "Success! You are logged in." });
-            console.log(req.user)
-            // res.redirect(req.session.returnTo || res.send({
-            //   "currentUser": req.user
-            // }));
-            
             res.send( {"currentUser": req.user})
           });
         })(req, res, next);
@@ -117,7 +113,6 @@ module.exports = {
         });
       },
       checkUser:  async (req,res) => {
-        const lol = await User.find()
-        res.send( req.user )
+        res.send( req.user || null )
     }
 }

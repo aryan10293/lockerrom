@@ -1,7 +1,49 @@
 import React from 'react'
-import { Fragment } from 'react'
-import { Link } from 'react-router-dom'
+import { Fragment, ChangeEvent, FormEvent } from 'react'
+import { Link, useNavigate } from 'react-router-dom'
 function Login() {
+    const navigate = useNavigate()
+    const [email, setEmail] = React.useState<string>('')
+    const [password, setPassword] = React.useState<string>('')
+    const handleChangeEmail = (e: ChangeEvent<HTMLInputElement>) => {
+        setEmail(e.target.value)
+    }
+
+    const handleChangePassword = (e: ChangeEvent<HTMLInputElement>) => {
+        setPassword(e.target.value)
+    }
+    const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
+      e.preventDefault();
+
+      try {
+        const login = await fetch('http://localhost:2012/login', {
+          method: 'POST',
+          credentials: 'include',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            email: email,
+            password: password,
+          }),
+        });
+
+        if (login.ok) {
+          const loginData = await login.json();
+          navigate('/dashboard')
+          setPassword('');
+          setEmail('');
+          console.log(loginData);
+        } else {
+          // Handle non-OK response (e.g., authentication error)
+          // You can display an error message or handle it differently
+          console.error('Login failed:', login.status, login.statusText);
+        }
+      } catch (error) {
+        // Handle fetch errors (e.g., network error)
+        // You can display an error message or handle it differently
+        console.error('Error during login:', error);
+      }
+    };
+
   return (
  <>
       <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8">
@@ -17,13 +59,14 @@ function Login() {
         </div>
 
         <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
-          <form className="space-y-6" action="#" method="POST">
+          <form className="space-y-6" action="#" method="POST" onSubmit={handleSubmit}>
             <div>
               <label htmlFor="email" className="block text-sm font-medium leading-6 text-gray-900">
                 Email address
               </label>
               <div className="mt-2">
                 <input
+                  onChange={handleChangeEmail}
                   id="email"
                   name="email"
                   type="email"
@@ -40,6 +83,7 @@ function Login() {
                 </label>
               <div className="mt-2">
                 <input
+                  onChange={handleChangePassword}
                   id="password"
                   name="password"
                   type="password"
