@@ -30,7 +30,6 @@ React.useEffect(() => {
 
       if (response.ok) {
         const data = await response.json();
-        console.log(data);
         setUser(data);
       } else {
         // Handle non-OK response (e.g., unauthorized or server error)
@@ -46,7 +45,7 @@ React.useEffect(() => {
 
   fetchData();
 }, []);
-  console.log(user === null)
+
   return (
     <Routes>
           <Route 
@@ -54,7 +53,7 @@ React.useEffect(() => {
           element={ <RegisterDisplay /> } />
           <Route 
           path="/dashboard"
-          element={ <DashboardDisplay /> } />
+          element={ <DashboardDisplay lol={user === null ? null : user}/> } />
           <Route 
           path="/login"
           element={ <LoginDisplay /> } />
