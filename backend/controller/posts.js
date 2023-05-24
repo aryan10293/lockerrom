@@ -20,5 +20,8 @@ module.exports = {
         } catch(err){
             console.error(err)
         }
+    },
+    getFeats: async (req,res) => {
+       res.send(await Feat.find())
     }
 }

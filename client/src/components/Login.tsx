@@ -28,7 +28,7 @@ function Login() {
 
         if (login.ok) {
           const loginData = await login.json();
-          navigate('/dashboard')
+          navigate('/dashboard', { state: { prop1: loginData} })
           setPassword('');
           setEmail('');
           console.log(loginData);

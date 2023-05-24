@@ -1,5 +1,5 @@
 import React from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useLocation } from 'react-router-dom'
 import { Fragment } from 'react'
 import { AsideLeft } from '../components/AsideLeft'
 import { AsideRight } from '../components/AsideRight'
@@ -7,10 +7,43 @@ import { BsFillImageFill } from "react-icons/bs";
 import { GiSettingsKnobs } from "react-icons/gi";
 import { AiOutlineArrowUp } from "react-icons/ai";
 function DashboarDisplay(props: any) {
+    // const location = useLocation()
+    // const prop1 = location.state.prop1
+    // console.log(prop1)
+    const [content,setContent] = React.useState<string>('')
+    const [feat, setFeat] = React.useState<any>([])
+    // this is to pass data to the backend when user makes a post
     const loginUser = {
         userId: props.lol._id,
         name: props.lol.userName
   }
+  // created to get data from the database so we can render post to user
+    const renderFeats = async () => {
+    try {
+      const getFeats = await fetch('http://localhost:2012/renderfeats', {
+        method: 'GET',
+        credentials: 'include',
+      });
+
+      if (getFeats.ok) {
+        const data = await getFeats.json();
+        setFeat(data);
+        console.log(data); // Logging the fetched data
+      } else {
+        // Handle non-OK response (e.g., unauthorized or server error)
+        console.error('Error fetching data:', getFeats.status);
+      }
+    } catch (error) {
+      // Handle fetch errors (e.g., network error)
+      console.error('Error fetching data:', error);
+    }
+  };
+React.useEffect(() => {
+
+  renderFeats();
+}, []);
+
+  // forgot what this is for probably why you should make comments
 interface User {
   followers: any[];
   likes: any[];
@@ -22,7 +55,6 @@ interface User {
   password: string;
   __v: number;
 }
-  const [content,setContent] = React.useState<string>('')
   const handleClick = async () => {
             await fetch('http://localhost:2012/postfeat', {
             method: 'POST',
@@ -30,6 +62,7 @@ interface User {
             body: JSON.stringify({ content, loginUser})
         })
         setContent('')
+        renderFeats()
   }
   return (
  <div className="flex justify-center px-5 sm:px-32 md:mt-4">
