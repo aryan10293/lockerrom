@@ -59,7 +59,7 @@ const cool = ['' ,'','' ,'','' ,'','' ,'','' ,'']
           if (getFeats.ok) {
             const data = await getFeats.json();
             setFeat(data);
-            console.log(data); // Logging the fetched data
+            //console.log(data); // Logging the fetched data
           } else {
             // Handle non-OK response (e.g., unauthorized or server error)
             console.error('Error fetching data:', getFeats.status);
@@ -73,7 +73,6 @@ React.useEffect(() => {
 
   renderFeats();
 }, []);
-
   // forgot what this is for probably why you should make comments
 interface User {
   followers: any[];
@@ -85,6 +84,16 @@ interface User {
   email: string;
   password: string;
   __v: number;
+}
+interface FeatItems {
+  likes: any[],
+  reFeats: any[],
+  _id: string,
+  text: string,
+  date: string,
+  _v: number,
+  userId: string,
+  name:string
 }
   const handleClick = async () => {
             await fetch('http://localhost:2012/postfeat', {
@@ -117,7 +126,7 @@ interface User {
                             <div className="border sm:ml-3 sm:mr-0 flex px-2 py-3">
 
                                 <div className="mt-3 w-12 h-12 text-lg flex-none">
-                                    <img src='' className="flex-none w-12 h-12 rounded-full" alt="avatar" />
+                                    <img src='https://images.unsplash.com/photo-1542156822-6924d1a71ace?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60' className="flex-none w-12 h-12 rounded-full" alt="avatar" />
                                 </div>
 
                                 <div className="w-full px-4">
@@ -173,32 +182,43 @@ interface User {
                             </div>
 
                             {/* Show Posts */}
-                            {cool.map(x => {
+                            {/* gett the amount of time that has over lapped between post 
+                              goo shit tonight little bro
+                            */}
+                            {feat.sort().map((item: FeatItems) => {
                               return (
-                                  <div className="flex bg-white shadow-lg rounded-lg mx-4 md:mx-auto my-5 max-w-md md:max-w-2xl ">
-                                  <div className="flex items-start px-4 py-6">
-                                      <img className="w-12 h-12 rounded-full object-cover mr-4 shadow" src="https://images.unsplash.com/photo-1542156822-6924d1a71ace?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60" alt="avatar" />
+                                <div className=" bg-white shadow-lg rounded-lg mx-4 md:mx-auto my-5 max-w-md md:max-w-2xl " key={item._id}>
+                                  <div className="  items-start px-4 py-6">
+                                      <div className='flex justify-between'>
+                                          <div className='flex'>
+                                            <img className=" inline w-12 h-12 rounded-full object-cover mr-4 shadow" src="https://images.unsplash.com/photo-1542156822-6924d1a71ace?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60" alt="avatar" />
+                                            <div>
+                                                <h2 className="flex-1 text-lg font-semibold text-gray-900 -mt-1">{item.name}</h2>
+                                                <p className="text-gray-700">@{item.name}</p>
+                                            </div>
+                                          </div>
+                                          <div className="flex inline-block items-center">
+                                            <small className="flex-10 text-sm text-gray-700">{item.date}</small>
+                                          </div>   
+                                      </div>                                   
                                       <div className="">
-                                        <div className="flex items-center justify-between">
-                                            <h2 className="text-lg font-semibold text-gray-900 -mt-1">Brad Adams </h2>
-                                            <small className="text-sm text-gray-700">22h ago</small>
+                                        <div>
+                                          <p className="mt-3 text-gray-700 text-sm">
+                                              {item.text}
+                                          </p>
                                         </div>
-                                        <p className="text-gray-700">Joined 12 SEP 2012. </p>
-                                        <p className="mt-3 text-gray-700 text-sm">
-                                            Lorem ipsum, dolor sit amet conse. Saepe optio minus rem dolor sit amet!
-                                        </p>
                                         <div className="mt-4 flex items-center">
                                             <div className="flex mr-2 text-gray-700 text-sm mr-3">
                                               <svg fill="none" viewBox="0 0 24 24"  className="w-4 h-4 mr-1" stroke="currentColor">
                                                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"/>
                                                 </svg>
-                                              <span>12</span>
+                                              <span>{item.likes.length}</span>
                                             </div>
                                             <div className="flex mr-2 text-gray-700 text-sm mr-8">
                                               <svg fill="none" viewBox="0 0 24 24" className="w-4 h-4 mr-1" stroke="currentColor">
                                                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8h2a2 2 0 012 2v6a2 2 0 01-2 2h-2v4l-4-4H9a1.994 1.994 0 01-1.414-.586m0 0L11 14h4a2 2 0 002-2V6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2v4l.586-.586z"/>
                                               </svg>
-                                              <span>8</span>
+                                              <span>{item.reFeats.length}</span>
                                             </div>
                                             <div className="flex mr-2 text-gray-700 text-sm mr-4">
                                               <svg fill="none" viewBox="0 0 24 24" className="w-4 h-4 mr-1" stroke="currentColor">
