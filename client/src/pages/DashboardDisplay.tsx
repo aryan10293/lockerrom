@@ -1,5 +1,5 @@
 import React from 'react'
-import { Link, useLocation } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import { Fragment } from 'react'
 import { AsideLeft } from '../components/AsideLeft'
 import { AsideRight } from '../components/AsideRight'
@@ -7,9 +7,6 @@ import { BsFillImageFill } from "react-icons/bs";
 import { GiSettingsKnobs } from "react-icons/gi";
 import { AiOutlineArrowUp } from "react-icons/ai";
 function DashboarDisplay(props: any) {
-    // const location = useLocation()
-    // const prop1 = location.state.prop1
-    // console.log(prop1)
     const [content,setContent] = React.useState<string>('')
     const [user,setUser] = React.useState<User | null>(null)
     const [feat, setFeat] = React.useState<any>([])
@@ -24,31 +21,23 @@ function DashboarDisplay(props: any) {
 
       if (response.ok) {
         const data = await response.json();
-        console.log(data)
         setUser(data);
       } else {
-        // Handle non-OK response (e.g., unauthorized or server error)
-        // You can choose to set the user state to null or handle it differently
         console.log('cool')
         setUser(null);
       }
     } catch (error) {
-      // Handle fetch errors (e.g., network error)
-      // You can display an error message or handle it as needed
       console.error('Error fetching data:', error);
     }
   };
 
   fetchData();
 }, []);
-    // this is to pass data to the backend when user makes a post
     const loginUser = {
         userId: user?._id,
         name: user?.userName
   }
 
-const cool = ['' ,'','' ,'','' ,'','' ,'','' ,'']
-  // created to get data from the database so we can render post to user
     const renderFeats = async () => {
         try {
           const getFeats = await fetch('http://localhost:2012/renderfeats', {
@@ -58,14 +47,11 @@ const cool = ['' ,'','' ,'','' ,'','' ,'','' ,'']
 
           if (getFeats.ok) {
             const data = await getFeats.json();
-            setFeat(data);
-            //console.log(data); // Logging the fetched data
+            setFeat([...data].reverse());
           } else {
-            // Handle non-OK response (e.g., unauthorized or server error)
             console.error('Error fetching data:', getFeats.status);
           }
         } catch (error) {
-          // Handle fetch errors (e.g., network error)
           console.error('Error fetching data:', error);
         }
   };
@@ -73,7 +59,6 @@ React.useEffect(() => {
 
   renderFeats();
 }, []);
-  // forgot what this is for probably why you should make comments
 interface User {
   followers: any[];
   likes: any[];
@@ -183,9 +168,15 @@ interface FeatItems {
 
                             {/* Show Posts */}
                             {/* gett the amount of time that has over lapped between post 
+                            make sure to check if ui updates when i make a post
                               goo shit tonight little bro
                             */}
-                            {feat.sort().map((item: FeatItems) => {
+                            {feat.map((item: FeatItems) => {
+                                  const targetTimeString = item.date;
+                                  const targetTime = new Date(targetTimeString);
+                                  const currentTime = new Date();
+                                  const millisecondsPassed = currentTime.getTime() - targetTime.getTime();
+                                  const hoursPassed = Math.floor( millisecondsPassed / (1000 * 60 * 60));
                               return (
                                 <div className=" bg-white shadow-lg rounded-lg mx-4 md:mx-auto my-5 max-w-md md:max-w-2xl " key={item._id}>
                                   <div className="  items-start px-4 py-6">
@@ -194,11 +185,11 @@ interface FeatItems {
                                             <img className=" inline w-12 h-12 rounded-full object-cover mr-4 shadow" src="https://images.unsplash.com/photo-1542156822-6924d1a71ace?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60" alt="avatar" />
                                             <div>
                                                 <h2 className="flex-1 text-lg font-semibold text-gray-900 -mt-1">{item.name}</h2>
-                                                <p className="text-gray-700">@{item.name}</p>
+                                                <Link to={`/profile/${item.userId}`} className="text-gray-700">@{item.name}</Link>
                                             </div>
                                           </div>
                                           <div className="flex inline-block items-center">
-                                            <small className="flex-10 text-sm text-gray-700">{item.date}</small>
+                                            <small className="flex-10 text-sm text-gray-700">{hoursPassed} hours ago</small>
                                           </div>   
                                       </div>                                   
                                       <div className="">
@@ -240,7 +231,7 @@ interface FeatItems {
                     </main>
 
                     <AsideRight />
-                    <a href="#">
+                    <a href="/afaqqf">
                         <AiOutlineArrowUp className="hidden sm:block fixed bottom-0 right-20 bg-blue-300 text-slate-50 text-5xl p-3 rounded-full mb-2 mr-20 hover:bg-blue-500" />
                     </a>
                 </div>

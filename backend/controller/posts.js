@@ -1,5 +1,5 @@
 const Feat = require('../model/Feat')
-
+const User = require('../model/user')
 module.exports = {
     postFeat: async (req,res) => {
         console.log(req.body)
@@ -23,5 +23,8 @@ module.exports = {
     },
     getFeats: async (req,res) => {
        res.send(await Feat.find())
+    },
+    getUser: async (req,res) => {
+        res.send(await User.find())
     }
 }

@@ -1,7 +1,6 @@
 import React from 'react';
 import './App.css';
-import { Routes, Route, Navigate } from 'react-router-dom'
-import { Fragment } from 'react';
+import { Routes, Route } from 'react-router-dom'
 import RegisterDisplay from './pages/RegisterDisplay';
 import LoginDisplay from './pages/LoginDisplay';
 import HomeDisplay from './pages/HomeDisplay';

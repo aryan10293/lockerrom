@@ -1,7 +1,6 @@
 import React from "react";
-
+import UserToFollow from "./UserToFollow";
 export const AsideRight = () => {
-
     // const {
     //     user: { users, searchQuery, searchResults },
     //     auth: { userData }
@@ -33,7 +32,7 @@ export const AsideRight = () => {
 
             <div className="mt-2 ">
 
-                {'lol '.trim() !== "" ? (
+                {'lol '.trim() === "" ? (
 
                     <div>
 
@@ -41,9 +40,9 @@ export const AsideRight = () => {
                     </div>
                 ) : ( (
                     <div>
-                        <h1 className="text-xl mt-6 text-center font-bold">Suggestions for you</h1>
+                        <h1 className="text-xl mt-6 text-center font-bold">Athletes To Meet</h1>
                         <ul className="">
-
+                            <UserToFollow />
                         </ul>
                     </div>
                 ))}

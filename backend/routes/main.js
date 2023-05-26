@@ -12,4 +12,5 @@ router.post('/login', authController.postLogin)
 router.post('/postfeat', crudController.postFeat)
 router.get("/checkuser", authController.checkUser)
 router.get('/renderfeats', crudController.getFeats)
+router.get('/getusers', crudController.getUser)
 module.exports = router;
