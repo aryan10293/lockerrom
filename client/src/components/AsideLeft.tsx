@@ -3,6 +3,7 @@ import { BiEditAlt } from "react-icons/bi";
 import { AiOutlineHome, AiFillHome  } from "react-icons/ai";
 import { MdOutlineExplore, MdExplore, MdOutlineBookmarkBorder, MdOutlineBookmark } from "react-icons/md";
 import { FaRegUser, FaUser } from "react-icons/fa";
+import { MdMessage, MdDateRange } from 'react-icons/md';
 import React from "react";
 
 export const AsideLeft = () => {
@@ -46,6 +47,38 @@ export const AsideLeft = () => {
                                     <>
                                         <MdOutlineExplore className="text-[1.6rem]"/>
                                         <h2 className="text-xl px-1 hidden xl:block"> Explore </h2>
+                                    </>
+                                )}
+                        </NavLink>
+                    </li>
+                    <li>
+                        <NavLink to="/bookmarks" className="flex py-4 gap-3 px-3 cursor-pointer hover:bg-slate-200 rounded-[15rem] active:bg-slate-100">
+                            {({ isActive }) => 
+                                isActive ? (
+                                    <>
+                                        <MdDateRange className="text-[1.6rem] font-bold"/> 
+                                        <h2 className="text-xl px-1 hidden xl:block font-bold"> Calender </h2>
+                                    </>
+                                ) : (
+                                    <>
+                                        <MdDateRange className="text-[1.6rem]"/>
+                                        <h2 className="text-xl px-1 hidden xl:block"> Calender </h2>  
+                                    </>
+                                )}
+                        </NavLink>
+                    </li>
+                    <li>
+                        <NavLink to="/bookmarks" className="flex py-4 gap-3 px-3 cursor-pointer hover:bg-slate-200 rounded-[15rem] active:bg-slate-100">
+                            {({ isActive }) => 
+                                isActive ? (
+                                    <>
+                                        <MdMessage className="text-[1.6rem] font-bold"/> 
+                                        <h2 className="text-xl px-1 hidden xl:block font-bold"> Messages </h2>
+                                    </>
+                                ) : (
+                                    <>
+                                        <MdMessage className="text-[1.6rem]"/>
+                                        <h2 className="text-xl px-1 hidden xl:block"> Messages </h2>  
                                     </>
                                 )}
                         </NavLink>
