@@ -131,3 +131,4 @@ export const AsideLeft = () => {
         </aside>
     )
 };
+// i have no idea wha tim doing
