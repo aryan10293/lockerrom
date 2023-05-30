@@ -1,16 +1,17 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
-import  { Fragment } from 'react'
+import  { Fragment, } from 'react'
 import { AsideLeft } from '../components/AsideLeft'
 import { AsideRight } from '../components/AsideRight'
 import { BsFillImageFill } from "react-icons/bs";
 import { GiSettingsKnobs } from "react-icons/gi";
 import { AiOutlineArrowUp } from "react-icons/ai";
-import {  FaComment, FaHeart } from 'react-icons/fa'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faHeart } from '@fortawesome/free-solid-svg-icons'
 function DashboarDisplay(props: any) {
     const [content,setContent] = React.useState<string>('')
     const [user,setUser] = React.useState<User | null>(null)
-    const [userLikes, setUserLikes] = React.useState([])
+    const [userLikes, setUserLikes] = React.useState<string[]>([])
     const [feat, setFeat] = React.useState<any>([])
 
   React.useEffect(() => {
@@ -73,15 +74,34 @@ React.useEffect(() => {
         setContent('')
         renderFeats()
   }
-    const LikeOrUnlike = async (action: string) => {
-        //     await fetch('http://localhost:2012/postfeat', {
-        //     method: 'POST',
-        //     headers: {'Content-Type': 'application/json'},
-        //     body: JSON.stringify({ content, loginUser})
-        // })
-        // setContent('')
-        // renderFeats()
-        console.log(userLikes)
+
+
+  const LikeOrUnlike = async (e: React.MouseEvent<HTMLButtonElement>) => {
+    const feat = e.currentTarget.parentElement as HTMLElement;
+    const dataset = feat.dataset.id;
+    const action: string = userLikes?.includes(dataset || '') ? 'unlike' : 'like';
+    console.log(action)
+      try {
+            const response = await fetch(`http://localhost:2012/${action}`, {
+                method: 'PUT',
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify({dataset, loginUser})
+                })
+            const data = await response.json()
+            console.log(data)
+        } catch (error) {
+            console.log(error)
+        }
+        console.log(action)
+    if(action === 'like'){
+      if (dataset) {
+        setUserLikes([...userLikes, dataset]);
+      }
+    } else {
+      let newList = userLikes.filter(x => x !== dataset )
+      setUserLikes(newList)
+    }
+    renderFeats()
   }
   interface User {
   followers: any[];
@@ -210,16 +230,15 @@ interface FeatItems {
                                           </p>
                                         </div>
                                         <div className="mt-4 flex items-center">
-                                            <div className="flex mr-2  text-white text-sm mr-3">
+                                            <div className="flex mr-2  text-white text-sm mr-3" data-id={item._id}>
                                               {item.likes.includes(user?._id) ? 
-                                                <FaHeart size='20' className='text-pink-200' onClick={() => LikeOrUnlike('unlike')}/>
+                                                <button className="text-red-500 hover:text-gray-500 text-20" onClick={LikeOrUnlike}><FontAwesomeIcon icon={faHeart} /></button>
                                               : 
-                                                <FaHeart size='20' className='text-gray-200' onClick={() => LikeOrUnlike('like')}/>
+                                                <button className="text-gray-500 hover:text-red-500 text-20" onClick={LikeOrUnlike}><FontAwesomeIcon icon={faHeart} /></button> 
                                               }
                                               <span className='text-black'>{item.likes.length}</span>
                                             </div>
                                             <div className="flex mr-2 text-gray-700 text-sm mr-8">
-                                              <FaComment size='20' className='text-gray-400'/>
                                               <span>   {item.reFeats.length}</span>
                                             </div>
                                             <div className="flex mr-2 text-gray-700 text-sm mr-4">

@@ -7,17 +7,20 @@ module.exports = {
             const updateUser = await User.findOneAndUpdate(
                 {_id: req.body.loginUser.userId},
                 {
-                    $push: { likes: req.body.feat},
+                    $push: { likes: req.body.dataset},
                 }
             )
-            await Post.findOneAndUpdate(
-                {_id: req.body.feat},
+            const updateFeat = await Feat.findOneAndUpdate(
+                {_id: req.body.dataset},
                 {
                     $push: { likes: req.body.loginUser.userId },
                 }
             )
             if (!updateUser) {
                 return res.status(404).json({ error: 'User not found' });
+            }
+            if (!updateFeat) {
+                return res.status(404).json({ error: 'Feat not found' });
             }
 
             return res.status(200).json(updateUser.cart);
@@ -28,22 +31,29 @@ module.exports = {
     },
     unlike: async (req,res) => {
         try{
-            await User.findOneAndUpdate(
-                {_id: req.user.id},
+            const updateUser = await User.findOneAndUpdate(
+                {_id: req.body.loginUser.userId},
                 {
-                    $pull: { likedPost: req.body.tweet },
+                    $pull: { likes: req.body.dataset},
                 }
             )
-            await Post.findOneAndUpdate(
-                {_id: req.body.tweet},
+            const updateFeat = await Feat.findOneAndUpdate(
+                {_id: req.body.dataset},
                 {
-                    $pull: { likes: req.user.id },
+                    $pull: { likes: req.body.loginUser.userId },
                 }
             )
-            res.redirect(304, '/feed')
-            // how to refresh page aftwe a update in mongoose
+            if (!updateUser) {
+                return res.status(404).json({ error: 'User not found' });
+            }
+            if (!updateFeat) {
+                return res.status(404).json({ error: 'Feat not found' });
+            }
+
+            return res.status(200).json(updateUser.cart);
         } catch(err){
             console.error(err)
+            return res.status(500).json({ error: 'Internal Server Error' });
         }
     },
     follow: async (req,res) => {

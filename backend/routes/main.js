@@ -16,4 +16,5 @@ router.get('/renderfeats', postController.getFeats)
 router.get('/getusers', postController.getUser)
 router.get('/getusers', postController.getUser)
 router.put('/like', crudController.addLike)
+router.put('/unlike', crudController.unlike)
 module.exports = router;
