@@ -1,36 +1,38 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
-import { Fragment } from 'react'
+import  { Fragment } from 'react'
 import { AsideLeft } from '../components/AsideLeft'
 import { AsideRight } from '../components/AsideRight'
 import { BsFillImageFill } from "react-icons/bs";
 import { GiSettingsKnobs } from "react-icons/gi";
 import { AiOutlineArrowUp } from "react-icons/ai";
-import { FaHeart, FaComment } from 'react-icons/fa'
+import {  FaComment, FaHeart } from 'react-icons/fa'
 function DashboarDisplay(props: any) {
     const [content,setContent] = React.useState<string>('')
     const [user,setUser] = React.useState<User | null>(null)
+    const [userLikes, setUserLikes] = React.useState([])
     const [feat, setFeat] = React.useState<any>([])
 
   React.useEffect(() => {
-  const fetchData = async () => {
-    try {
-      const response = await fetch('http://localhost:2012/checkuser', {
-        method: 'GET',
-        credentials: 'include',
-      });
+    const fetchData = async () => {
+      try {
+        const response = await fetch('http://localhost:2012/checkuser', {
+          method: 'GET',
+          credentials: 'include',
+        });
 
-      if (response.ok) {
-        const data = await response.json();
-        setUser(data);
-      } else {
-        console.log('cool')
-        setUser(null);
+        if (response.ok) {
+          const data = await response.json();
+          setUser(data);
+          setUserLikes(data.likes)
+        } else {
+          console.log('cool')
+          setUser(null);
+        }
+      } catch (error) {
+        console.error('Error fetching data:', error);
       }
-    } catch (error) {
-      console.error('Error fetching data:', error);
-    }
-  };
+    };
 
   fetchData();
 }, []);
@@ -60,7 +62,28 @@ React.useEffect(() => {
 
   renderFeats();
 }, []);
-interface User {
+
+
+  const handleClick = async () => {
+            await fetch('http://localhost:2012/postfeat', {
+            method: 'POST',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify({ content, loginUser})
+        })
+        setContent('')
+        renderFeats()
+  }
+    const LikeOrUnlike = async (action: string) => {
+        //     await fetch('http://localhost:2012/postfeat', {
+        //     method: 'POST',
+        //     headers: {'Content-Type': 'application/json'},
+        //     body: JSON.stringify({ content, loginUser})
+        // })
+        // setContent('')
+        // renderFeats()
+        console.log(userLikes)
+  }
+  interface User {
   followers: any[];
   likes: any[];
   following: any[];
@@ -81,15 +104,6 @@ interface FeatItems {
   userId: string,
   name:string
 }
-  const handleClick = async () => {
-            await fetch('http://localhost:2012/postfeat', {
-            method: 'POST',
-            headers: {'Content-Type': 'application/json'},
-            body: JSON.stringify({ content, loginUser})
-        })
-        setContent('')
-        renderFeats()
-  }
   return (
  <div className="flex justify-center px-5 sm:px-32 md:mt-4">
                 <div className="flex h-screen w-screen">
@@ -168,10 +182,6 @@ interface FeatItems {
                             </div>
 
                             {/* Show Posts */}
-                            {/* gett the amount of time that has over lapped between post 
-                            make sure to check if ui updates when i make a post
-                              goo shit tonight little bro
-                            */}
                             {feat.map((item: FeatItems) => {
                                   const targetTimeString = item.date;
                                   const targetTime = new Date(targetTimeString);
@@ -201,7 +211,11 @@ interface FeatItems {
                                         </div>
                                         <div className="mt-4 flex items-center">
                                             <div className="flex mr-2  text-white text-sm mr-3">
-                                              <FaHeart size='20' className='text-gray-200' />
+                                              {item.likes.includes(user?._id) ? 
+                                                <FaHeart size='20' className='text-pink-200' onClick={() => LikeOrUnlike('unlike')}/>
+                                              : 
+                                                <FaHeart size='20' className='text-gray-200' onClick={() => LikeOrUnlike('like')}/>
+                                              }
                                               <span className='text-black'>{item.likes.length}</span>
                                             </div>
                                             <div className="flex mr-2 text-gray-700 text-sm mr-8">
@@ -212,7 +226,7 @@ interface FeatItems {
                                               <svg fill="none" viewBox="0 0 24 24" className="w-4 h-4 mr-1" stroke="currentColor">
                                                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12"/>
                                                 </svg>
-                                              <span>share</span>
+                                              <span>Share</span>
                                             </div>
                                         </div>
                                       </div>

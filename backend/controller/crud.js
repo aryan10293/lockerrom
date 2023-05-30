@@ -1,0 +1,91 @@
+const User = require("../model/user");
+const Feat = require('../model/Feat')
+
+module.exports = {
+    addLike: async (req,res) => {
+        try{
+            const updateUser = await User.findOneAndUpdate(
+                {_id: req.body.loginUser.userId},
+                {
+                    $push: { likes: req.body.feat},
+                }
+            )
+            await Post.findOneAndUpdate(
+                {_id: req.body.feat},
+                {
+                    $push: { likes: req.body.loginUser.userId },
+                }
+            )
+            if (!updateUser) {
+                return res.status(404).json({ error: 'User not found' });
+            }
+
+            return res.status(200).json(updateUser.cart);
+        } catch(err){
+            console.error(err)
+            return res.status(500).json({ error: 'Internal Server Error' });
+        }
+    },
+    unlike: async (req,res) => {
+        try{
+            await User.findOneAndUpdate(
+                {_id: req.user.id},
+                {
+                    $pull: { likedPost: req.body.tweet },
+                }
+            )
+            await Post.findOneAndUpdate(
+                {_id: req.body.tweet},
+                {
+                    $pull: { likes: req.user.id },
+                }
+            )
+            res.redirect(304, '/feed')
+            // how to refresh page aftwe a update in mongoose
+        } catch(err){
+            console.error(err)
+        }
+    },
+    follow: async (req,res) => {
+        try{
+            await User.findOneAndUpdate(
+                {_id: req.body.tweet},
+                {
+                    $push: { followers: req.user.id },
+                }
+            )
+            await User.findOneAndUpdate(
+                {_id: req.user.id},
+                {
+                    $push: { following: req.body.tweet },
+                }
+            )
+            console.log('follow sucess')
+            res.redirect(304, '/feed')
+            // how to refresh page aftwe a update in mongoose
+        } catch(err){
+            console.error(err)
+        }
+    },
+    unfollow: async (req,res) => {
+        try{
+            await User.findOneAndUpdate(
+                {_id: req.body.tweet},
+                {
+                    $pull: { followers: req.user.id },
+                }
+            )
+            await User.findOneAndUpdate(
+                {_id: req.user.id},
+                {
+                    $pull: { following: req.body.tweet },
+                }
+            )
+            console.log('unfollow sucess')
+            res.redirect(304, '/feed')
+            // how to refresh page aftwe a update in mongoose
+        } catch(err){
+            console.error(err)
+        }
+    }
+}
