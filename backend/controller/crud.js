@@ -74,7 +74,7 @@ module.exports = {
                 return res.status(404).json({ error: 'User not found' });
             }
             if (!updateUserToFollow) {
-                return res.status(404).json({ error: 'Feat not found' });
+                return res.status(404).json({ error: 'User not found' });
             }
 
             return res.status(200).json(updateUser.following);
@@ -85,23 +85,29 @@ module.exports = {
     },
     unfollow: async (req,res) => {
         try{
-            await User.findOneAndUpdate(
-                {_id: req.body.tweet},
+            const updateUser = await User.findOneAndUpdate(
+                {_id: req.body.loginUser.userId},
                 {
-                    $pull: { followers: req.user.id },
+                    $pull: { following: req.body.dataset},
                 }
             )
-            await User.findOneAndUpdate(
-                {_id: req.user.id},
+            const updateUserToFollow = await User.findOneAndUpdate(
+                {_id: req.body.dataset},
                 {
-                    $pull: { following: req.body.tweet },
+                    $pull: { followers: req.body.loginUser.userId },
                 }
             )
-            console.log('unfollow sucess')
-            res.redirect(304, '/feed')
-            // how to refresh page aftwe a update in mongoose
+            if (!updateUser) {
+                return res.status(404).json({ error: 'User not found' });
+            }
+            if (!updateUserToFollow) {
+                return res.status(404).json({ error: 'User not found' });
+            }
+
+            return res.status(200).json(updateUser.following);
         } catch(err){
             console.error(err)
+            return res.status(500).json({ error: 'Internal Server Error' });
         }
     }
 }
