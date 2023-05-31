@@ -3,7 +3,6 @@ const router = express.Router();
 const authController = require("../controller/auth")
 const postController = require("../controller/posts")
 const crudController = require("../controller/crud")
-//const nodemailer = require("nodemailer");
 const passport = require('passport')
 const cors = require('cors')
 const { ensureAuth, ensureGuest } = require("../middleware/auth")
@@ -17,4 +16,6 @@ router.get('/getusers', postController.getUser)
 router.get('/getusers', postController.getUser)
 router.put('/like', crudController.addLike)
 router.put('/unlike', crudController.unlike)
+router.put('/follow', crudController.follow)
+router.put('/unfollow', crudController.unfollow)
 module.exports = router;

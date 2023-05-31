@@ -23,7 +23,7 @@ module.exports = {
                 return res.status(404).json({ error: 'Feat not found' });
             }
 
-            return res.status(200).json(updateUser.cart);
+            return res.status(200).json(updateUser.likes);
         } catch(err){
             console.error(err)
             return res.status(500).json({ error: 'Internal Server Error' });
@@ -50,7 +50,7 @@ module.exports = {
                 return res.status(404).json({ error: 'Feat not found' });
             }
 
-            return res.status(200).json(updateUser.cart);
+            return res.status(200).json(updateUser.likes);
         } catch(err){
             console.error(err)
             return res.status(500).json({ error: 'Internal Server Error' });
@@ -58,23 +58,29 @@ module.exports = {
     },
     follow: async (req,res) => {
         try{
-            await User.findOneAndUpdate(
-                {_id: req.body.tweet},
+            const updateUser = await User.findOneAndUpdate(
+                {_id: req.body.loginUser.userId},
                 {
-                    $push: { followers: req.user.id },
+                    $push: { following: req.body.dataset},
                 }
             )
-            await User.findOneAndUpdate(
-                {_id: req.user.id},
+            const updateUserToFollow = await User.findOneAndUpdate(
+                {_id: req.body.dataset},
                 {
-                    $push: { following: req.body.tweet },
+                    $push: { followers: req.body.loginUser.userId },
                 }
             )
-            console.log('follow sucess')
-            res.redirect(304, '/feed')
-            // how to refresh page aftwe a update in mongoose
+            if (!updateUser) {
+                return res.status(404).json({ error: 'User not found' });
+            }
+            if (!updateUserToFollow) {
+                return res.status(404).json({ error: 'Feat not found' });
+            }
+
+            return res.status(200).json(updateUser.following);
         } catch(err){
             console.error(err)
+            return res.status(500).json({ error: 'Internal Server Error' });
         }
     },
     unfollow: async (req,res) => {

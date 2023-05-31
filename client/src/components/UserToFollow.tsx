@@ -5,6 +5,7 @@ function UserToFollow(props: any) {
     const navigate = useNavigate()
     const [user,setUser] = React.useState<People | null>(null)
     const [people, setPeople] = React.useState<any[]>([])
+    const [following, setFollowing] = React.useState<any[] | undefined>(user?.following)
     interface People{
         followers: any[];
         likes: any[];
@@ -16,29 +17,33 @@ function UserToFollow(props: any) {
         password: string;
         __v: number;
     }
-  React.useEffect(() => {
-    const fetchData = async () => {
-        try {
-        const response = await fetch('http://localhost:2012/checkuser', {
-            method: 'GET',
-            credentials: 'include',
-        });
+    React.useEffect(() => {
+        const fetchData = async () => {
+            try {
+            const response = await fetch('http://localhost:2012/checkuser', {
+                method: 'GET',
+                credentials: 'include',
+            });
 
-        if (response.ok) {
-            const data = await response.json();
-            setUser(data);
-        } else {
-            console.log('cool')
-            setUser(null);
-        }
-        } catch (error) {
-        console.error('Error fetching data:', error);
-        }
-    };
+            if (response.ok) {
+                const data = await response.json();
+                setUser(data);
+                setFollowing(data.following)
+            } else {
+                console.log('cool')
+                setUser(null);
+            }
+            } catch (error) {
+            console.error('Error fetching data:', error);
+            }
+        };
 
-    fetchData();
-}, []);
-
+        fetchData();
+    }, []);
+    const loginUser = {
+        userId: user?._id,
+        name: user?.userName
+    }
     React.useEffect(() => {
         const getUsers = async () => {
             try {
@@ -62,14 +67,40 @@ function UserToFollow(props: any) {
         }
         getUsers()
     },[])
-  return (
+    const handleFollow = async (e: React.MouseEvent<HTMLButtonElement>) => {
+            const feat = e.currentTarget.parentElement as HTMLElement;
+            const dataset = feat.dataset.id;
+            const action: string = following?.includes(dataset || '') ? 'unfollow' : 'follow';
+            console.log(action)
+            try {
+                    const response = await fetch(`http://localhost:2012/${action}`, {
+                        method: 'PUT',
+                        headers: {'Content-Type': 'application/json'},
+                        body: JSON.stringify({dataset, loginUser})
+                        })
+                    const data = await response.json()
+                    console.log(data)
+                } catch (error) {
+                    console.log(error)
+                }
+                console.log(action)
+            if(action === 'follow'){
+            if (dataset && following) {
+                setFollowing([...following, dataset]);
+            }
+            } else {
+            let newList = following?.filter(x => x !== dataset )
+            setFollowing(newList)
+            }
+    }
+    return (
         <>
           <div className="ml-5 mt-8 mb-4 flex flex-col w-10/12 justify-around ">
             {people.map((item: People) => {
                 return (
                     <>
-                        {user?._id !== item._id ? (
-                            <div className="flex mb-5" key={item._id}>
+                        {user?._id !== item._id && !following?.includes(item._id) ? (
+                            <div className="flex mb-5" key={item._id} data-id={item._id}>
                                 <img
                                     src={'https://images.unsplash.com/photo-1542156822-6924d1a71ace?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60'}
                                     className="w-12 h-12 rounded-full cursor-pointer"
@@ -83,13 +114,15 @@ function UserToFollow(props: any) {
                                     </Link>
                                 </div>
 
-                                {user?.following.includes(item._id) ? (
+                                {following?.includes(item._id) ? (
                                     <button
+                                    onClick={handleFollow}
                                     className="mt-1.5 px-3 w-18 h-8 bg-blue-600 hover:bg-blue-800 text-white rounded-xl shadow-md hover:shadow-lg transition duration-150 ease-in-out">
                                         Unfollow
                                     </button>
                                 ): (
                                     <button
+                                    onClick={handleFollow}
                                     className="mt-1.5 px-3 w-18 h-8 bg-blue-600 hover:bg-blue-800 text-white rounded-xl shadow-md hover:shadow-lg transition duration-150 ease-in-out">
                                         Follow
                                     </button>
@@ -103,7 +136,7 @@ function UserToFollow(props: any) {
         </div>
 
         </>
-  )
+   )
 }
 
 export default UserToFollow
