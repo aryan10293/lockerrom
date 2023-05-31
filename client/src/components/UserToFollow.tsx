@@ -99,7 +99,7 @@ function UserToFollow(props: any) {
             {people.map((item: People) => {
                 return (
                     <>
-                        {user?._id !== item._id && !following?.includes(item._id) ? (
+                        {user?._id !== item._id  ? (
                             <div className="flex mb-5" key={item._id} data-id={item._id}>
                                 <img
                                     src={'https://images.unsplash.com/photo-1542156822-6924d1a71ace?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60'}

@@ -5,6 +5,7 @@ import RegisterDisplay from './pages/RegisterDisplay';
 import LoginDisplay from './pages/LoginDisplay';
 import HomeDisplay from './pages/HomeDisplay';
 import DashboardDisplay from './pages/DashboardDisplay';
+import ProfileDisplay from './pages/ProfileDisplay';
 function App() {
 
   return (
@@ -18,9 +19,12 @@ function App() {
           <Route 
           path="/login"
           element={ <LoginDisplay /> } />
-           <Route 
+          <Route 
           path="/"
           element={ <HomeDisplay /> } />
+          <Route 
+          path="/profile/:id"
+          element={ <ProfileDisplay /> } />
     </Routes>
   );
 }

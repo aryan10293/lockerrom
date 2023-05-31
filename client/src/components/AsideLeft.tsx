@@ -13,7 +13,7 @@ export const AsideLeft = () => {
 
 
             <header className="flex font-bold text-blue-600 mx-5 my-4 text-xl xl:text-2xl">
-                <Link to="/home"> Locker Room </Link>
+                <Link to="/dashboard"> Locker Room </Link>
             </header>
 
 
