@@ -2,12 +2,13 @@ import React from 'react'
 import {Link, useParams} from "react-router-dom"
 import { AsideLeft } from '../components/AsideLeft'
 import { AsideRight } from '../components/AsideRight'
+import ProfilePost from '../components/ProfilePost'
 function ProfileDisplay() {
     const params = useParams()
     const id = params.id
     const [user, setUser] = React.useState<User | null>(null)
     const [profile, setProfile] = React.useState<User | null>(null)
-    const [profilePost, setProfilePost] = React.useState<any[] | undefined>(undefined)
+    const [profilePost, setProfilePost] = React.useState<any[]>([])
     React.useEffect(() => {
         const fetchData = async () => {
         try {
@@ -34,17 +35,17 @@ function ProfileDisplay() {
         React.useEffect(() => {
         const fetchData = async () => {
         try {
-            const response = await fetch('http://localhost:2012/checkuser', {
+            const response = await fetch(`http://localhost:2012/profilepost/${id}`, {
             method: 'GET',
             credentials: 'include',
             });
 
             if (response.ok) {
             const data = await response.json();
-            setUser(data);
+            setProfilePost(data);
             } else {
             console.log('cool')
-            setUser(null);
+            setProfilePost([]);
             }
         } catch (error) {
             console.error('Error fetching data:', error);
@@ -52,7 +53,7 @@ function ProfileDisplay() {
         };
 
         fetchData();
-    }, []);
+    }, [id]);
 // fetch users profile post
 
     React.useEffect(() => {
@@ -157,7 +158,7 @@ function ProfileDisplay() {
 
 
                                     <h3 className="text-base sm:text-xl cursor-pointer">
-                                        {'currentUserPosts.length'}
+                                        {profilePost?.length}
                                         <span className="text-slate-600 text-base sm:text-xl"> posts
                                         </span>
                                     </h3>
@@ -181,7 +182,7 @@ function ProfileDisplay() {
                                 </div>
 
                                 <h1 className="text-2xl text-center mb-6">Your Posts</h1>
-
+                                    <ProfilePost profile={profilePost}/>
                                 
 
                             </div>
