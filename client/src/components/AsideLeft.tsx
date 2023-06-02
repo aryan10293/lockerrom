@@ -7,7 +7,40 @@ import { MdMessage, MdDateRange } from 'react-icons/md';
 import React from "react";
 
 export const AsideLeft = () => {
+        const [user,setUser] = React.useState<People | null>(null)
+        interface People{
+            followers: any[];
+            likes: any[];
+            following: any[];
+            events: any[];
+            _id: string;
+            userName: string;
+            email: string;
+            password: string;
+            __v: number;
+        }
+    React.useEffect(() => {
+        const fetchData = async () => {
+            try {
+            const response = await fetch('http://localhost:2012/checkuser', {
+                method: 'GET',
+                credentials: 'include',
+            });
 
+            if (response.ok) {
+                const data = await response.json();
+                setUser(data);
+            } else {
+                console.log('cool')
+                setUser(null);
+            }
+            } catch (error) {
+            console.error('Error fetching data:', error);
+            }
+        };
+
+        fetchData();
+    }, []);
     return (
         <aside className="sticky top-0 hidden sm:block basis-1/6 lg:basis-1/5">
 
@@ -105,12 +138,12 @@ export const AsideLeft = () => {
                                 isActive ? (
                                     <>
                                         <FaUser className="text-[1.6rem] font-bold"/> 
-                                        <h2 className="text-xl px-1 hidden xl:block"> Profile </h2>
+                                        <h2 className="text-xl px-1 hidden xl:block"> Profrvrrile </h2>
                                     </>
                                 ) : (
                                     <>
                                         <FaRegUser className="text-[1.6rem]"/>
-                                        <h2 className="text-xl px-1 hidden xl:block"> Profile </h2>
+                                        <Link to={`/profile/${user?._id}`}><h2 className="text-xl px-1 hidden xl:block"> Profile </h2></Link>
                                     </>
                                 )}
                         </NavLink>

@@ -1,22 +1,6 @@
 import React from "react";
 import UserToFollow from "./UserToFollow";
 export const AsideRight = () => {
-    // const {
-    //     user: { users, searchQuery, searchResults },
-    //     auth: { userData }
-    // } = useSelector(state => state);
-
-    // const dispatch = useDispatch();
-
-    // const suggestionList = users.filter(
-    //     suggestedUser => suggestedUser.username !== userData.username &&
-    //         !suggestedUser.followers.find(existingUser => existingUser.username === userData.username)
-    // )
-
-    // useEffect(() => {
-    //     dispatch(searchUser(""));
-    // }, [dispatch]);
-
     return (
         <aside className="w-full basis-2/6 flex-col ml-7 hidden lg:flex md:mt-2">
 
