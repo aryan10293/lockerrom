@@ -1,43 +1,82 @@
 import React from "react";
- import { HiDotsHorizontal } from "react-icons/hi";
+import { useParams } from "react-router-dom";
+import { HiDotsHorizontal } from "react-icons/hi";
 
 export const Comment = () => {
+    const params = useParams()
+    const id = params.id
+    const [comment,setComment] = React.useState<string>('')
+    const [user,setUser] = React.useState<User | null>(null)
+    const [postComment,setPostComment] = React.useState<User | null>(null)
+    // things i need foe this page to workl
+    // kleep state of what the user is typing as a comment//
+    // need data on the post i clicked on 
+    // odviously need the login user data
+    // need to render comments 
+    // delete comments
+    // 
+    React.useEffect(() => {
+        const fetchData = async () => {
+        try {
+            const response = await fetch('http://localhost:2012/checkuser', {
+            method: 'GET',
+            credentials: 'include',
+            });
 
-    // const [openCommentModal, setCommentModal] = useState(false);    // for toggling comment modal
-    // const [isEditing, setIsEditing] = useState(false);      // for toggling edit modal
-    // const [editCommentData, setEditCommentData] = useState(comment);
+            if (response.ok) {
+            const data = await response.json();
+            setUser(data);
+            } else {
+            console.log('cool')
+            setUser(null);
+            }
+        } catch (error) {
+            console.error('Error fetching data:', error);
+        }
+        };
 
-    // const {
-    //     user: { users },
-    //     auth: { token, userData },
-    // } = useSelector(state => state);
+    fetchData();
+    }, []);
+    React.useEffect(() => {
+        const fetchData = async () => {
+        try {
+            const response = await fetch(`http://localhost:2012/getpost/${id}`, {
+            method: 'GET',
+            credentials: 'include',
+            });
 
-    // const dispatch = useDispatch();
+            if (response.ok) {
+            const data = await response.json();
+            setPostComment(data);
+            } else {
+            console.log('cool')
+            setUser(null);
+            }
+        } catch (error) {
+            console.error('Error fetching data:', error);
+        }
+        };
 
-    // useEffect(() => {
-    //     dispatch(getAllPosts());
-    // }, [dispatch, token]);
+    fetchData();
+    }, []);
 
-    // const getCurrentCommentedUser = (comment) => {
-    //     const currentCommentedUser = users?.filter(user => user?.username === comment?.username)[0];
-    //     return currentCommentedUser;
-    // }
-
-    // const editBtnHandler = () => {
-    //     setIsEditing(prev => !prev);
-    //     setCommentModal(false);
-    // }
-
-    // const updateCommentHandler = () => {
-    //     dispatch(editComment({ postId, token, commentData: editCommentData }));
-    //     setIsEditing(false);
-    // }
-
-    // const deleteCommentHandler = () => {
-    //     dispatch(deleteComment({ postId, token, commentId: comment?._id }));
-    // }
-    
-
+    const loginUser = {
+        userId: user?._id,
+        name: user?.userName
+  }
+    interface User {
+        followers: any[];
+        likes: any[];
+        following: any[];
+        events: any[];
+        _id: string;
+        userName: string;
+        email: string;
+        password: string;
+        __v: number;
+    }
+console.log(user)
+console.log(postComment)
     return (
         <div className="flex ml-0 sm:mr-0 sm:mx-1 pl-0 pr-1 sm:pr-0 sm:px-1 py-3 border-b">
 
@@ -73,11 +112,11 @@ export const Comment = () => {
 
                         <span className="flex-1">
                             <input
-                                value=''
+                                value={comment}
                                 className="w-full p-2 rounded-[30rem] focus:outline-none bg-slate-100"
                                 type="text"
                                 placeholder="Add a comment..."
-                                
+                                onChange={(e) => setComment(e.target.value)}
                             />
                         </span>
 
@@ -102,16 +141,6 @@ export const Comment = () => {
 
 
                 {/* Edit and Delete Comment Modal */}
-
-
-                <div
-                    className="w-30 h-22 px-1 shadow-xl bg-white border border-slate-300 text-slate-600 font-semibold 
-                    absolute right-10 top-2 rounded-xl">
-                    <ul className="p-1 cursor-pointer text-center">
-                        <li className="my-1 p-1 hover:bg-slate-200 rounded"  >Edit</li>
-                        <li className="my-1 p-1 hover:bg-slate-200 rounded"  >Delete</li>
-                    </ul>
-                </div>
 
 
             </div>

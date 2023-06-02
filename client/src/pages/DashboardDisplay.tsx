@@ -8,7 +8,6 @@ import { GiSettingsKnobs } from "react-icons/gi";
 import { AiOutlineArrowUp } from "react-icons/ai";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faHeart, faComment } from '@fortawesome/free-solid-svg-icons'
-import { FaComment } from 'react-icons/fa'
 function DashboarDisplay(props: any) {
     const [content,setContent] = React.useState<string>('')
     const [user,setUser] = React.useState<User | null>(null)
@@ -240,7 +239,7 @@ interface FeatItems {
                                               <span className='text-black'>{item.likes.length}</span>
                                             </div>
                                             <div className="flex mr-2 text-gray-700 text-sm mr-8">
-                                              <Link to='/comments'><button className="text-gray-500 hover:text-gray-1000 text-20" ><FontAwesomeIcon icon={faComment} /></button></Link>
+                                              <Link to={`/comments/${item._id}`}><button className="text-gray-500 hover:text-gray-1000 text-20" ><FontAwesomeIcon icon={faComment} /></button></Link>
                                               <span>   {item.reFeats.length}</span>
                                             </div>
                                             <div className="flex mr-2 text-gray-700 text-sm mr-4">

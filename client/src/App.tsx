@@ -27,7 +27,7 @@ function App() {
           path="/profile/:id"
           element={ <ProfileDisplay /> } />
           <Route 
-          path="/comments"
+          path="/comments/:id"
           element={ <Comment /> } />
     </Routes>
   );
