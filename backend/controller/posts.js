@@ -1,5 +1,6 @@
 const Feat = require('../model/Feat')
 const User = require('../model/user')
+const comments = require('../model/comments')
 module.exports = {
     postFeat: async (req,res) => {
         console.log(req.body)
@@ -11,6 +12,24 @@ module.exports = {
                 reFeats: [],
                 userId: req.body.loginUser.userId,
                 name: req.body.loginUser.name,
+            })
+            if (!createFeat) {
+            return res.status(404).json({ error: 'Feat not posted' });
+        }
+
+        return res.status(200).json(createFeat);
+        } catch(err){
+            console.error(err)
+        }
+    },
+    postComments: async (req,res) => {
+        console.log(req.body)
+        try{
+           const createComment =  await comments.create({
+                text: req.body.content,
+                userId: req.body.loginUser.userId,
+                name: req.body.loginUser.name,
+                featId: req.body.postId
             })
             if (!createFeat) {
             return res.status(404).json({ error: 'Feat not posted' });

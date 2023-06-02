@@ -7,7 +7,8 @@ import { BsFillImageFill } from "react-icons/bs";
 import { GiSettingsKnobs } from "react-icons/gi";
 import { AiOutlineArrowUp } from "react-icons/ai";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faHeart } from '@fortawesome/free-solid-svg-icons'
+import { faHeart, faComment } from '@fortawesome/free-solid-svg-icons'
+import { FaComment } from 'react-icons/fa'
 function DashboarDisplay(props: any) {
     const [content,setContent] = React.useState<string>('')
     const [user,setUser] = React.useState<User | null>(null)
@@ -239,6 +240,7 @@ interface FeatItems {
                                               <span className='text-black'>{item.likes.length}</span>
                                             </div>
                                             <div className="flex mr-2 text-gray-700 text-sm mr-8">
+                                              <Link to='/comments'><button className="text-gray-500 hover:text-gray-1000 text-20" ><FontAwesomeIcon icon={faComment} /></button></Link>
                                               <span>   {item.reFeats.length}</span>
                                             </div>
                                             <div className="flex mr-2 text-gray-700 text-sm mr-4">
@@ -270,20 +272,3 @@ interface FeatItems {
 }
 
 export default DashboarDisplay
-                            // {isLoading ? (
-                            //     <div className="z-20">
-                            //         <Loader show={isLoading} />
-                            //     </div>
-                            // ) : (
-                            //     !sortedPosts.length ?
-                            //         <h1 className="text-2xl font-bold text-center mt-8">No Posts, Add one!</h1> :
-                            //         sortedPosts?.map(post => <Post key={post._id} post={post} />
-                            //         )
-                            // )}
-                                //                             <div className="w-30 h-22 px-1 shadow-xl bg-slate-100 border border-slate-300 text-slate-600 font-semibold absolute right-11 top-4 z-20 rounded-xl">
-                                //     <ul className="p-2 cursor-pointer text-start">
-                                //         <li className="p-1 hover:bg-slate-200 rounded" >Latest</li>
-                                //         <li className="p-1 hover:bg-slate-200 rounded" >Oldest</li>
-                                //         <li className="p-1 hover:bg-slate-200 rounded" >Trending</li>
-                                //     </ul>
-                                // </div>
