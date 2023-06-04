@@ -7,7 +7,7 @@ export const Comment = () => {
     const id = params.id
     const [comment,setComment] = React.useState<string>('')
     const [user,setUser] = React.useState<User | null>(null)
-    const [postComment,setPostComment] = React.useState<User | null>(null)
+    const [postComment,setPostComment] = React.useState<User>()
     // things i need foe this page to workl
     // kleep state of what the user is typing as a comment//
     // need data on the post i clicked on 
@@ -57,7 +57,15 @@ export const Comment = () => {
 
     fetchData();
     }, []);
-
+    const handleClick = async () => {
+        console.log('lol')
+        //     await fetch('http://localhost:2012/postfeat', {
+        //     method: 'POST',
+        //     headers: {'Content-Type': 'application/json'},
+        //     body: JSON.stringify({ comment, loginUser})
+        // })
+        // setComment('')
+  }
     const loginUser = {
         userId: user?._id,
         name: user?.userName
@@ -72,6 +80,7 @@ export const Comment = () => {
         email: string;
         password: string;
         __v: number;
+        comments: any[]
     }
 console.log(user)
 console.log(postComment)
@@ -121,15 +130,8 @@ console.log(postComment)
                         <button
                             className="p-2 rounded-[20rem] bg-blue-600 hover:bg-blue-800 text-white shadow-md 
                             hover:shadow-lg w-20"
-                            
-                            > Cancel
-                        </button>
-
-                        <button
-                            className="p-2 rounded-[20rem] bg-blue-600 hover:bg-blue-800 text-white shadow-md 
-                            hover:shadow-lg w-20"
-                            
-                            > Update
+                            onClick={handleClick}
+                            > Comment
                         </button>
 
                     </div>
