@@ -69,5 +69,21 @@ module.exports = {
         } catch (error) {
             console.error('Error fetching user:', error);
         }
+    },
+    getPost: async (req,res) => {
+        try {
+            const feat = await Feat.find({_id: req.params.id});
+            res.send(feat); // or do something with the user object
+        } catch (error) {
+            console.error('Error fetching user:', error);
+        }
+    },
+    getPostComments: async (req,res) => {
+        try {
+            const featsComments = await Feat.find({_id: req.params.id});
+            res.send(featsComments); // or do something with the user object
+        } catch (error) {
+            console.error('Error fetching user:', error);
+        }
     }
 }

@@ -6,7 +6,7 @@ import LoginDisplay from './pages/LoginDisplay';
 import HomeDisplay from './pages/HomeDisplay';
 import DashboardDisplay from './pages/DashboardDisplay';
 import ProfileDisplay from './pages/ProfileDisplay';
-import { Comment } from './components/Comment';
+import CommentSection from './pages/CommentSection';
 function App() {
 
   return (
@@ -28,7 +28,7 @@ function App() {
           element={ <ProfileDisplay /> } />
           <Route 
           path="/comments/:id"
-          element={ <Comment /> } />
+          element={ <CommentSection /> } />
     </Routes>
   );
 }
