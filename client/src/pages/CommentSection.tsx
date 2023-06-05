@@ -1,6 +1,6 @@
 import React from 'react'
 import { Fragment } from 'react'
-import { Comment } from '../components/Comment'
+import  Comment  from '../components/Comment'
 import DisplayComments from '../components/DisplayComments'
 function CommentSection() {
     const [user, setUser] = React.useState<User | null>(null)
@@ -39,7 +39,7 @@ function CommentSection() {
   return (
     <>
         <Comment />
-        <DisplayComments user={user}/>
+        <DisplayComments />
     </>
   )
 }

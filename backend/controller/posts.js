@@ -22,24 +22,6 @@ module.exports = {
             console.error(err)
         }
     },
-    postComments: async (req,res) => {
-        console.log(req.body)
-        try{
-           const createComment =  await comments.create({
-                text: req.body.content,
-                userId: req.body.loginUser.userId,
-                name: req.body.loginUser.name,
-                featId: req.body.postId
-            })
-            if (!createFeat) {
-            return res.status(404).json({ error: 'Feat not posted' });
-        }
-
-        return res.status(200).json(createFeat);
-        } catch(err){
-            console.error(err)
-        }
-    },
     getFeats: async (req,res) => {
         try { 
             res.send(await Feat.find())
@@ -73,7 +55,7 @@ module.exports = {
     getPost: async (req,res) => {
         try {
             const feat = await Feat.find({_id: req.params.id});
-            res.send(feat); // or do something with the user object
+            res.send(feat[0]); // or do something with the user object
         } catch (error) {
             console.error('Error fetching user:', error);
         }

@@ -1,20 +1,10 @@
-import React from "react";
-import { useParams, Link } from "react-router-dom";
-import { HiDotsHorizontal } from "react-icons/hi";
-
-export const Comment = () => {
+import React from 'react'
+import { useParams } from 'react-router-dom'
+function Comment() {
     const params = useParams()
     const id = params.id
-    const [comment,setComment] = React.useState<string>('')
-    const [user,setUser] = React.useState<User | null>(null)
-    const [postComment,setPostComment] = React.useState<User>()
-    // things i need foe this page to workl
-    // kleep state of what the user is typing as a comment//
-    // need data on the post i clicked on 
-    // odviously need the login user data
-    // need to render comments 
-    // delete comments
-    // 
+    const [content, setContent] = React.useState<string>('')
+    const [user, setUser] = React.useState<User | null>(null)
     React.useEffect(() => {
         const fetchData = async () => {
         try {
@@ -36,40 +26,30 @@ export const Comment = () => {
 
     fetchData();
     }, []);
-    React.useEffect(() => {
-        const fetchData = async () => {
+    const handleClick = async () => {
+        const obj = {
+            comment: content,
+            date: Date.now(),
+            userId: user?._id,
+            name: user?.userName ,
+            featId: id    
+        }
         try {
-            const response = await fetch(`http://localhost:2012/getpost/${id}`, {
-            method: 'GET',
-            credentials: 'include',
-            });
-
+            const response = await fetch(`http://localhost:2012/addcomment/${id}`, {
+                method: 'PUT',
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify(obj)
+                })
             if (response.ok) {
-            const data = await response.json();
-            setPostComment(data);
+                console.log('maybe worked')
             } else {
-            setUser(null);
+            throw new Error('Failed to retrieve comments'); // Throw an error to handle the error case
             }
         } catch (error) {
             console.error('Error fetching data:', error);
+            // Handle the error case here
         }
-        };
-
-    fetchData();
-    }, []);
-    const handleClick = async () => {
-        console.log('lol')
-        //     await fetch('http://localhost:2012/postfeat', {
-        //     method: 'POST',
-        //     headers: {'Content-Type': 'application/json'},
-        //     body: JSON.stringify({ comment, loginUser})
-        // })
-        // setComment('')
-  }
-    const loginUser = {
-        userId: user?._id,
-        name: user?.userName
-  }
+    }
     interface User {
         followers: any[];
         likes: any[];
@@ -80,11 +60,8 @@ export const Comment = () => {
         email: string;
         password: string;
         __v: number;
-        comments: any[]
     }
-console.log(user)
-console.log(postComment)
-    return (
+  return (
         <div className="flex ml-0 sm:mr-0 sm:mx-1 pl-0 pr-1 sm:pr-0 sm:px-1 py-3 border-b">
 
             <div className="mt-3 w-12 h-12 text-lg flex-none">
@@ -101,7 +78,6 @@ console.log(postComment)
                         </span>
                     </h2>
 
-                    {true && <HiDotsHorizontal className="cursor-pointer pr2" /> }
                 </div>
 
                 <div className="flex gap-2">
@@ -119,11 +95,11 @@ console.log(postComment)
 
                         <span className="flex-1">
                             <input
-                                value={comment}
+                                value={content}
                                 className="w-full p-2 rounded-[30rem] focus:outline-none bg-slate-100"
                                 type="text"
                                 placeholder="Add a comment..."
-                                onChange={(e) => setComment(e.target.value)}
+                                onChange={(e) => setContent(e.target.value)}
                             />
                         </span>
 
@@ -144,29 +120,8 @@ console.log(postComment)
 
             </div>
         </div>
-    )
-};
+  )
+}
 
-                // <div className=" bg-white shadow-lg rounded-lg mx-4 md:mx-auto my-5 max-w-md md:max-w-2xl " >
-                //     <div className="  items-start px-4 py-6">
-                //         <div className='flex justify-between'>
-                //             <div className='flex'>
-                //             <img className=" inline w-12 h-12 rounded-full object-cover mr-4 shadow" src="https://images.unsplash.com/photo-1542156822-6924d1a71ace?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60" alt="avatar" />
-                //             <div>
-                //                 <h2 className="flex-1 text-lg font-semibold text-gray-900 -mt-1">drej</h2>
-                //                 <Link to={`/profile/${'drej'}`} className="text-gray-700">@drej</Link>
-                //             </div>
-                //             </div>
-                //             <div className="flex inline-block items-center">
-                //             <small className="flex-10 text-sm text-gray-700">{10} hours ago</small>
-                //             </div>   
-                //         </div>                                   
-                //         <div className="">
-                //         <div>
-                //             <p className="mt-3 text-gray-700 text-sm">
-                //                 {'lol'}
-                //             </p>
-                //         </div>
-                //         </div>
-                //     </div>
-                // </div>
+export default Comment
+
