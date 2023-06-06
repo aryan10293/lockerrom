@@ -23,8 +23,8 @@ connectDB();
 
 
 //Body Parsing
-app.use(express.urlencoded({ extended: true }));
-app.use(express.json());
+app.use(express.urlencoded({ extended: true,  limit: '25mb'}));
+app.use(express.json({limit: '25mb'}));
 
 //Logging
 app.use(logger("dev"));

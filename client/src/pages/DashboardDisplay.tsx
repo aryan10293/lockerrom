@@ -13,6 +13,45 @@ function DashboarDisplay(props: any) {
     const [user,setUser] = React.useState<User | null>(null)
     const [userLikes, setUserLikes] = React.useState<string[]>([])
     const [feat, setFeat] = React.useState<any>([])
+    const [url,setUrl] = React.useState<string>('')
+    const convertBase64 = (file: any) => {
+      return new Promise(async (resolve, reject) => {
+        try {
+          const fileReader = new FileReader();
+          fileReader.readAsDataURL(file);
+
+          fileReader.onload = () => {
+            resolve(fileReader.result);
+          };
+
+          fileReader.onerror = (error) => {
+            reject(error);
+          };
+        } catch (error) {
+          reject(error);
+        }
+      });
+    };
+
+    async function uploadSingleImage(base64: any) {
+      try {
+        const response = await fetch("http://localhost:2012/uploadImage", {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ image: base64}),
+      
+        });
+        if(response.ok){
+          const data = await response.json();
+          setUrl(data);
+          alert("Image uploaded successfully");
+        }
+      } catch (error) {
+        console.log(error);
+      }
+    }
+
+
 
   React.useEffect(() => {
     const fetchData = async () => {
@@ -59,21 +98,32 @@ function DashboarDisplay(props: any) {
           console.error('Error fetching data:', error);
         }
   };
-React.useEffect(() => {
+    React.useEffect(() => {
 
-  renderFeats();
-}, []);
+      renderFeats();
+    }, []);
 
 
-  const handleClick = async () => {
-            await fetch('http://localhost:2012/postfeat', {
-            method: 'POST',
-            headers: {'Content-Type': 'application/json'},
-            body: JSON.stringify({ content, loginUser})
-        })
-        setContent('')
-        renderFeats()
-  }
+    const handleClick = async (e: any) => {
+      const img = e.target.previousElementSibling.childNodes[0].files[0];
+      try {
+        await fetch('http://localhost:2012/postfeat', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ content, loginUser }),
+        });
+      if (img !== undefined) {
+          const base64 = await convertBase64(img);
+          uploadSingleImage(base64);
+    }
+        setContent('');
+        renderFeats();
+      } catch (error) {
+        console.error('Error:', error);
+        // Handle the error case here
+      }
+
+    };
 
 
   const LikeOrUnlike = async (e: React.MouseEvent<HTMLButtonElement>) => {
@@ -170,7 +220,6 @@ interface FeatItems {
                                             <input
                                                 className="hidden"
                                                 type="file"
-                                                
                                             />
                                             <BsFillImageFill className="text-2xl mt-1 text-blue-700 cursor-pointer" />
                                         </label>

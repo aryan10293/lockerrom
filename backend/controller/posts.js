@@ -1,6 +1,7 @@
 const Feat = require('../model/Feat')
 const User = require('../model/user')
 const comments = require('../model/comments')
+const cloudinary = require('../middleware/cloundinary');
 module.exports = {
     postFeat: async (req,res) => {
         console.log(req.body)
@@ -20,6 +21,15 @@ module.exports = {
         return res.status(200).json(createFeat);
         } catch(err){
             console.error(err)
+        }
+    },
+    postImage: async (req,res) => {
+        try {
+            const url = await cloudinary(req.body.image);
+            console.log(url)
+            res.send(url);
+        } catch (err) {
+            res.status(500).send(err);
         }
     },
     getFeats: async (req,res) => {
