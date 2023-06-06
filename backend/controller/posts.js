@@ -4,23 +4,27 @@ const comments = require('../model/comments')
 const cloudinary = require('../middleware/cloundinary');
 module.exports = {
     postFeat: async (req,res) => {
-        console.log(req.body)
+        console.log(req.body.imgUrl)
         try{
-           const createFeat =  await Feat.create({
+            let obj = {
                 text: req.body.content,
                 date: Date.now(),
                 likes: [],
                 reFeats: [],
                 userId: req.body.loginUser.userId,
                 name: req.body.loginUser.name,
-            })
+            }
+            if (req.body.imgUrl) {
+                obj.img = await cloudinary(req.body.imgUrl);
+            }
+           const createFeat =  await Feat.create(obj)
             if (!createFeat) {
             return res.status(404).json({ error: 'Feat not posted' });
         }
 
         return res.status(200).json(createFeat);
         } catch(err){
-            console.error(err)
+            console.error(err, 'lolojoj')
         }
     },
     postImage: async (req,res) => {

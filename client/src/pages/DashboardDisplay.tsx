@@ -38,7 +38,7 @@ function DashboarDisplay(props: any) {
         const response = await fetch("http://localhost:2012/uploadImage", {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ image: base64}),
+          body: JSON.stringify({ image: base64, user: loginUser }),
       
         });
         if(response.ok){
@@ -105,17 +105,20 @@ function DashboarDisplay(props: any) {
 
 
     const handleClick = async (e: any) => {
-      const img = e.target.previousElementSibling.childNodes[0].files[0];
+      let img = e.target.previousElementSibling.childNodes[0].files[0];
+      if(img !== undefined){
+        img = await convertBase64(img)
+      }
       try {
         await fetch('http://localhost:2012/postfeat', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ content, loginUser }),
+          body: JSON.stringify({ content, loginUser, imgUrl: img }),
         });
-      if (img !== undefined) {
-          const base64 = await convertBase64(img);
-          uploadSingleImage(base64);
-    }
+    //   if (img !== undefined) {
+    //       const base64 = await convertBase64(img);
+    //       uploadSingleImage(base64);
+    // }
         setContent('');
         renderFeats();
       } catch (error) {
@@ -172,7 +175,8 @@ interface FeatItems {
   date: string,
   _v: number,
   userId: string,
-  name:string
+  name:string,
+  img: string
 }
   return (
  <div className="flex justify-center px-5 sm:px-32 md:mt-4">
@@ -277,6 +281,9 @@ interface FeatItems {
                                           <p className="mt-3 text-gray-700 text-sm">
                                               {item.text}
                                           </p>
+                                        </div>
+                                        <div>
+                                          {item.img !== undefined ? <img src={item.img} alt="lol" />: null}
                                         </div>
                                         <div className="mt-4 flex items-center">
                                             <div className="flex mr-2  text-white text-sm mr-3" data-id={item._id}>
