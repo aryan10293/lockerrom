@@ -8,8 +8,9 @@ const UserSchema = new mongoose.Schema({
   likes: { type: Array},
   followers: {type: Array},
   following: {type: Array},
-  password: {type: String, required: true}
-
+  password: {type: String, required: true},
+  bio: {type: String},
+  websiteLink: {type: String}
 });
 
 // Password hash middleware.

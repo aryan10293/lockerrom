@@ -177,6 +177,7 @@ interface FeatItems {
   userId: string,
   name:string,
   img: string
+  comments: any[]
 }
   return (
  <div className="flex justify-center px-5 sm:px-32 md:mt-4">
@@ -187,7 +188,7 @@ interface FeatItems {
                     <main className="md:mx-4 w-full sm:basis-2/3">
 
                         <header className="m-4 hidden sm:flex">
-                            <h1 className="text-xl font-semi-bold">{user?.followers.length}{user?.userName}</h1>
+                            <h1 className="text-xl font-semi-bold">{user?.userName}</h1>
                         </header>
 
                         <header className="text-xl font-bold flex py-4 text-blue-600 sm:hidden">
@@ -296,7 +297,7 @@ interface FeatItems {
                                             </div>
                                             <div className="flex mr-2 text-gray-700 text-sm mr-8">
                                               <Link to={`/comments/${item._id}`}><button className="text-gray-500 hover:text-gray-1000 text-20" ><FontAwesomeIcon icon={faComment} /></button></Link>
-                                              <span>   {item.reFeats.length}</span>
+                                              <span>   {item.comments.length}</span>
                                             </div>
                                             <div className="flex mr-2 text-gray-700 text-sm mr-4">
                                               <svg fill="none" viewBox="0 0 24 24" className="w-4 h-4 mr-1" stroke="currentColor">

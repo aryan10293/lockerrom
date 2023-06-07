@@ -7,6 +7,7 @@ function CommentSection() {
     const id = params.id;
     const [user, setUser] = React.useState<User | null>(null)
     const [content, setContent] = React.useState<string>('');
+    const [replyingTo, setReplyingTo] = React.useState<string>('')
     const [comments, setComments] = React.useState<any[]>([])
     React.useEffect(() => {
         const fetchData = async () => {
@@ -38,6 +39,7 @@ function CommentSection() {
 
             if (response.ok) {
             const data = await response.json();
+            setReplyingTo(data[0].name)
             setComments(data[0].comments);
             } else {
             setComments([]);
@@ -89,6 +91,7 @@ console.log(comments)
         password: string;
         __v: number;
     }
+    console.log(replyingTo)
   return (
     <>
     <div className="flex ml-0 sm:mr-0 sm:mx-1 pl-0 pr-1 sm:pr-0 sm:px-1 py-3 border-b">
@@ -105,14 +108,13 @@ console.log(comments)
       <div className="w-full px-4 py-3 relative">
         <div className="w-full flex gap-2 justify-between">
           <h2 className="font-semibold">
-            {`dfej`}
-            <span className="text-slate-600 pl-2">@{'drej'}</span>
+            <span className="text-slate-600 pl-2">@{user?.userName}</span>
           </h2>
         </div>
 
         <div className="flex gap-2">
           <span className="text-slate-500">replying to</span>
-          <span className="text-blue-600 font-semibold">@{'lebron'}</span>
+          <span className="text-blue-600 font-semibold">@{replyingTo}</span>
         </div>
 
         {true ? (
