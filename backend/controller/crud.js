@@ -1,6 +1,6 @@
 const User = require("../model/user");
 const Feat = require('../model/Feat')
-
+const cloudinary = require('../middleware/cloundinary');
 module.exports = {
     addLike: async (req,res) => {
         try{
@@ -124,6 +124,32 @@ module.exports = {
             }
 
             return res.status(200).json(updateUser.following);
+        } catch(err){
+            console.error(err)
+            return res.status(500).json({ error: 'Internal Server Error' });
+        }
+    },
+    editProfile: async (req,res) => {
+        try{
+            const updateUser = await User.findOneAndUpdate(
+                {_id: req.body.id},
+                {
+                    $set: { bio: req.body.obj.bio, userName: req.body.obj.username, websiteLink: req.body.obj.websiteLink},
+                }
+            )
+             if(req.body.obj.profilePic !== undefined){
+                const updateImg = await User.findOneAndUpdate(
+                    {_id: req.body.id},
+                    {
+                        $set: { img: await cloudinary(req.body.obj.profilePic)},
+                    }
+                )
+            }
+            if (!updateUser) {
+                return res.status(404).json({ error: 'User not found' });
+            }
+
+            return res.status(200).json(updateUser);
         } catch(err){
             console.error(err)
             return res.status(500).json({ error: 'Internal Server Error' });

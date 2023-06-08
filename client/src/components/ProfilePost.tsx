@@ -3,7 +3,6 @@ import { Link } from 'react-router-dom'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faHeart } from '@fortawesome/free-solid-svg-icons'
 function ProfilePost(props: any) {
-    console.log(props.profile)
     interface FeatItems {
         likes: any[],
         reFeats: any[],

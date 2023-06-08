@@ -88,7 +88,11 @@ function ProfileDisplay() {
         email: string;
         password: string;
         __v: number;
+        img: string
+        bio: string
+        websiteLink: string
     }
+    console.log(profile)
   return  (
         <div>
 
@@ -117,7 +121,7 @@ function ProfileDisplay() {
 
                                 <div className="flex mx-auto gap-8">
 
-                                    <img src={'https://images.unsplash.com/photo-1542156822-6924d1a71ace?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60'} className="w-32 h-32 rounded-full" alt="avatar" />
+                                    <img src={profile?.img} className="w-32 h-32 rounded-full" alt="avatar" />
 
                                     <div className="flex flex-col mt-2">
 
@@ -150,8 +154,10 @@ function ProfileDisplay() {
                                 </div>
 
                                 <div className="mt-4 flex flex-col items-center">
-                                    <h2 className="font-semibold">{'currentUser?.bio'}</h2>
-                                    <h2 className="font-semibold text-blue-600">{'website.com'}</h2>
+                                    <h2 className="font-semibold">{profile?.bio}</h2>
+                                    {profile?.websiteLink !== undefined ? (
+                                    <Link to={profile?.websiteLink} className="font-semibold text-blue-600">{profile?.websiteLink}</Link>
+                                    ) : null}
                                 </div>
 
                                 <div className="flex gap-6 pl-4 mt-4 mb-16 justify-items-center mx-auto">

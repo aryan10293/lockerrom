@@ -33,24 +33,6 @@ function DashboarDisplay(props: any) {
       });
     };
 
-    async function uploadSingleImage(base64: any) {
-      try {
-        const response = await fetch("http://localhost:2012/uploadImage", {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ image: base64, user: loginUser }),
-      
-        });
-        if(response.ok){
-          const data = await response.json();
-          setUrl(data);
-          alert("Image uploaded successfully");
-        }
-      } catch (error) {
-        console.log(error);
-      }
-    }
-
 
 
   React.useEffect(() => {
@@ -116,10 +98,6 @@ function DashboarDisplay(props: any) {
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ content, loginUser, imgUrl: img }),
         });
-    //   if (img !== undefined) {
-    //       const base64 = await convertBase64(img);
-    //       uploadSingleImage(base64);
-    // }
         setContent('');
         renderFeats();
       } catch (error) {
@@ -183,7 +161,6 @@ interface FeatItems {
   profileImg: string
   
 }
-console.log(feat)
   return (
  <div className="flex justify-center px-5 sm:px-32 md:mt-4">
                 <div className="flex h-screen w-screen">

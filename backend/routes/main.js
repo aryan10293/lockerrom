@@ -25,4 +25,5 @@ router.put('/addcomment/:id', crudController.addComment)
 router.put('/unlike', crudController.unlike)
 router.put('/follow', crudController.follow)
 router.put('/unfollow', crudController.unfollow)
+router.put('/editprofile/:id', crudController.editProfile)
 module.exports = router;
