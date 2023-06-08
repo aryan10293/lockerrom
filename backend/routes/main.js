@@ -11,6 +11,7 @@ router.post('/createaccount', authController.postCreateAccount)
 router.post('/login', authController.postLogin)
 router.post('/postfeat', postController.postFeat)
 router.post('/uploadImage', postController.postImage)
+
 router.get("/checkuser", authController.checkUser)
 router.get('/renderfeats', postController.getFeats)
 router.get('/profile/:id', postController.getProfile)

@@ -7,6 +7,7 @@ import HomeDisplay from './pages/HomeDisplay';
 import DashboardDisplay from './pages/DashboardDisplay';
 import ProfileDisplay from './pages/ProfileDisplay';
 import CommentSection from './pages/CommentSection';
+import EditProfile from './pages/EditProfile';
 function App() {
 
   return (
@@ -29,6 +30,9 @@ function App() {
           <Route 
           path="/comments/:id"
           element={ <CommentSection /> } />
+          <Route 
+          path="/editprofile/:id"
+          element={ <EditProfile /> } />
     </Routes>
   );
 }

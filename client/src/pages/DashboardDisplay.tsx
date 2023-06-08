@@ -78,7 +78,8 @@ function DashboarDisplay(props: any) {
 }, []);
     const loginUser = {
         userId: user?._id,
-        name: user?.userName
+        name: user?.userName,
+        img: user?.img
   }
 
     const renderFeats = async () => {
@@ -165,6 +166,7 @@ function DashboarDisplay(props: any) {
   userName: string;
   email: string;
   password: string;
+  img: string;
   __v: number;
 }
 interface FeatItems {
@@ -176,9 +178,12 @@ interface FeatItems {
   _v: number,
   userId: string,
   name:string,
-  img: string
-  comments: any[]
+  img: string,
+  comments: any[],
+  profileImg: string
+  
 }
+console.log(feat)
   return (
  <div className="flex justify-center px-5 sm:px-32 md:mt-4">
                 <div className="flex h-screen w-screen">
@@ -201,7 +206,7 @@ interface FeatItems {
                             <div className="border sm:ml-3 sm:mr-0 flex px-2 py-3">
 
                                 <div className="mt-3 w-12 h-12 text-lg flex-none">
-                                    <img src='https://images.unsplash.com/photo-1542156822-6924d1a71ace?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60' className="flex-none w-12 h-12 rounded-full" alt="avatar" />
+                                    <img src={user?.img} className="flex-none w-12 h-12 rounded-full" alt="avatar" />
                                 </div>
 
                                 <div className="w-full px-4">
@@ -267,7 +272,7 @@ interface FeatItems {
                                   <div className="  items-start px-4 py-6">
                                       <div className='flex justify-between'>
                                           <div className='flex'>
-                                            <img className=" inline w-12 h-12 rounded-full object-cover mr-4 shadow" src="https://images.unsplash.com/photo-1542156822-6924d1a71ace?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60" alt="avatar" />
+                                            <img className=" inline w-12 h-12 rounded-full object-cover mr-4 shadow" src={item.profileImg} alt="avatar" />
                                             <div>
                                                 <h2 className="flex-1 text-lg font-semibold text-gray-900 -mt-1">{item.name}</h2>
                                                 <Link to={`/profile/${item.userId}`} className="text-gray-700">@{item.name}</Link>

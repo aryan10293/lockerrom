@@ -31,7 +31,6 @@ function Login() {
           navigate('/dashboard', { state: { prop1: loginData} })
           setPassword('');
           setEmail('');
-          console.log(loginData);
         } else {
           // Handle non-OK response (e.g., authentication error)
           // You can display an error message or handle it differently

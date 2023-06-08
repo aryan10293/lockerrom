@@ -1,6 +1,5 @@
 const Feat = require('../model/Feat')
 const User = require('../model/user')
-const comments = require('../model/comments')
 const cloudinary = require('../middleware/cloundinary');
 module.exports = {
     postFeat: async (req,res) => {
@@ -13,6 +12,7 @@ module.exports = {
                 reFeats: [],
                 userId: req.body.loginUser.userId,
                 name: req.body.loginUser.name,
+                profileImg: req.body.loginUser.img
             }
             if (req.body.imgUrl) {
                 obj.img = await cloudinary(req.body.imgUrl);
