@@ -16,6 +16,7 @@ function UserToFollow(props: any) {
         email: string;
         password: string;
         __v: number;
+        img: string;
     }
     React.useEffect(() => {
         const fetchData = async () => {
@@ -93,6 +94,7 @@ function UserToFollow(props: any) {
             setFollowing(newList)
             }
     }
+    console.log(people)
     return (
         <>
           <div className="ml-5 mt-8 mb-4 flex flex-col w-10/12 justify-around ">
@@ -102,7 +104,7 @@ function UserToFollow(props: any) {
                         {user?._id !== item._id  ? (
                             <div className="flex mb-5" key={item._id} data-id={item._id}>
                                 <img
-                                    src={'https://images.unsplash.com/photo-1542156822-6924d1a71ace?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60'}
+                                    src={item?.img}
                                     className="w-12 h-12 rounded-full cursor-pointer"
                                     alt={`drej`}
                                     onClick={() => navigate(`/profile/${item._id}`)} />
