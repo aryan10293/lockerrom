@@ -69,6 +69,7 @@ module.exports = {
         );
       },
       postLogin: (req,res,next) => {
+        console.log('cool')
         const validationErrors = [];
         if (!validator.isEmail(req.body.email))
           validationErrors.push({ msg: "Please enter a valid email address." });
@@ -96,7 +97,8 @@ module.exports = {
               return next(err);
             }
             req.flash("success", { msg: "Success! You are logged in." });
-            res.send( {"currentUser": req.user})
+            
+             res.status(200).json(req.user)
           });
         })(req, res, next);
       },

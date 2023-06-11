@@ -101,7 +101,7 @@ export const AsideLeft = () => {
                         </NavLink>
                     </li>
                     <li>
-                        <NavLink to="/bookmarks" className="flex py-4 gap-3 px-3 cursor-pointer hover:bg-slate-200 rounded-[15rem] active:bg-slate-100">
+                        <NavLink to="/message" className="flex py-4 gap-3 px-3 cursor-pointer hover:bg-slate-200 rounded-[15rem] active:bg-slate-100">
                             {({ isActive }) => 
                                 isActive ? (
                                     <>

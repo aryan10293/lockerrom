@@ -1,5 +1,7 @@
 const express = require("express");
 const app = express();
+const http = require('http')
+const { Server } = require('socket.io')
 const mongoose = require("mongoose");
 const passport = require("passport");
 const session = require("express-session");
@@ -21,7 +23,19 @@ require("dotenv").config({ path: "./config/.env" });
 connectDB();
 
 
-
+app.use(cors({
+  origin: 'http://localhost:3000',
+  methods: ['GET', 'POST', 'PUT', 'DELETE'],
+  credentials: true
+}));
+const server = http.createServer(app)
+const io = new Server(server, {
+  cors: {
+    origin: 'http://localhost:3000',
+    methods: ['GET', 'POST', 'PUT', 'DELETE'],
+    credentials: true
+  }
+})
 //Body Parsing
 app.use(express.urlencoded({ extended: true,  limit: '25mb'}));
 app.use(express.json({limit: '25mb'}));
@@ -46,21 +60,20 @@ app.use(
   //Use flash messages for errors, info, ect...
   app.use(flash());
 
-
-app.use(cors({
-  origin: 'http://localhost:3000',
-  methods: ['GET', 'POST', 'PUT', 'DELETE'],
-  credentials: true
-}));
   
-  //Setup Routes For Which The Server Is Listening
    app.use("/", mainRoutes);
-   //app.use("/tweet", tweetRoutes);
-// app.post('/login', passport.authenticate('local'), (req, res) => {
-//   res.send(req.user);
-// });
-  //Server Running
-  console.log(1+1)
-  app.listen(process.env.PORT, () => {
+   io.on('connection', (socket) => {
+    console.log('user has been connected')
+
+    socket.on("join_room", (data) => {
+      socket.join(data)
+    })
+
+    socket.on("send_message", (data) => {
+      socket.broadcast.emit("receive_message", data)
+    })
+   })
+
+  server.listen(process.env.PORT, () => {
     console.log("Server is running, you better catch it!");
   });

@@ -8,6 +8,7 @@ import DashboardDisplay from './pages/DashboardDisplay';
 import ProfileDisplay from './pages/ProfileDisplay';
 import CommentSection from './pages/CommentSection';
 import EditProfile from './pages/EditProfile';
+import Message from './pages/Message';
 function App() {
 
   return (
@@ -33,6 +34,9 @@ function App() {
           <Route 
           path="/editprofile/:id"
           element={ <EditProfile /> } />
+          <Route 
+          path="/message"
+          element={ <Message /> } />
     </Routes>
   );
 }
