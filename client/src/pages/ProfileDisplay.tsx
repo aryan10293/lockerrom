@@ -133,17 +133,27 @@ function ProfileDisplay() {
                                             className="border my-3 p-1 rounded-lg text-x cursor-pointer text-center font-semibold text-slate-600 bg-slate-200 hover:bg-slate-100" >
                                             Edit Profile
                                         </button> </Link>
-                                        ) : ( user?.following.find(eachUser => eachUser?.username === profile?.userName) ? (
-                                        <button
-                                            className="mr-8 mt-4 px-3 w-18 h-8 bg-blue-600 hover:bg-blue-800 text-white rounded-xl shadow-md hover:shadow-lg transition duration-150 ease-in-out">
-                                            Unfollow
-                                        </button> 
+                                        ) : ( user?.following.includes(profile?._id)) ? (
+                                        <div>
+                                            <button
+                                                className="mr-8 mt-4 px-3 w-18 h-8 bg-blue-600 hover:bg-blue-800 text-white rounded-xl shadow-md hover:shadow-lg transition duration-150 ease-in-out">
+                                                Unfollow
+                                            </button>
+                                            <button className="mr-8 mt-4 px-3 w-18 h-8 bg-blue-600 hover:bg-blue-800 text-white rounded-xl shadow-md hover:shadow-lg transition duration-150 ease-in-out">
+                                                <Link
+                                                    to={`/messages/${profile?._id}`}>
+                                                    Messages
+                                                </Link>
+                                            </button>
+                                        </div> 
                                         ) : (
-                                        <button
-                                            className="mr-8 mt-4 px-3 w-18 h-8 bg-blue-600 hover:bg-blue-800 text-white rounded-xl shadow-md hover:shadow-lg transition duration-150 ease-in-out">
-                                            Follow
-                                        </button>
-                                        ))}
+                                        <div>
+                                            <button
+                                                className="mr-8 mt-4 px-3 w-18 h-8 bg-blue-600 hover:bg-blue-800 text-white rounded-xl shadow-md hover:shadow-lg transition duration-150 ease-in-out">
+                                                Follow
+                                            </button>
+                                        </div>
+                                        )}
 
                                         {/* Modal for Edit Profile */}
 

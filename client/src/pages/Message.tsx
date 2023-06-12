@@ -1,22 +1,84 @@
 import React from 'react'
-import { io } from 'socket.io-client'
-const socket = io('http://localhost:2012')
+// import { io } from 'socket.io-client'
+import { AsideLeft } from '../components/AsideLeft'
+// const socket = io('http://localhost:2012')
+
+
 function Message() {
-    React.useEffect(() => {
-    socket.on('receive_message', (data) => {
-        alert(data.message)
-    })
-    }, [socket])
-    const [message, setMessage] = React.useState<string>('')
-    const sendMesage = () => {
-        socket.emit('send_message', {message: message})
+    const [user,setUser] = React.useState<User | null>(null)
+        React.useEffect(() => {
+        const fetchData = async () => {
+            try {
+            const response = await fetch('http://localhost:2012/checkuser', {
+                method: 'GET',
+                credentials: 'include',
+            });
+
+            if (response.ok) {
+                const data = await response.json();
+                setUser(data);
+            } else {
+                console.log('cool')
+                setUser(null);
+            }
+            } catch (error) {
+            console.error('Error fetching data:', error);
+            }
+        };
+
+        fetchData();
+    }, []);
+    interface User {
+        followers: any[];
+        likes: any[];
+        following: any[];
+        events: any[];
+        messages: any[];
+        _id: string;
+        userName: string;
+        email: string;
+        password: string;
+        img: string;
+        __v: number;
     }
+    console.log(user?.messages)
   return (
-    <div>
-      <input onChange={(e) => setMessage(e.target.value)} type="text" placeholder='enter message'/>
-      <button onClick={sendMesage}>send meesage</button>
+    <div className=" main-chat lg:h-screen  divide-solid">
+      <div className="flex  lg:h-5/6  lg:my-auto shadow-md">
+        <AsideLeft />
+        <div className="flex flex-col flex-grow lg:max-w-full bg-blue-50">
+          {/* Messages */}
+          <p className="font-black mt-4 mb-2 pl-4 lg:pl-8 text-2xl">
+            Main Chat
+          </p>
+          <div
+            id="msg"
+            className="h-5/6 overflow-y-auto pl-4 lg:pl-8 pt-4 mb-2 lg:mb-0"
+          >
+            <p>Open Messgages To The Right!!</p>
+          </div>
+          
+        </div>
+        <div className="hidden lg:block pl-4 pr-4 w-64 bg-blue-600 text-white">
+          <p className="font-black my-4 text-xl">
+            {" "}
+            Messages
+          </p>
+        </div>
+      </div>
     </div>
-  )
+  );
 }
 
-export default Message
+export default Message;
+
+
+//two buttons
+    // one button is to open all messages
+    // its goin to have no id parameter
+    // iuf you have any open messages they will display to the right if no messages itll be nothing to the right
+    // itll be clickable links right 
+    // once clicked itll displat the messages between the user and clicked person
+
+    // other message button will be on the other user profile
+    // ic clicked itll jump straght to the messages between the two 
