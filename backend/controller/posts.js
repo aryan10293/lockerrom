@@ -43,9 +43,16 @@ module.exports = {
             console.error('Error fetching users:', error)
         }
     },
-    getUser: async (req,res) => {
+    getUsers: async (req,res) => {
         try { 
             res.send(await User.find())
+        } catch (error) {
+            console.error('Error fetching users:', error)
+        }
+    },
+    getUser: async (req,res) => {
+        try { 
+            res.send(await User.find({_id: req.params.id}))
         } catch (error) {
             console.error('Error fetching users:', error)
         }
