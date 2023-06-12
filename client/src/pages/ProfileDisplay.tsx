@@ -92,7 +92,6 @@ function ProfileDisplay() {
         bio: string
         websiteLink: string
     }
-    console.log(profile)
   return  (
         <div>
 

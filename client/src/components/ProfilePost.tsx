@@ -11,8 +11,10 @@ function ProfilePost(props: any) {
         date: string,
         _v: number,
         userId: string,
-        name:string
-    }   
+        name:string,
+        profileImg: string,
+    } 
+    console.log(props.profile)  
   return (
     <div>
                             {props.profile.map((item: FeatItems) => {
@@ -26,7 +28,7 @@ function ProfilePost(props: any) {
                                   <div className="  items-start px-4 py-6">
                                       <div className='flex justify-between'>
                                           <div className='flex'>
-                                            <img className=" inline w-12 h-12 rounded-full object-cover mr-4 shadow" src="https://images.unsplash.com/photo-1542156822-6924d1a71ace?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60" alt="avatar" />
+                                            <img className=" inline w-12 h-12 rounded-full object-cover mr-4 shadow" src={item.profileImg} alt="avatar" />
                                             <div>
                                                 <h2 className="flex-1 text-lg font-semibold text-gray-900 -mt-1">{item.name}</h2>
                                                 <Link to={`/profile/${item.userId}`} className="text-gray-700">@{item.name}</Link>
