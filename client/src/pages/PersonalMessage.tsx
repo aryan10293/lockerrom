@@ -7,6 +7,7 @@ function PersonalMessage() {
   const params = useParams()
   const id = params.id
   const [messaging, setMessaging] = React.useState<Messaging | null>(null)
+  const [user, setUser] = React.useState<Messaging | null>(null)
   const [userMessagingId, setUserMessagingId] = React.useState<string>('')
   const [messagingId, setMessagingId] = React.useState<string>('')
   const [message, setMessage] = React.useState<string>('')
@@ -44,6 +45,7 @@ function PersonalMessage() {
 
         if (response.ok) {
           const data = await response.json();
+          setUser(data)
           setMessageList(data.messages)
           setUserMessagingId(data._id.slice(data._id.length - 4))
         } else {
@@ -61,8 +63,27 @@ function PersonalMessage() {
       socket.on("receive_message", (data) => {})
     },[])
 
-    const sendMessage = () => {
-      socket.emit("send_message", {message})
+    const sendMessage = async () => {
+      //socket.emit("send_message", {message})
+        try {
+              await fetch(`http://localhost:2012/sendmessage/${id}`, {
+              method: 'PUT',
+              headers: {'Content-Type': 'application/json'},
+              body: JSON.stringify({
+                message: message,
+                sender:{
+                  id: user?._id,
+                  name: user?.userName
+                },
+                receiver: {
+                  id: messaging?._id,
+                  name: messaging?.userName
+                }})
+              });
+            setMessage('')
+        } catch (error) {
+            console.error(error)
+        }
     }
 
 

@@ -13,7 +13,6 @@ function DashboarDisplay(props: any) {
     const [user,setUser] = React.useState<User | null>(null)
     const [userLikes, setUserLikes] = React.useState<string[]>([])
     const [feat, setFeat] = React.useState<any>([])
-    const [url,setUrl] = React.useState<string>('')
     const convertBase64 = (file: any) => {
       return new Promise(async (resolve, reject) => {
         try {

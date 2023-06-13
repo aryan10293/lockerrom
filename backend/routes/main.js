@@ -29,4 +29,5 @@ router.put('/follow', crudController.follow)
 router.put('/unfollow', crudController.unfollow)
 router.put('/editprofile/:id', crudController.editProfile)
 router.put('/addtomessages/:id', messageController.addMessage)
+router.put('/sendmessage/:id', messageController.sendMessage)
 module.exports = router;

@@ -81,12 +81,11 @@ function ProfileDisplay() {
 
     const addToMessages = async(e:any) => {
         try {
-            const response = await fetch(`http://localhost:2012/addtomessages/${id}`, {
+             await fetch(`http://localhost:2012/addtomessages/${id}`, {
             method: 'PUT',
             headers: {'Content-Type': 'application/json'},
             body: JSON.stringify({id: user?._id, userName: user?.userName, messagingName: profile?.userName})
             });
-            const data = await response.json();
         } catch (error) {
             console.error(error)
         }
