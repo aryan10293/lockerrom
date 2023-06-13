@@ -1,16 +1,16 @@
 import React from 'react'
 import { io } from 'socket.io-client'
 import { AsideLeft } from '../components/AsideLeft'
-import { useParams } from 'react-router-dom'
+import { useParams, Link } from 'react-router-dom'
 const socket = io('http://localhost:2012')
 function PersonalMessage() {
   const params = useParams()
   const id = params.id
   const [messaging, setMessaging] = React.useState<Messaging | null>(null)
-  const [user,setUser] = React.useState<Messaging | null>(null)
   const [userMessagingId, setUserMessagingId] = React.useState<string>('')
   const [messagingId, setMessagingId] = React.useState<string>('')
   const [message, setMessage] = React.useState<string>('')
+  const [messageList, setMessageList] = React.useState<any[]>([])
     React.useEffect(() => {
     const fetchData = async () => {
       try {
@@ -44,11 +44,10 @@ function PersonalMessage() {
 
         if (response.ok) {
           const data = await response.json();
-          setUser(data);
+          setMessageList(data.messages)
           setUserMessagingId(data._id.slice(data._id.length - 4))
         } else {
           console.log('cool')
-          setUser(null);
         }
       } catch (error) {
         console.error('Error fetching data:', error);
@@ -67,19 +66,23 @@ function PersonalMessage() {
     }
 
 
-  interface Messaging {
-    followers: any[];
-    likes: any[];
-    following: any[];
-    events: any[];
-    _id: string;
-    userName: string;
-    email: string;
-    password: string;
-    img: string;
-    __v: number;
-}
-console.log( userMessagingId + messagingId)
+    interface Messaging {
+      followers: any[];
+      likes: any[];
+      following: any[];
+      events: any[];
+      _id: string;
+      userName: string;
+      email: string;
+      password: string;
+      img: string;
+      __v: number;
+  }
+    interface MessageList {
+      id: string;
+      name: string;
+  }
+// console.log( userMessagingId + messagingId)
   return (
     <div className=" main-chat lg:h-screen  divide-solid">
       <div className="flex  lg:h-5/6  lg:my-auto shadow-md">
@@ -88,7 +91,7 @@ console.log( userMessagingId + messagingId)
         <div className="flex flex-col flex-grow lg:max-w-full bg-blue-50">
           {/* Messages */}
           <p className="font-black mt-4 mb-2 pl-4 lg:pl-8 text-2xl">
-            Main Chat
+            To: {messaging?.userName.toUpperCase()} 
           </p>
           <div
             id="msg"
@@ -138,6 +141,19 @@ console.log( userMessagingId + messagingId)
             {" "}
             Messages
           </p>
+          <ul>
+            {messageList.map((name:MessageList )=> {
+              return (
+                <Link
+                to={`/messages/${name.id}`}
+                >
+                  <h2>{name.name}</h2>
+                </Link>
+              )
+            })
+
+            }
+          </ul>
         </div>
       </div>
     </div>

@@ -3,6 +3,7 @@ const router = express.Router();
 const authController = require("../controller/auth")
 const postController = require("../controller/posts")
 const crudController = require("../controller/crud")
+const messageController = require("../controller/messages")
 const passport = require('passport')
 const cors = require('cors')
 const { ensureAuth, ensureGuest } = require("../middleware/auth")
@@ -27,4 +28,5 @@ router.put('/unlike', crudController.unlike)
 router.put('/follow', crudController.follow)
 router.put('/unfollow', crudController.unfollow)
 router.put('/editprofile/:id', crudController.editProfile)
+router.put('/addtomessages/:id', messageController.addMessage)
 module.exports = router;

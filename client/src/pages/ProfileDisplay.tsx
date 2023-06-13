@@ -78,6 +78,19 @@ function ProfileDisplay() {
 
         fetchData();
     }, [id]);
+
+    const addToMessages = async(e:any) => {
+        try {
+            const response = await fetch(`http://localhost:2012/addtomessages/${id}`, {
+            method: 'PUT',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify({id: user?._id, userName: user?.userName, messagingName: profile?.userName})
+            });
+            const data = await response.json();
+        } catch (error) {
+            console.error(error)
+        }
+    }
     interface User {
         followers: any[];
         likes: any[];
@@ -141,8 +154,9 @@ function ProfileDisplay() {
                                             </button>
                                             <button className="mr-8 mt-4 px-3 w-18 h-8 bg-blue-600 hover:bg-blue-800 text-white rounded-xl shadow-md hover:shadow-lg transition duration-150 ease-in-out">
                                                 <Link
+                                                onClick={addToMessages}
                                                     to={`/messages/${profile?._id}`}>
-                                                    Messages
+                                                    Message
                                                 </Link>
                                             </button>
                                         </div> 
