@@ -19,13 +19,13 @@ module.exports = {
                 const updateUser = await User.findOneAndUpdate(
                     {_id: req.body.id},
                     {
-                        $push: { messages: {id: req.params.id, name: req.body.messagingName, messages: []}},
+                        $push: { messages: {id: req.params.id, name: req.body.messagingName,roomId:req.body.roomId, messages: []}},
                     }
                 )
                 const updateMessaging = await User.findOneAndUpdate(
                     {_id: req.params.id},
                     {
-                        $push: { messages: {id:req.body.id, name: req.body.userName, messages: []}},
+                        $push: { messages: {id:req.body.id, name: req.body.userName,roomId:req.body.roomId, messages: []}},
                     }
                 )
                 if (!updateUser) {
@@ -55,14 +55,14 @@ module.exports = {
             const updateSender = await User.findOneAndUpdate(
                 {_id: req.body.sender.id},
                 {
-                    $push: { [`messages.${index1}.messages`]: [{message: req.body.message, user: {id: req.body.sender.id, name: req.body.sender.name}, receiver: {id: req.body.receiver.id, name: req.body.receiver.name}}]},
+                    $push: { [`messages.${index1}.messages`]: [{message: req.body.message, sender: {id: req.body.sender.id, name: req.body.sender.name}, receiver: {id: req.body.receiver.id, name: req.body.receiver.name}}]},
                 },
                  { new: true }
             )
             const updateReciver = await User.findOneAndUpdate(
                 {_id: req.params.id},
                 {
-                    $push: { [`messages.${index2}.messages`]: [{message: req.body.message, receiver: {id: req.body.sender.id, name: req.body.sender.name}, user: {id: req.body.receiver.id, name: req.body.receiver.name}}]},
+                    $push: { [`messages.${index2}.messages`]: [{message: req.body.message, sender: {id: req.body.sender.id, name: req.body.sender.name}, reciever: {id: req.body.receiver.id, name: req.body.receiver.name}}]},
                 }
             )
             if (!updateSender) {

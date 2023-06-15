@@ -8,10 +8,9 @@ function PersonalMessage() {
   const id = params.id
   const [messaging, setMessaging] = React.useState<Messaging | null>(null)
   const [user, setUser] = React.useState<Messaging | null>(null)
-  const [userMessagingId, setUserMessagingId] = React.useState<string>('')
-  const [messagingId, setMessagingId] = React.useState<string>('')
   const [message, setMessage] = React.useState<string>('')
   const [messageList, setMessageList] = React.useState<any[]>([])
+  const [chat, setChat] = React.useState<any[]>([])
     React.useEffect(() => {
     const fetchData = async () => {
       try {
@@ -22,7 +21,6 @@ function PersonalMessage() {
 
         if (response.ok) {
           const data = await response.json();
-          setMessagingId(data[0]._id.slice(data[0]._id.length - 4))
           setMessaging(data[0]);
         } else {
           console.log('cool')
@@ -46,8 +44,8 @@ function PersonalMessage() {
         if (response.ok) {
           const data = await response.json();
           setUser(data)
+          setChat(data.messages.filter((x:any) => x.id === id))
           setMessageList(data.messages)
-          setUserMessagingId(data._id.slice(data._id.length - 4))
         } else {
           console.log('cool')
         }
@@ -61,10 +59,10 @@ function PersonalMessage() {
 
     React.useEffect(() => {
       socket.on("receive_message", (data) => {})
+      socket.emit('joinRoom', chat[0].roomId)
     },[])
-
     const sendMessage = async () => {
-      //socket.emit("send_message", {message})
+      socket.emit("send_message", {message})
         try {
               await fetch(`http://localhost:2012/sendmessage/${id}`, {
               method: 'PUT',

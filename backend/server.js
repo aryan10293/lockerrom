@@ -63,16 +63,19 @@ app.use(
   
    app.use("/", mainRoutes);
    io.on('connection', (socket) => {
-    console.log('user has been connected')
+    console.log(`user ${socket.id} has been connected`)
 
-    socket.on("join_room", (data) => {
-      socket.join(data)
+    socket.on("joinRoom", (roomId) => {
+      socket.join(roomId)
     })
 
-    socket.on("send_message", (data) => {
-      socket.broadcast.emit("receive_message", data)
+    socket.on('send_message', (message) => {
+      io.to(roomId).emit('message', message)
     })
-   })
+  //   socket.on("send_message", (data) => {
+  //     socket.broadcast.emit("receive_message", data)
+  //   })
+  })
 
   server.listen(process.env.PORT, () => {
     console.log("Server is running, you better catch it!");

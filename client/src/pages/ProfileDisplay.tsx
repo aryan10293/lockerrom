@@ -8,6 +8,8 @@ function ProfileDisplay() {
     const id = params.id
     const [user, setUser] = React.useState<User | null>(null)
     const [profile, setProfile] = React.useState<User | null>(null)
+    const [messagingId, setMessagingId] = React.useState<string>('')
+    const [userMessagingId, setUserMessagingId] = React.useState<string>('')
     const [profilePost, setProfilePost] = React.useState<any[]>([])
     React.useEffect(() => {
         const fetchData = async () => {
@@ -19,6 +21,7 @@ function ProfileDisplay() {
 
             if (response.ok) {
             const data = await response.json();
+            setUserMessagingId(data._id.slice(data._id.length - 4))
             setUser(data);
             } else {
             console.log('cool')
@@ -66,6 +69,7 @@ function ProfileDisplay() {
 
             if (response.ok) {
             const data = await response.json();
+            setMessagingId(data._id.slice(data._id.length - 4))
             setProfile(data);
             } else {
             console.log('cool')
@@ -84,7 +88,7 @@ function ProfileDisplay() {
              await fetch(`http://localhost:2012/addtomessages/${id}`, {
             method: 'PUT',
             headers: {'Content-Type': 'application/json'},
-            body: JSON.stringify({id: user?._id, userName: user?.userName, messagingName: profile?.userName})
+            body: JSON.stringify({id: user?._id, userName: user?.userName, messagingName: profile?.userName,roomId: messagingId+userMessagingId})
             });
         } catch (error) {
             console.error(error)
