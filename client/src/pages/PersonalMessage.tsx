@@ -59,7 +59,7 @@ function PersonalMessage() {
 
     React.useEffect(() => {
       socket.on("receive_message", (data) => {})
-      socket.emit('joinRoom', chat[0].roomId)
+        socket.emit('joinRoom', chat[0].roomId)
     },[])
     const sendMessage = async () => {
       socket.emit("send_message", {message})
@@ -101,6 +101,7 @@ function PersonalMessage() {
       id: string;
       name: string;
   }
+  console.log(chat[0].roomId)
 // console.log( userMessagingId + messagingId)
   return (
     <div className=" main-chat lg:h-screen  divide-solid">

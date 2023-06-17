@@ -67,6 +67,7 @@ app.use(
 
     socket.on("joinRoom", (roomId) => {
       socket.join(roomId)
+      console.log(`user ${socket.id} has joined room`)
     })
 
     socket.on('send_message', (message) => {
