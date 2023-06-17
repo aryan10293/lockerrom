@@ -10,8 +10,8 @@ function PersonalMessage() {
   const [user, setUser] = React.useState<Messaging | null>(null)
   const [message, setMessage] = React.useState<string>('')
   const [messageList, setMessageList] = React.useState<any[]>([])
-  const [chat, setChat] = React.useState<any[]>([])
-    React.useEffect(() => {
+  const [chat, setChat] = React.useState<string>('')
+  React.useEffect(() => {
     const fetchData = async () => {
       try {
         const response = await fetch(`http://localhost:2012/getuser/${id}`, {
@@ -44,7 +44,10 @@ function PersonalMessage() {
         if (response.ok) {
           const data = await response.json();
           setUser(data)
-          setChat(data.messages.filter((x:any) => x.id === id))
+            if(user?._id !== undefined){
+              setChat(user?._id.slice(user?._id.length - 4) + id?.slice(id?.length - 4))
+              setChat(chat.split('').sort().join(''))
+            }
           setMessageList(data.messages)
         } else {
           console.log('cool')
@@ -59,7 +62,7 @@ function PersonalMessage() {
 
     React.useEffect(() => {
       socket.on("receive_message", (data) => {})
-        socket.emit('joinRoom', chat[0].roomId)
+        socket.emit('joinRoom', chat)
     },[])
     const sendMessage = async () => {
       socket.emit("send_message", {message})
@@ -101,8 +104,6 @@ function PersonalMessage() {
       id: string;
       name: string;
   }
-  console.log(chat[0].roomId)
-// console.log( userMessagingId + messagingId)
   return (
     <div className=" main-chat lg:h-screen  divide-solid">
       <div className="flex  lg:h-5/6  lg:my-auto shadow-md">
