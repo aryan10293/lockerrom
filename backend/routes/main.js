@@ -21,6 +21,7 @@ router.get('/getpost/:id', postController.getPost)
 router.get('/getusers', postController.getUsers)
 router.get('/getuser/:id', postController.getUser)
 router.get('/lol/:id', postController.getPostComments)
+router.get('/:id/:name', messageController.getRoomId)
 
 router.put('/like', crudController.addLike)
 router.put('/addcomment/:id', crudController.addComment)

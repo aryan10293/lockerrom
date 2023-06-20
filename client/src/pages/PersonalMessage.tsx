@@ -8,9 +8,9 @@ function PersonalMessage() {
   const id = params.id
   const [messaging, setMessaging] = React.useState<Messaging | null>(null)
   const [user, setUser] = React.useState<Messaging | null>(null)
+  const [chat,setChat] = React.useState<string>('')
   const [message, setMessage] = React.useState<string>('')
   const [messageList, setMessageList] = React.useState<any[]>([])
-  const [chat, setChat] = React.useState<string>('')
   React.useEffect(() => {
     const fetchData = async () => {
       try {
@@ -33,7 +33,7 @@ function PersonalMessage() {
 
       fetchData();
     }, [id]);
-    React.useEffect(() => {
+  React.useEffect(() => {
     const fetchData = async () => {
       try {
         const response = await fetch('http://localhost:2012/checkuser', {
@@ -44,10 +44,6 @@ function PersonalMessage() {
         if (response.ok) {
           const data = await response.json();
           setUser(data)
-            if(user?._id !== undefined){
-              setChat(user?._id.slice(user?._id.length - 4) + id?.slice(id?.length - 4))
-              setChat(chat.split('').sort().join(''))
-            }
           setMessageList(data.messages)
         } else {
           console.log('cool')
@@ -57,30 +53,61 @@ function PersonalMessage() {
       }
     };
 
-  fetchData();
-}, []);
-
+    fetchData();
+  }, []);
     React.useEffect(() => {
-      socket.on("receive_message", (data) => {})
-        socket.emit('joinRoom', chat)
-    },[])
-    const sendMessage = async () => {
-      socket.emit("send_message", {message})
+    const fetchData = async () => {
+      try {
+        const response = await fetch(`http://localhost:2012/${user?._id}/${messaging?.userName}`, {
+          method: 'GET',
+          credentials: 'include',
+        });
+
+        if (response.ok) {
+          const data = await response.json();
+        } else {
+          console.log('cool')
+        }
+      } catch (error) {
+        console.error('Error fetching data:', error);
+      }
+    };
+
+    fetchData();
+  }, [user]);
+
+    // React.useEffect(() => {
+    //   //let chat = id !== undefined && user?._id !== undefined? id.slice(id.length - 4)+user?._id.slice(user._id.length - 4) : null
+    //   socket.on("receive_message", (data) => {
+    //     alert(data)
+    //   })
+    //   socket.emit('joinRoom', )
+    // },[socket])
+
+
+    const sendMessage = async (e:any) => {
+      e.preventDefault()
+      const lol = {
+        message: message,
+        chat: id !== undefined && user?._id !== undefined? id.slice(id.length - 4)+user?._id.slice(user._id.length - 4) : null
+      }
         try {
-              await fetch(`http://localhost:2012/sendmessage/${id}`, {
-              method: 'PUT',
-              headers: {'Content-Type': 'application/json'},
-              body: JSON.stringify({
-                message: message,
-                sender:{
-                  id: user?._id,
-                  name: user?.userName
-                },
-                receiver: {
-                  id: messaging?._id,
-                  name: messaging?.userName
-                }})
-              });
+              // await fetch(`http://localhost:2012/sendmessage/${id}`, {
+              // method: 'PUT',
+              // headers: {'Content-Type': 'application/json'},
+              // body: JSON.stringify({
+              //   message: message,
+              //   sender:{
+              //     id: user?._id,
+              //     name: user?.userName
+              //   },
+              //   receiver: {
+              //     id: messaging?._id,
+              //     name: messaging?.userName
+              //   },
+              //   time: new Date(Date.now()).getHours() + ":" + new Date(Date.now()).getMinutes(),
+              // })});
+              socket.emit("send_message", { lol })
             setMessage('')
         } catch (error) {
             console.error(error)

@@ -66,12 +66,15 @@ app.use(
     console.log(`user ${socket.id} has been connected`)
 
     socket.on("joinRoom", (roomId) => {
-      socket.join(roomId)
-      console.log(`user ${socket.id} has joined room`)
+      const room = roomId.split('').sort().join('')
+      console.log(room)
+      socket.join(room)
+      console.log(`user ${socket.id} has joined room ${room}`)
     })
 
-    socket.on('send_message', (message) => {
-      io.to(roomId).emit('message', message)
+    socket.on('send_message', (data) => {
+      console.log(data.lol.chat.split('').sort().join(''))
+      io.to(data.lol.chat.split('').sort().join('')).emit('receive_message', data.lol.message)
     })
   //   socket.on("send_message", (data) => {
   //     socket.broadcast.emit("receive_message", data)
