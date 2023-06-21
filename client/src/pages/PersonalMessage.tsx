@@ -93,6 +93,7 @@ function PersonalMessage() {
             const data = await response.json();
             setChat(data[0])
             socket.emit('joinRoom', data[0])
+            console.log('hey does ths work')
           } else {
             console.log('cool')
           }
@@ -101,10 +102,17 @@ function PersonalMessage() {
       }
       }
     };
-     fetchData()
-      socket.on("receive_message", (data) => {
-        alert(data)
-      })     
+      fetchData();
+
+      const receiveMessageHandler = (data:any) => {
+        alert(data);
+      };
+
+      socket.on("receive_message", receiveMessageHandler);
+
+      // return () => {
+      //   socket.off("receive_message", receiveMessageHandler);
+      // };     
     },[socket])
 
 
@@ -151,7 +159,6 @@ function PersonalMessage() {
       id: string;
       name: string;
   }
-  console.log(chat)
   return (
     <div className=" main-chat lg:h-screen  divide-solid">
       <div className="flex  lg:h-5/6  lg:my-auto shadow-md">
