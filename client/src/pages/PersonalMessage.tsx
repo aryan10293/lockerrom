@@ -57,40 +57,60 @@ function PersonalMessage() {
   }, []);
     React.useEffect(() => {
     const fetchData = async () => {
-      try {
-        const response = await fetch(`http://localhost:2012/${user?._id}/${messaging?.userName}`, {
-          method: 'GET',
-          credentials: 'include',
-        });
+      if(user?._id !== undefined && messaging?.userName !== undefined){
+        try {
+          const response = await fetch(`http://localhost:2012/${user?._id}/${messaging?.userName}`, {
+            method: 'GET',
+            credentials: 'include',
+          });
 
-        if (response.ok) {
-          const data = await response.json();
-        } else {
-          console.log('cool')
-        }
-      } catch (error) {
-        console.error('Error fetching data:', error);
+          if (response.ok) {
+            const data = await response.json();
+            setChat(data[0])
+          } else {
+            console.log('cool')
+          }
+        } catch (error) {
+          console.error('Error fetching data:', error);
+      }
       }
     };
 
     fetchData();
   }, [user]);
 
-    // React.useEffect(() => {
-    //   //let chat = id !== undefined && user?._id !== undefined? id.slice(id.length - 4)+user?._id.slice(user._id.length - 4) : null
-    //   socket.on("receive_message", (data) => {
-    //     alert(data)
-    //   })
-    //   socket.emit('joinRoom', )
-    // },[socket])
+    React.useEffect(() => {
+      //let chat = id !== undefined && user?._id !== undefined? id.slice(id.length - 4)+user?._id.slice(user._id.length - 4) : null
+    const fetchData = async () => {
+      if(user?._id !== undefined && messaging?.userName !== undefined){
+        try {
+          const response = await fetch(`http://localhost:2012/${user?._id}/${messaging?.userName}`, {
+            method: 'GET',
+            credentials: 'include',
+          });
+
+          if (response.ok) {
+            const data = await response.json();
+            setChat(data[0])
+            socket.emit('joinRoom', data[0])
+          } else {
+            console.log('cool')
+          }
+        } catch (error) {
+          console.error('Error fetching data:', error);
+      }
+      }
+    };
+     fetchData()
+      socket.on("receive_message", (data) => {
+        alert(data)
+      })     
+    },[socket])
 
 
     const sendMessage = async (e:any) => {
       e.preventDefault()
-      const lol = {
-        message: message,
-        chat: id !== undefined && user?._id !== undefined? id.slice(id.length - 4)+user?._id.slice(user._id.length - 4) : null
-      }
+
         try {
               // await fetch(`http://localhost:2012/sendmessage/${id}`, {
               // method: 'PUT',
@@ -107,7 +127,7 @@ function PersonalMessage() {
               //   },
               //   time: new Date(Date.now()).getHours() + ":" + new Date(Date.now()).getMinutes(),
               // })});
-              socket.emit("send_message", { lol })
+              socket.emit("send_message", {chat, message})
             setMessage('')
         } catch (error) {
             console.error(error)
@@ -131,6 +151,7 @@ function PersonalMessage() {
       id: string;
       name: string;
   }
+  console.log(chat)
   return (
     <div className=" main-chat lg:h-screen  divide-solid">
       <div className="flex  lg:h-5/6  lg:my-auto shadow-md">

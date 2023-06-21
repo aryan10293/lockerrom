@@ -81,7 +81,7 @@ module.exports = {
     getRoomId: async (req,res) => {
         try {
             const user = await User.findById({_id: req.params.id})
-            console.log(user.messages.filter(x => x.name === req.params.name)[0].roomId)
+            res.send([user.messages.filter(x => x.name === req.params.name)[0].roomId])
         } catch (error) {
             console.error(error)
         }
