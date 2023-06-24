@@ -67,7 +67,7 @@ function PersonalMessage() {
 
           if (response.ok) {
             const data = await response.json();
-            console.log(data[1])
+            setConvo(data[1])
             setChat(data[0])
           } else {
             console.log('cool')
@@ -175,103 +175,13 @@ function PersonalMessage() {
           <div
             id="msg"
             className="h-5/6 overflow-y-auto pl-4 lg:pl-8 pt-4 mb-2 lg:mb-0 scrollable-content"
-          >
-          <div className="chat chat-start">
-            <div className="chat-image avatar">
-              <div className="w-10 rounded-full">
-                <img src="https://images.unsplash.com/photo-1542156822-6924d1a71ace?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60" />
+          > 
+            {convo.map((item: any) => (
+              <div>
+                  <h1>{item[0].message}</h1>
+                  <h1>{item[0].otherguy.name}</h1>
               </div>
-            </div>
-            <div className="chat-bubble">It was said that you would, destroy the Sith, not join them.</div>
-          </div>
-          <div className="chat chat-start">
-            <div className="chat-image avatar">
-              <div className="w-10 rounded-full">
-                <img src="/images/stock/photo-1534528741775-53994a69daeb.jpg" />
-              </div>
-            </div>
-            <div className="chat-bubble">It was you who would bring balance to the Force</div>
-          </div>
-          <div className="chat chat-end">
-            <div className="chat-image avatar">
-              <div className="w-10 rounded-full">
-                <img src="/images/stock/photo-1534528741775-53994a69daeb.jpg" />
-              </div>
-            </div>
-            <div className="chat-bubble">Not leave it in Darkness</div>
-          </div>
-          <div className="chat chat-start">
-            <div className="chat-image avatar">
-              <div className="w-10 rounded-full">
-                <img src="https://images.unsplash.com/photo-1542156822-6924d1a71ace?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60" />
-              </div>
-            </div>
-            <div className="chat-bubble">It was said that you would, destroy the Sith, not join them.</div>
-          </div>
-          <div className="chat chat-end">
-            <div className="chat-image avatar">
-              <div className="w-10 rounded-full">
-                <img src="/images/stock/photo-1534528741775-53994a69daeb.jpg" />
-              </div>
-            </div>
-            <div className="chat-bubble">It was you who would bring balance to the Force</div>
-          </div>
-          <div className="chat chat-start">
-            <div className="chat-image avatar">
-              <div className="w-10 rounded-full">
-                <img src="/images/stock/photo-1534528741775-53994a69daeb.jpg" />
-              </div>
-            </div>
-            <div className="chat-bubble">Not leave it in Darkness</div>
-          </div>
-          <div className="chat chat-start">
-            <div className="chat-image avatar">
-              <div className="w-10 rounded-full">
-                <img src="https://images.unsplash.com/photo-1542156822-6924d1a71ace?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60" />
-              </div>
-            </div>
-            <div className="chat-bubble">It was said that you would, destroy the Sith, not join them.</div>
-          </div>
-          <div className="chat chat-start">
-            <div className="chat-image avatar">
-              <div className="w-10 rounded-full">
-                <img src="/images/stock/photo-1534528741775-53994a69daeb.jpg" />
-              </div>
-            </div>
-            <div className="chat-bubble">It was you who would bring balance to the Force</div>
-          </div>
-          <div className="chat chat-start">
-            <div className="chat-image avatar">
-              <div className="w-10 rounded-full">
-                <img src="/images/stock/photo-1534528741775-53994a69daeb.jpg" />
-              </div>
-            </div>
-            <div className="chat-bubble">Not leave it in Darkness</div>
-          </div>
-          <div className="chat chat-start">
-            <div className="chat-image avatar">
-              <div className="w-10 rounded-full">
-                <img src="https://images.unsplash.com/photo-1542156822-6924d1a71ace?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60" />
-              </div>
-            </div>
-            <div className="chat-bubble">It was said that you would, destroy the Sith, not join them.</div>
-          </div>
-          <div className="chat chat-end">
-            <div className="chat-image avatar">
-              <div className="w-10 rounded-full">
-                <img src="/images/stock/photo-1534528741775-53994a69daeb.jpg" />
-              </div>
-            </div>
-            <div className="chat-bubble">It was you who would bring balance to the Force</div>
-          </div>
-          <div className="chat chat-end">
-            <div className="chat-image avatar">
-              <div className="w-10 rounded-full">
-                <img src="/images/stock/photo-1534528741775-53994a69daeb.jpg" />
-              </div>
-            </div>
-            <div className="chat-bubble">Not leave it in Darkness</div>
-          </div>                                
+            ))}                   
           </div>
               <form className="">
             <div className="px-8">
@@ -335,3 +245,11 @@ function PersonalMessage() {
 }
 
 export default PersonalMessage
+          // <div className="chat chat-end">
+          //   <div className="chat-image avatar">
+          //     <div className="w-10 rounded-full">
+          //       <img src="/images/stock/photo-1534528741775-53994a69daeb.jpg" />
+          //     </div>
+          //   </div>
+          //   <div className="chat-bubble">Not leave it in Darkness</div>
+          // </div> 
