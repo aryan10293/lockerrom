@@ -67,6 +67,7 @@ function PersonalMessage() {
 
           if (response.ok) {
             const data = await response.json();
+            console.log(data[1])
             setChat(data[0])
           } else {
             console.log('cool')
@@ -119,23 +120,24 @@ function PersonalMessage() {
 
     const sendMessage = async (e:any) => {
       e.preventDefault()
-
         try {
-              // await fetch(`http://localhost:2012/sendmessage/${id}`, {
-              // method: 'PUT',
-              // headers: {'Content-Type': 'application/json'},
-              // body: JSON.stringify({
-              //   message: message,
-              //   sender:{
-              //     id: user?._id,
-              //     name: user?.userName
-              //   },
-              //   receiver: {
-              //     id: messaging?._id,
-              //     name: messaging?.userName
-              //   },
-              //   time: new Date(Date.now()).getHours() + ":" + new Date(Date.now()).getMinutes(),
-              // })});
+          console.log(1,'maybe it dont work')
+              await fetch(`http://localhost:2012/sendmessage/${id}`, {
+              method: 'PUT',
+              headers: {'Content-Type': 'application/json'},
+              body: JSON.stringify({
+                message: message,
+                sender:{
+                  id: user?._id,
+                  name: user?.userName
+                },
+                receiver: {
+                  id: messaging?._id,
+                  name: messaging?.userName
+                },
+                time: new Date(Date.now()).getHours() + ":" + new Date(Date.now()).getMinutes(),
+              })});
+               console.log(2,'maybe it dont work')
               socket.emit("send_message", {chat, message})
             setMessage('')
         } catch (error) {
