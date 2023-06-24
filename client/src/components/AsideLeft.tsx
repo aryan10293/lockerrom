@@ -42,7 +42,7 @@ export const AsideLeft = () => {
         fetchData();
     }, []);
     return (
-        <aside className="sticky top-0 hidden sm:block basis-1/6 lg:basis-1/5">
+        <aside className="sticky top-0 bg-white hidden sm:block basis-1/6 lg:basis-1/5">
 
 
             <header className="flex font-bold text-blue-600 mx-5 my-4 text-xl xl:text-2xl">
