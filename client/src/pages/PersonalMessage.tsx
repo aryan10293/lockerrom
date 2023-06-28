@@ -107,21 +107,25 @@ function PersonalMessage() {
       fetchData();
 
       const receiveMessageHandler = (data:any) => {
+        console.log(data)
         alert(data);
       };
 
       socket.on("receive_message", receiveMessageHandler);
 
-      // return () => {
-      //   socket.off("receive_message", receiveMessageHandler);
-      // };     
+      return () => {
+        socket.off("receive_message", receiveMessageHandler);
+      };     
     },[socket])
 
 
     const sendMessage = async (e:any) => {
       e.preventDefault()
+      const idk = {
+        message: message,
+        sender: false
+      }
         try {
-          console.log(1,'maybe it dont work')
               await fetch(`http://localhost:2012/sendmessage/${id}`, {
               method: 'PUT',
               headers: {'Content-Type': 'application/json'},
@@ -137,8 +141,7 @@ function PersonalMessage() {
                 },
                 time: new Date(Date.now()).getHours() + ":" + new Date(Date.now()).getMinutes(),
               })});
-               console.log(2,'maybe it dont work')
-              socket.emit("send_message", {chat, message})
+              socket.emit("send_message", {chat, idk})
             setMessage('')
         } catch (error) {
             console.error(error)
@@ -162,6 +165,7 @@ function PersonalMessage() {
       id: string;
       name: string;
   }
+  console.log(convo)
   return (
     <div className=" main-chat lg:h-screen  divide-solid">
       <div className="flex  lg:h-5/6  lg:my-auto shadow-md">
@@ -179,7 +183,6 @@ function PersonalMessage() {
             {convo.map((item: any) => (
               <div>
                   <h1>{item[0].message}</h1>
-                  <h1>{item[0].otherguy.name}</h1>
               </div>
             ))}                   
           </div>

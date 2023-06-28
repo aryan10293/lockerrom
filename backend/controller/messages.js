@@ -52,18 +52,17 @@ module.exports = {
             const receiver = await User.findById({_id: req.body.receiver.id})
             sender.messages.forEach((x,i) =>  {if(x.id === req.body.receiver.id) index1 = i })
             receiver.messages.forEach((x,i) =>  {if(x.id === req.body.sender.id) index2 = i })
-            console.log(index1,index2)
             const updateSender = await User.findOneAndUpdate(
                 {_id: req.body.sender.id},
                 {
-                    $push: { [`messages.${index1}.messages`]: [{message: req.body.message, user: {id: req.body.sender.id, name: req.body.sender.name}, otherguy: {id: req.body.receiver.id, name: req.body.receiver.name}}]},
+                    $push: { [`messages.${index1}.messages`]: [{message: req.body.message, sender: true}]},
                 },
-                 { new: true }
             )
+            console.log(req.body.sender.id)
             const updateReciver = await User.findOneAndUpdate(
                 {_id: req.params.id},
                 {
-                    $push: { [`messages.${index2}.messages`]: [{message: req.body.message, otherguy: {id: req.body.sender.id, name: req.body.sender.name}, user: {id: req.body.receiver.id, name: req.body.receiver.name}}]},
+                    $push: { [`messages.${index2}.messages`]: [{message: req.body.message, sender: false}]},
                 }
             )
             if (!updateSender) {
@@ -73,7 +72,7 @@ module.exports = {
                 return res.status(404).json({ error: 'User not found' });
             }
 
-            return res.status(200).json(updateSender.messages);
+            return res.status(200).json({sneder: updateSender.messages, reciever: updateReciver.messages});
         } catch(err){
             console.error(err)
             return res.status(500).json({ error: 'Internal Server Error' });
