@@ -55,14 +55,14 @@ module.exports = {
             const updateSender = await User.findOneAndUpdate(
                 {_id: req.body.sender.id},
                 {
-                    $push: { [`messages.${index1}.messages`]: [{message: req.body.message, sender: true}]},
+                    $push: { [`messages.${index1}.messages`]: [{message: req.body.message, sender: req.body.sender.id}]},
                 },
             )
             console.log(req.body.sender.id)
             const updateReciver = await User.findOneAndUpdate(
                 {_id: req.params.id},
                 {
-                    $push: { [`messages.${index2}.messages`]: [{message: req.body.message, sender: false}]},
+                    $push: { [`messages.${index2}.messages`]: [{message: req.body.message, sender: req.body.sender.id}]},
                 }
             )
             if (!updateSender) {

@@ -79,7 +79,7 @@ function PersonalMessage() {
     };
 
     fetchData();
-  }, [user]);
+  }, [user, messaging]);
 
     React.useEffect(() => {
       //let chat = id !== undefined && user?._id !== undefined? id.slice(id.length - 4)+user?._id.slice(user._id.length - 4) : null
@@ -116,7 +116,7 @@ function PersonalMessage() {
       return () => {
         socket.off("receive_message", receiveMessageHandler);
       };     
-    },[socket])
+    },[socket, user, messaging])
 
 
     const sendMessage = async (e:any) => {
