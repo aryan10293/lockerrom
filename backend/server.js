@@ -73,7 +73,7 @@ app.use(
 
     socket.on('send_message', (data) => {
       console.log(data)
-      io.to(data.chat).emit('receive_message', data.idk.message)
+      io.to(data.chat).emit('receive_message', [data.idk])
     })
     // socket.on("send_message", (data) => {
     //   socket.broadcast.emit("receive_message", data)

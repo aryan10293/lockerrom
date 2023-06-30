@@ -81,6 +81,24 @@ function PersonalMessage() {
     fetchData();
   }, [user, messaging]);
 
+  const addToConvo = async () => {
+    try {
+          const response = await fetch(`http://localhost:2012/${user?._id}/${messaging?.userName}`, {
+            method: 'GET',
+            credentials: 'include',
+          });
+
+          if (response.ok) {
+            const data = await response.json();
+            setConvo(data[1])
+          } else {
+            console.log('cool')
+          }
+        } catch (error) {
+          console.error('Error fetching data:', error);
+      }
+  }
+
     React.useEffect(() => {
       //let chat = id !== undefined && user?._id !== undefined? id.slice(id.length - 4)+user?._id.slice(user._id.length - 4) : null
     const fetchData = async () => {
@@ -95,7 +113,6 @@ function PersonalMessage() {
             const data = await response.json();
             setChat(data[0])
             socket.emit('joinRoom', data[0])
-            console.log('hey does ths work')
           } else {
             console.log('cool')
           }
@@ -107,15 +124,15 @@ function PersonalMessage() {
       fetchData();
 
       const receiveMessageHandler = (data:any) => {
-        console.log(data)
-        alert(data);
+       addToConvo()
+        // alert(data);
       };
 
       socket.on("receive_message", receiveMessageHandler);
 
-      return () => {
-        socket.off("receive_message", receiveMessageHandler);
-      };     
+      // return () => {
+      //   socket.off("receive_message", receiveMessageHandler);
+      // };     
     },[socket, user, messaging])
 
 
@@ -123,7 +140,7 @@ function PersonalMessage() {
       e.preventDefault()
       const idk = {
         message: message,
-        sender: false
+        sender: user?._id
       }
         try {
               await fetch(`http://localhost:2012/sendmessage/${id}`, {
@@ -182,7 +199,27 @@ function PersonalMessage() {
           > 
             {convo.map((item: any) => (
               <div>
-                  <h1>{item[0].message}</h1>
+                  {user?._id === item[0].sender ? (
+                    // Code to render when the condition is true
+                      <div className="chat chat-end">
+                        <div className="chat-image avatar">
+                          <div className="w-10 rounded-full">
+                            <img src="/images/stock/photo-1534528741775-53994a69daeb.jpg" />
+                          </div>
+                        </div>
+                        <div className="chat-bubble">{item[0].message}</div>
+                      </div> 
+                  ) : (
+                    // Code to render when the condition is false
+                      <div className="chat chat-start">
+                        <div className="chat-image avatar">
+                          <div className="w-10 rounded-full">
+                            <img src="/images/stock/photo-1534528741775-53994a69daeb.jpg" />
+                          </div>
+                        </div>
+                        <div className="chat-bubble">{item[0].message}</div>
+                      </div> 
+                  )}
               </div>
             ))}                   
           </div>
@@ -248,11 +285,3 @@ function PersonalMessage() {
 }
 
 export default PersonalMessage
-          // <div className="chat chat-end">
-          //   <div className="chat-image avatar">
-          //     <div className="w-10 rounded-full">
-          //       <img src="/images/stock/photo-1534528741775-53994a69daeb.jpg" />
-          //     </div>
-          //   </div>
-          //   <div className="chat-bubble">Not leave it in Darkness</div>
-          // </div> 
