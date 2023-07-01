@@ -50,6 +50,18 @@ module.exports = {
             let index2;
             const sender = await User.findById({_id: req.body.sender.id})
             const receiver = await User.findById({_id: req.body.receiver.id})
+            if(req.params.id === undefined){
+                console.log(`the params is undefined`)
+                return
+            }
+            if(req.body.receiver.id === undefined){
+                console.log(`the reciever is undefined`)
+                return
+            }
+            if(req.body.sender.id === undefined){
+                console.log(`the sender is undefined`)
+                return
+            }
             sender.messages.forEach((x,i) =>  {if(x.id === req.body.receiver.id) index1 = i })
             receiver.messages.forEach((x,i) =>  {if(x.id === req.body.sender.id) index2 = i })
             const updateSender = await User.findOneAndUpdate(
@@ -58,7 +70,6 @@ module.exports = {
                     $push: { [`messages.${index1}.messages`]: [{message: req.body.message, sender: req.body.sender.id}]},
                 },
             )
-            console.log(req.body.sender.id)
             const updateReciver = await User.findOneAndUpdate(
                 {_id: req.params.id},
                 {
@@ -72,7 +83,7 @@ module.exports = {
                 return res.status(404).json({ error: 'User not found' });
             }
 
-            return res.status(200).json({sneder: updateSender.messages, reciever: updateReciver.messages});
+            return res.status(200).json({sender: updateSender.messages, reciever: updateReciver.messages});
         } catch(err){
             console.error(err)
             return res.status(500).json({ error: 'Internal Server Error' });

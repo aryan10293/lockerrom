@@ -82,7 +82,8 @@ function PersonalMessage() {
   }, [user, messaging]);
 
   const addToConvo = async () => {
-    try {
+    if(user?._id !== undefined){
+          try {
           const response = await fetch(`http://localhost:2012/${user?._id}/${messaging?.userName}`, {
             method: 'GET',
             credentials: 'include',
@@ -97,6 +98,7 @@ function PersonalMessage() {
         } catch (error) {
           console.error('Error fetching data:', error);
       }
+    }
   }
 
     React.useEffect(() => {
@@ -182,7 +184,6 @@ function PersonalMessage() {
       id: string;
       name: string;
   }
-  console.log(convo)
   return (
     <div className=" main-chat lg:h-screen  divide-solid">
       <div className="flex  lg:h-5/6  lg:my-auto shadow-md">
