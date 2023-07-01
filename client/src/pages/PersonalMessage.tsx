@@ -22,6 +22,7 @@ function PersonalMessage() {
 
         if (response.ok) {
           const data = await response.json();
+          console.log(data)
           setMessaging(data[0]);
         } else {
           console.log('cool')
@@ -205,7 +206,7 @@ function PersonalMessage() {
                       <div className="chat chat-end">
                         <div className="chat-image avatar">
                           <div className="w-10 rounded-full">
-                            <img src="/images/stock/photo-1534528741775-53994a69daeb.jpg" />
+                            <img alt='profile img' src={user?.img} />
                           </div>
                         </div>
                         <div className="chat-bubble">{item[0].message}</div>
@@ -215,7 +216,7 @@ function PersonalMessage() {
                       <div className="chat chat-start">
                         <div className="chat-image avatar">
                           <div className="w-10 rounded-full">
-                            <img src="/images/stock/photo-1534528741775-53994a69daeb.jpg" />
+                            <img alt='profile img' src={messaging?.img} />
                           </div>
                         </div>
                         <div className="chat-bubble">{item[0].message}</div>

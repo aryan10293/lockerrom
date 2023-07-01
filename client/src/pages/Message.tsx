@@ -1,11 +1,13 @@
 import React from 'react'
 // import { io } from 'socket.io-client'
 import { AsideLeft } from '../components/AsideLeft'
+import { Link } from 'react-router-dom';
 // const socket = io('http://localhost:2012')
 
 
 function Message() {
     const [user,setUser] = React.useState<User | null>(null)
+    const [messageList, setMessageList] = React.useState<any[]>([])
         React.useEffect(() => {
         const fetchData = async () => {
             try {
@@ -17,6 +19,7 @@ function Message() {
             if (response.ok) {
                 const data = await response.json();
                 setUser(data);
+                setMessageList(data.messages)
             } else {
                 console.log('cool')
                 setUser(null);
@@ -41,7 +44,10 @@ function Message() {
         img: string;
         __v: number;
     }
-    console.log(user?.messages)
+    interface MessageList {
+      id: string;
+      name: string;
+    }
   return (
     <div className=" main-chat lg:h-screen  divide-solid">
       <div className="flex  lg:h-5/6  lg:my-auto shadow-md">
@@ -64,6 +70,19 @@ function Message() {
             {" "}
             Messages
           </p>
+          <ul>
+            {messageList.map((name:MessageList )=> {
+              return (
+                <Link
+                to={`/messages/${name.id}`}
+                >
+                  <h2>{name.name}</h2>
+                </Link>
+              )
+            })
+
+            }
+          </ul>
         </div>
       </div>
     </div>
