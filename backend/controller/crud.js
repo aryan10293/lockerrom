@@ -10,6 +10,7 @@ module.exports = {
                     $push: { likes: req.body.dataset},
                 }
             )
+            //conosle.log(cool)
             const updateFeat = await Feat.findOneAndUpdate(
                 {_id: req.body.dataset},
                 {
