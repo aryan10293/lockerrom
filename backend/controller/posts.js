@@ -1,5 +1,5 @@
 const Feat = require('../model/Feat')
-const User = require('../model/user')
+const User = require('../model/User')
 const cloudinary = require('../middleware/cloundinary');
 module.exports = {
     postFeat: async (req,res) => {

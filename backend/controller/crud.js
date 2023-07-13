@@ -1,4 +1,4 @@
-const User = require("../model/user");
+const User = require("../model/User");
 const Feat = require('../model/Feat')
 const cloudinary = require('../middleware/cloundinary');
 module.exports = {
