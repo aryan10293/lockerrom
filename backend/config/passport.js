@@ -1,6 +1,6 @@
 const LocalStrategy = require("passport-local").Strategy;
 const mongoose = require("mongoose");
-const User = require("../model/user");
+const User = require("../model/User");
 
 module.exports = function (passport) {
   passport.use(
