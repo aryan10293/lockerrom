@@ -12,7 +12,7 @@ function CommentSection() {
     React.useEffect(() => {
         const fetchData = async () => {
         try {
-            const response = await fetch('http://localhost:2012/checkuser', {
+            const response = await fetch('https://lockerroom2-0.onrender.com/checkuser', {
             method: 'GET',
             credentials: 'include',
             });
@@ -32,7 +32,7 @@ function CommentSection() {
     }, []);
     const renderComments = async () => {
         try {
-            const response = await fetch(`http://localhost:2012/lol/${id}`, {
+            const response = await fetch(`https://lockerroom2-0.onrender.com/lol/${id}`, {
             method: 'GET',
             credentials: 'include',
             });
@@ -61,7 +61,7 @@ function CommentSection() {
             featId: id,
         };
         try {
-        const response = await fetch(`http://localhost:2012/addcomment/${id}`, {
+        const response = await fetch(`https://lockerroom2-0.onrender.com/addcomment/${id}`, {
             method: 'PUT',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(obj),

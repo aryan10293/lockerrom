@@ -16,7 +16,7 @@ function Login() {
       e.preventDefault();
 
       try {
-        const login = await fetch('http://localhost:2012/login', {
+        const login = await fetch('https://lockerroom2-0.onrender.com/login', {
           method: 'POST',
           credentials: 'include',
           headers: { 'Content-Type': 'application/json' },

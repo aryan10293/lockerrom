@@ -18,7 +18,7 @@ function Register() {
     const handleClick = async(e: FormEvent<HTMLFormElement>) => {
        e.preventDefault()
         try {
-        const reg = await fetch('http://localhost:2012/createaccount',{
+        const reg = await fetch('https://lockerroom2-0.onrender.com/createaccount',{
             method: 'POST',
             headers: {'Content-Type': 'application/json'},
             body: JSON.stringify({

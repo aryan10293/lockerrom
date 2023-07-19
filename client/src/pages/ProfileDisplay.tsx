@@ -14,7 +14,7 @@ function ProfileDisplay() {
     React.useEffect(() => {
         const fetchData = async () => {
         try {
-            const response = await fetch('http://localhost:2012/checkuser', {
+            const response = await fetch('https://lockerroom2-0.onrender.com/checkuser', {
             method: 'GET',
             credentials: 'include',
             });
@@ -38,7 +38,7 @@ function ProfileDisplay() {
         React.useEffect(() => {
         const fetchData = async () => {
         try {
-            const response = await fetch(`http://localhost:2012/profilepost/${id}`, {
+            const response = await fetch(`https://lockerroom2-0.onrender.com/profilepost/${id}`, {
             method: 'GET',
             credentials: 'include',
             });
@@ -62,7 +62,7 @@ function ProfileDisplay() {
     React.useEffect(() => {
         const fetchData = async () => {
         try {
-            const response = await fetch(`http://localhost:2012/profile/${id}`, {
+            const response = await fetch(`https://lockerroom2-0.onrender.com/profile/${id}`, {
             method: 'GET',
             credentials: 'include',
             });
@@ -85,7 +85,7 @@ function ProfileDisplay() {
 
     const addToMessages = async(e:any) => {
         try {
-             await fetch(`http://localhost:2012/addtomessages/${id}`, {
+             await fetch(`https://lockerroom2-0.onrender.com/addtomessages/${id}`, {
             method: 'PUT',
             headers: {'Content-Type': 'application/json'},
             body: JSON.stringify({id: user?._id, userName: user?.userName, messagingName: profile?.userName,roomId: messagingId+userMessagingId})

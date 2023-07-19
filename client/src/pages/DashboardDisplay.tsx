@@ -37,7 +37,7 @@ function DashboarDisplay(props: any) {
   React.useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch('http://localhost:2012/checkuser', {
+        const response = await fetch('https://lockerroom2-0.onrender.com/checkuser', {
           method: 'GET',
           credentials: 'include',
         });
@@ -65,7 +65,7 @@ function DashboarDisplay(props: any) {
 
     const renderFeats = async () => {
         try {
-          const getFeats = await fetch('http://localhost:2012/renderfeats', {
+          const getFeats = await fetch('https://lockerroom2-0.onrender.com/renderfeats', {
             method: 'GET',
             credentials: 'include',
           });
@@ -92,7 +92,7 @@ function DashboarDisplay(props: any) {
         img = await convertBase64(img)
       }
       try {
-        await fetch('http://localhost:2012/postfeat', {
+        await fetch('https://lockerroom2-0.onrender.com/postfeat', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ content, loginUser, imgUrl: img }),
@@ -113,7 +113,7 @@ function DashboarDisplay(props: any) {
     const action: string = userLikes?.includes(dataset || '') ? 'unlike' : 'like';
     console.log(action)
       try {
-            const response = await fetch(`http://localhost:2012/${action}`, {
+            const response = await fetch(`https://lockerroom2-0.onrender.com/${action}`, {
                 method: 'PUT',
                 headers: {'Content-Type': 'application/json'},
                 body: JSON.stringify({dataset, loginUser})

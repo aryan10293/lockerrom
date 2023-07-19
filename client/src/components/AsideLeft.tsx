@@ -22,7 +22,7 @@ export const AsideLeft = () => {
     React.useEffect(() => {
         const fetchData = async () => {
             try {
-            const response = await fetch('http://localhost:2012/checkuser', {
+            const response = await fetch('https://lockerroom2-0.onrender.com/checkuser', {
                 method: 'GET',
                 credentials: 'include',
             });

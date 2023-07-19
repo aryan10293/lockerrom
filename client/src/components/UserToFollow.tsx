@@ -21,7 +21,7 @@ function UserToFollow(props: any) {
     React.useEffect(() => {
         const fetchData = async () => {
             try {
-            const response = await fetch('http://localhost:2012/checkuser', {
+            const response = await fetch('https://lockerroom2-0.onrender.com/checkuser', {
                 method: 'GET',
                 credentials: 'include',
             });
@@ -48,7 +48,7 @@ function UserToFollow(props: any) {
     React.useEffect(() => {
         const getUsers = async () => {
             try {
-            const getUsers = await fetch('http://localhost:2012/getusers', {
+            const getUsers = await fetch('https://lockerroom2-0.onrender.com/getusers', {
                 method: 'GET',
                 credentials: 'include',
             });
@@ -74,7 +74,7 @@ function UserToFollow(props: any) {
             const action: string = following?.includes(dataset || '') ? 'unfollow' : 'follow';
             console.log(action)
             try {
-                    const response = await fetch(`http://localhost:2012/${action}`, {
+                    const response = await fetch(`https://lockerroom2-0.onrender.com/${action}`, {
                         method: 'PUT',
                         headers: {'Content-Type': 'application/json'},
                         body: JSON.stringify({dataset, loginUser})
