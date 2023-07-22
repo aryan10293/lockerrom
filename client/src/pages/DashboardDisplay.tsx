@@ -8,9 +8,10 @@ import { GiSettingsKnobs } from "react-icons/gi";
 import { AiOutlineArrowUp } from "react-icons/ai";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faHeart, faComment } from '@fortawesome/free-solid-svg-icons'
+import { EmptyObject } from 'redux'
 function DashboarDisplay(props: any) {
     const [content,setContent] = React.useState<string>('')
-    const [user,setUser] = React.useState<User | null>(null)
+    const [user,setUser] = React.useState<User>()
     const [userLikes, setUserLikes] = React.useState<string[]>([])
     const [feat, setFeat] = React.useState<any>([])
     const convertBase64 = (file: any) => {
@@ -37,19 +38,18 @@ function DashboarDisplay(props: any) {
   React.useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch('https://lockerroom2-0.onrender.com/checkuser', {
+        const response = await fetch(`https://lockerroom2-0.onrender.com/checkuser/${localStorage.getItem('loginUser')}`, {
           method: 'GET',
           credentials: 'include',
         });
 
         if (response.ok) {
           const data = await response.json();
-          console.log('lol')
-          setUser(data);
-          setUserLikes(data.likes)
+          setUser(data[0]);
+          setUserLikes(data[0].likes)
         } else {
           console.log('cool')
-          setUser(null);
+
         }
       } catch (error) {
         console.error('Error fetching data:', error);
@@ -96,13 +96,12 @@ function DashboarDisplay(props: any) {
         await fetch('https://lockerroom2-0.onrender.com/postfeat', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ content, loginUser, imgUrl: img }),
+          body: JSON.stringify({ content,loginUser, imgUrl: img }),
         });
         setContent('');
         renderFeats();
       } catch (error) {
         console.error('Error:', error);
-        // Handle the error case here
       }
 
     };
@@ -161,7 +160,7 @@ interface FeatItems {
   profileImg: string
   
 }
-console.log(user)
+  console.log(user)
   return (
  <div className="flex justify-center px-5 sm:px-32 md:mt-4">
                 <div className="flex h-screen w-screen">
@@ -271,7 +270,7 @@ console.log(user)
                                         </div>
                                         <div className="mt-4 flex items-center">
                                             <div className="flex mr-2  text-white text-sm mr-3" data-id={item._id}>
-                                              {item.likes.includes(user?._id) ? 
+                                              {item.likes.includes('user?._id') ? 
                                                 <button className="text-red-500 hover:text-gray-500 text-20" onClick={LikeOrUnlike}><FontAwesomeIcon icon={faHeart} /></button>
                                               : 
                                                 <button className="text-gray-500 hover:text-red-500 text-20" onClick={LikeOrUnlike}><FontAwesomeIcon icon={faHeart} /></button> 

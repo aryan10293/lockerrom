@@ -28,8 +28,8 @@ function Login() {
 
         if (login.ok) {
           const loginData = await login.json();
-          console.log(loginData)
-          //navigate('/dashboard', { state: { prop1: loginData} })
+          localStorage.setItem('loginUser', loginData._id)
+          navigate('/dashboard', { state: { prop1: loginData} })
           setPassword('');
           setEmail('');
         } else {

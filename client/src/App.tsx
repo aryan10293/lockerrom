@@ -3,7 +3,6 @@ import './App.css';
 import { Routes, Route } from 'react-router-dom'
 import RegisterDisplay from './pages/RegisterDisplay';
 import LoginDisplay from './pages/LoginDisplay';
-import HomeDisplay from './pages/HomeDisplay';
 import DashboardDisplay from './pages/DashboardDisplay';
 import ProfileDisplay from './pages/ProfileDisplay';
 import CommentSection from './pages/CommentSection';
@@ -21,11 +20,8 @@ function App() {
           path="/dashboard"
           element={ <DashboardDisplay /> } />
           <Route 
-          path="/login"
-          element={ <LoginDisplay /> } />
-          <Route 
           path="/"
-          element={ <HomeDisplay /> } />
+          element={ <LoginDisplay /> } />
           <Route 
           path="/profile/:id"
           element={ <ProfileDisplay /> } />

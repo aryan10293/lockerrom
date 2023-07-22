@@ -3,7 +3,7 @@ import { Fragment } from 'react';
 import { useNavigate,Link } from 'react-router-dom';
 function UserToFollow(props: any) {
     const navigate = useNavigate()
-    const [user,setUser] = React.useState<People | null>(null)
+    const [user,setUser] = React.useState<People>()
     const [people, setPeople] = React.useState<any[]>([])
     const [following, setFollowing] = React.useState<any[] | undefined>(user?.following)
     interface People{
@@ -21,18 +21,17 @@ function UserToFollow(props: any) {
     React.useEffect(() => {
         const fetchData = async () => {
             try {
-            const response = await fetch('https://lockerroom2-0.onrender.com/checkuser', {
+            const response = await fetch(`https://lockerroom2-0.onrender.com/checkuser/${localStorage.getItem('loginUser')}`, {
                 method: 'GET',
                 credentials: 'include',
             });
 
             if (response.ok) {
                 const data = await response.json();
-                setUser(data);
-                setFollowing(data.following)
+                setUser(data[0]);
+                setFollowing(data[0].following)
             } else {
                 console.log('cool')
-                setUser(null);
             }
             } catch (error) {
             console.error('Error fetching data:', error);
