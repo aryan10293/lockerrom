@@ -7,7 +7,7 @@ import { MdMessage, MdDateRange } from 'react-icons/md';
 import React from "react";
 
 export const AsideLeft = () => {
-        const [user,setUser] = React.useState<People | null>(null)
+        const [user,setUser] = React.useState<People>()
         interface People{
             followers: any[];
             likes: any[];
@@ -22,7 +22,7 @@ export const AsideLeft = () => {
     React.useEffect(() => {
         const fetchData = async () => {
             try {
-            const response = await fetch('https://lockerroom2-0.onrender.com/checkuser', {
+            const response = await fetch(`https://lockerroom2-0.onrender.com/checkuser/${localStorage.getItem('loginUser')}`, {
                 method: 'GET',
                 credentials: 'include',
             });
@@ -32,7 +32,6 @@ export const AsideLeft = () => {
                 setUser(data);
             } else {
                 console.log('cool')
-                setUser(null);
             }
             } catch (error) {
             console.error('Error fetching data:', error);

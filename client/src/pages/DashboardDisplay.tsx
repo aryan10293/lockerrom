@@ -119,7 +119,7 @@ function DashboarDisplay(props: any) {
                 body: JSON.stringify({dataset, loginUser})
                 })
             const data = await response.json()
-            console.log(data)
+            
         } catch (error) {
             console.log(error)
         }
@@ -160,7 +160,6 @@ interface FeatItems {
   profileImg: string
   
 }
-  console.log(user)
   return (
  <div className="flex justify-center px-5 sm:px-32 md:mt-4">
                 <div className="flex h-screen w-screen">
@@ -270,7 +269,7 @@ interface FeatItems {
                                         </div>
                                         <div className="mt-4 flex items-center">
                                             <div className="flex mr-2  text-white text-sm mr-3" data-id={item._id}>
-                                              {item.likes.includes('user?._id') ? 
+                                              {item.likes.includes(user?._id) ? 
                                                 <button className="text-red-500 hover:text-gray-500 text-20" onClick={LikeOrUnlike}><FontAwesomeIcon icon={faHeart} /></button>
                                               : 
                                                 <button className="text-gray-500 hover:text-red-500 text-20" onClick={LikeOrUnlike}><FontAwesomeIcon icon={faHeart} /></button> 
