@@ -8,3 +8,15 @@
     /* height: 200px; */
     /* width: 300px; */
 }
+.my-component {
+    height: 100vh;
+    /* Set the height to 100 viewport height */
+    background-color: white;
+    /* Set the background color to white */
+    /* Add any additional styles you need for your component */
+}
+.my-input {
+    background-color: white;
+    /* Set the background color of the input to white */
+    /* Add any additional styles for the input if needed */
+}

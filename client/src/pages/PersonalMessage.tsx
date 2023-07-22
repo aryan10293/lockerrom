@@ -2,7 +2,7 @@ import React from 'react'
 import { io } from 'socket.io-client'
 import { AsideLeft } from '../components/AsideLeft'
 import { useParams, Link } from 'react-router-dom'
-const socket = io('http://localhost:2012')
+const socket = io('https://lockerroom2-0.onrender.com')
 function PersonalMessage() {
   const params = useParams()
   const id = params.id
@@ -15,7 +15,7 @@ function PersonalMessage() {
   React.useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch(`http://localhost:2012/getuser/${id}`, {
+        const response = await fetch(`https://lockerroom2-0.onrender.com/getuser/${id}`, {
           method: 'GET',
           credentials: 'include',
         });

@@ -44,6 +44,7 @@ function DashboarDisplay(props: any) {
 
         if (response.ok) {
           const data = await response.json();
+          console.log('lol')
           setUser(data);
           setUserLikes(data.likes)
         } else {
@@ -160,6 +161,7 @@ interface FeatItems {
   profileImg: string
   
 }
+console.log(user)
   return (
  <div className="flex justify-center px-5 sm:px-32 md:mt-4">
                 <div className="flex h-screen w-screen">
