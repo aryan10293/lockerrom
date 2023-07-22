@@ -5,23 +5,21 @@ import { Link } from 'react-router-dom';
 function CommentSection() {
     const params = useParams();
     const id = params.id;
-    const [user, setUser] = React.useState<User | null>(null)
+    const [user, setUser] = React.useState<User>()
     const [content, setContent] = React.useState<string>('');
     const [replyingTo, setReplyingTo] = React.useState<string>('')
     const [comments, setComments] = React.useState<any[]>([])
     React.useEffect(() => {
         const fetchData = async () => {
         try {
-            const response = await fetch('https://lockerroom2-0.onrender.com/checkuser', {
+            const response = await fetch(`https://lockerroom2-0.onrender.com/checkuser/${localStorage.getItem('loginUser')}`, {
             method: 'GET',
             credentials: 'include',
             });
 
             if (response.ok) {
             const data = await response.json();
-            setUser(data);
-            } else {
-            setUser(null);
+            setUser(data[0]);
             }
         } catch (error) {
             console.error('Error fetching data:', error);
@@ -31,23 +29,23 @@ function CommentSection() {
     fetchData();
     }, []);
     const renderComments = async () => {
-        try {
-            const response = await fetch(`https://lockerroom2-0.onrender.com/lol/${id}`, {
-            method: 'GET',
-            credentials: 'include',
-            });
+      try {
+          const response = await fetch(`https://lockerroom2-0.onrender.com/lol/${id}`, {
+          method: 'GET',
+          credentials: 'include',
+          });
 
-            if (response.ok) {
-            const data = await response.json();
-            setReplyingTo(data[0].name)
-            setComments(data[0].comments);
-            } else {
-            setComments([]);
-            }
-        } catch (error) {
-            console.error('Error fetching data:', error);
-        }
-        }
+          if (response.ok) {
+          const data = await response.json();
+          setReplyingTo(data[0].name)
+          console.log(data[0].comments)
+          setComments(data[0].comments);
+          } else {
+          }
+      } catch (error) {
+          console.error('Error fetching data:', error);
+      }
+     }
     React.useEffect(() => {
         renderComments()
     }, [])
@@ -68,6 +66,7 @@ function CommentSection() {
         });
         if (response.ok) {
             renderComments()
+            setContent('')
             // Trigger a callback or update state in the parent component
         } else {
             throw new Error('Failed to retrieve comments'); // Throw an error to handle the error case
@@ -80,41 +79,45 @@ function CommentSection() {
 
 
 console.log(comments)
-    interface User {
-        followers: any[];
-        likes: any[];
-        following: any[];
-        events: any[];
-        _id: string;
-        userName: string;
-        email: string;
-        password: string;
-        __v: number;
-    }
-    console.log(replyingTo)
+  interface User {
+    followers: any[];
+    likes: any[];
+    following: any[];
+    events: any[];
+    _id: string;
+    userName: string;
+    email: string;
+    password: string;
+    img: string;
+    __v: number;
+}
   return (
-    <>
-    <div className="flex ml-0 sm:mr-0 sm:mx-1 pl-0 pr-1 sm:pr-0 sm:px-1 py-3 border-b">
-      <div className="mt-3 w-12 h-12 text-lg flex-none">
-        <img
-          src={
-            'https://images.unsplash.com/photo-1542156822-6924d1a71ace?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60'
-          }
-          className="flex-none w-12 h-12 rounded-full"
-          alt="avatar"
-        />
-      </div>
+    
+    <div className="my-component  ml-0 sm:mr-0 sm:mx-1 pl-0 pr-1 sm:pr-0 sm:px-1 py-3 border-b">
+      <div className=''>
+        <div className='flex'>
+            <div className="mt-3 w-12 h-12 text-lg flex-none">
+            <img
+              src={user?.img}
+              className="flex-none w-12 h-12 rounded-full"
+              alt="avatar"
+            />
+          </div>
 
-      <div className="w-full px-4 py-3 relative">
-        <div className="w-full flex gap-2 justify-between">
-          <h2 className="font-semibold">
-            <span className="text-slate-600 pl-2">@{user?.userName}</span>
-          </h2>
-        </div>
+          <div>
+            <div className="w-full px-4 py-3 relative">
+                <div className="w-full flex gap-2 justify-between">
+                  <h2 className="font-semibold">
+                    <span className="text-slate-600 pl-2">@{user?.userName}</span>
+                  </h2>
+                </div>
+            </div>
 
-        <div className="flex gap-2">
-          <span className="text-slate-500">replying to</span>
-          <span className="text-blue-600 font-semibold">@{replyingTo}</span>
+            <div className="flex gap-2">
+              <span className="text-slate-500">replying to</span>
+              <span className="text-blue-600 font-semibold">@{replyingTo}</span>
+            </div>
+          </div>
         </div>
 
         {true ? (
@@ -141,9 +144,7 @@ console.log(comments)
           <div className="mt-3"></div>
         )}
       </div>
-    </div>
-    
-    {comments.map(item => {
+          {comments.map(item => {
         return (
             <div className=" bg-white shadow-lg rounded-lg mx-4 md:mx-auto my-5 max-w-md md:max-w-2xl " >
                 <div className="  items-start px-4 py-6">
@@ -170,7 +171,7 @@ console.log(comments)
             </div>
         )
     })}
-</>
+    </div>
   )
 }
 

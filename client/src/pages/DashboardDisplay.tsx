@@ -8,7 +8,6 @@ import { GiSettingsKnobs } from "react-icons/gi";
 import { AiOutlineArrowUp } from "react-icons/ai";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faHeart, faComment } from '@fortawesome/free-solid-svg-icons'
-import { EmptyObject } from 'redux'
 function DashboarDisplay(props: any) {
     const [content,setContent] = React.useState<string>('')
     const [user,setUser] = React.useState<User>()
