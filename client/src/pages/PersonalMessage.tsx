@@ -38,7 +38,7 @@ function PersonalMessage() {
   React.useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch('https://lockerroom2-0.onrender.com/checkuser', {
+        const response = await fetch(`https://lockerroom2-0.onrender.com/checkuser/${localStorage.getItem('loginUser')}`, {
           method: 'GET',
           credentials: 'include',
         });

@@ -14,15 +14,15 @@ function ProfileDisplay() {
     React.useEffect(() => {
         const fetchData = async () => {
         try {
-            const response = await fetch('https://lockerroom2-0.onrender.com/checkuser', {
+            const response = await fetch(`https://lockerroom2-0.onrender.com/checkuser/${localStorage.getItem('loginUser')}`, {
             method: 'GET',
             credentials: 'include',
             });
 
             if (response.ok) {
             const data = await response.json();
-            setUserMessagingId(data._id.slice(data._id.length - 4))
-            setUser(data);
+            setUserMessagingId(data[0]._id.slice(data[0]._id.length - 4))
+            setUser(data[0]);
             } else {
             console.log('cool')
             setUser(null);

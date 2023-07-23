@@ -51,18 +51,19 @@ function CommentSection() {
     }, [])
 
     const handleClick = async () => {
-        const obj = {
+        const userComment = {
             comment: content,
             date: Date.now(),
             userId: user?._id,
             name: user?.userName,
             featId: id,
+            img: user?.img
         };
         try {
         const response = await fetch(`https://lockerroom2-0.onrender.com/addcomment/${id}`, {
             method: 'PUT',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(obj),
+            body: JSON.stringify(userComment),
         });
         if (response.ok) {
             renderComments()
@@ -150,7 +151,7 @@ console.log(comments)
                 <div className="  items-start px-4 py-6">
                     <div className='flex justify-between'>
                         <div className='flex'>
-                        <img className=" inline w-12 h-12 rounded-full object-cover mr-4 shadow" src="https://images.unsplash.com/photo-1542156822-6924d1a71ace?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60" alt="avatar" />
+                        <img className=" inline w-12 h-12 rounded-full object-cover mr-4 shadow" src={item.img || 'https://tse3.mm.bing.net/th?id=OIP.vR5vmXKe44qt0JgZ2SQZDwHaEc&pid=Api&P=0&w=300&h=300'} alt="avatar" />
                         <div>
                             <h2 className="flex-1 text-lg font-semibold text-gray-900 -mt-1">{item.name}</h2>
                             <Link to={`/profile/${item.name}`} className="text-gray-700">{item.name}</Link>

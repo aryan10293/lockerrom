@@ -100,7 +100,7 @@ function UserToFollow(props: any) {
             {people.map((item: People) => {
                 return (
                     <>
-                        {user?._id !== item._id  ? (
+                        {(user?._id !== item._id) && (!following?.includes(item._id)) ? (
                             <div className="flex mb-5" key={item._id} data-id={item._id}>
                                 <img
                                     src={item?.img}
@@ -115,19 +115,11 @@ function UserToFollow(props: any) {
                                     </Link>
                                 </div>
 
-                                {following?.includes(item._id) ? (
-                                    <button
-                                    onClick={handleFollow}
-                                    className="mt-1.5 px-3 w-18 h-8 bg-blue-600 hover:bg-blue-800 text-white rounded-xl shadow-md hover:shadow-lg transition duration-150 ease-in-out">
-                                        Unfollow
-                                    </button>
-                                ): (
                                     <button
                                     onClick={handleFollow}
                                     className="mt-1.5 px-3 w-18 h-8 bg-blue-600 hover:bg-blue-800 text-white rounded-xl shadow-md hover:shadow-lg transition duration-150 ease-in-out">
                                         Follow
                                     </button>
-                                )}
 
                             </div>
                         ) : null}
