@@ -144,16 +144,10 @@ module.exports = {
                     $set: { userName: req.body.obj.username},
                 }
             )
-            const allFeats = await Feat.find()
-            for (const feat of allFeats) {
-                feat.comments.forEach(async x => {
-                    if(x.userId === req.body.id){
-                        console.log(x)
-                        x.userName = req.body.obj.username
-                    }
-                })
-                await feat.save(); // Save the updated document
-            }
+            const filter = { "comments.userId": req.body.id };
+            const update = { $set: { "comments.$[elem].userName": req.body.obj.username } };
+            const options = { arrayFilters: [{ "elem.userId": req.body.id }] };
+            await Feat.updateMany(filter, update, options);
              if(req.body.obj.profilePic !== undefined){
                 const updateImg = await User.findOneAndUpdate(
                     {_id: req.body.id},
