@@ -152,7 +152,7 @@ module.exports = {
                         x.userName = req.body.obj.username
                     }
                 })
-                await Feat.save(); // Save the updated document
+                await feat.save(); // Save the updated document
             }
              if(req.body.obj.profilePic !== undefined){
                 const updateImg = await User.findOneAndUpdate(
