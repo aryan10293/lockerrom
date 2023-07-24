@@ -37,7 +37,7 @@ function CommentSection() {
 
           if (response.ok) {
           const data = await response.json();
-          setReplyingTo(data[0].name)
+          setReplyingTo(data[0].userName)
           console.log(data[0].comments)
           setComments(data[0].comments);
           } else {
@@ -153,8 +153,8 @@ console.log(comments)
                         <div className='flex'>
                         <img className=" inline w-12 h-12 rounded-full object-cover mr-4 shadow" src={item.img || 'https://tse3.mm.bing.net/th?id=OIP.vR5vmXKe44qt0JgZ2SQZDwHaEc&pid=Api&P=0&w=300&h=300'} alt="avatar" />
                         <div>
-                            <h2 className="flex-1 text-lg font-semibold text-gray-900 -mt-1">{item.name}</h2>
-                            <Link to={`/profile/${item.name}`} className="text-gray-700">{item.name}</Link>
+                            <h2 className="flex-1 text-lg font-semibold text-gray-900 -mt-1">{item.userName}</h2>
+                            <Link to={`/profile/${item.name}`} className="text-gray-700">@{item.userName}</Link>
                         </div>
                         </div>
                         <div className="flex inline-block items-center">

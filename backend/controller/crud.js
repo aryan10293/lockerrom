@@ -144,9 +144,16 @@ module.exports = {
                     $set: { userName: req.body.obj.username},
                 }
             )
-            // const updateUserComments = await Feat.find.comments(
-
-            // )
+            const allFeats = await Feat.find()
+            for (const feat of allFeats) {
+                feat.comments.forEach(async x => {
+                    if(x.userId === req.body.id){
+                        x.userName = req.body.obj.username
+                        await Feat.save()
+                    }
+                })
+                await feat.save(); // Save the updated document
+            }
              if(req.body.obj.profilePic !== undefined){
                 const updateImg = await User.findOneAndUpdate(
                     {_id: req.body.id},
@@ -164,7 +171,9 @@ module.exports = {
             if (!updateUser) {
                 return res.status(404).json({ error: 'User not found' });
             }
+            const lol = await Feat.find(
 
+            )
             return res.status(200).json(updateUser);
         } catch(err){
             console.error(err)
