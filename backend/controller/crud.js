@@ -150,10 +150,9 @@ module.exports = {
                     if(x.userId === req.body.id){
                         console.log(x)
                         x.userName = req.body.obj.username
-                        await Feat.save()
                     }
                 })
-                await feat.save(); // Save the updated document
+                await Feat.save(); // Save the updated document
             }
              if(req.body.obj.profilePic !== undefined){
                 const updateImg = await User.findOneAndUpdate(
