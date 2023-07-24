@@ -138,10 +138,10 @@ module.exports = {
                     $set: { bio: req.body.obj.bio, userName: req.body.obj.username, websiteLink: req.body.obj.websiteLink},
                 }
             )
-            const updateUserFeats = await Feat.find(
+            const updateUserFeats = await Feat.updateMany(
                 {userId: req.body.id},
                 {
-                    $set: { userName: req.body.obj.username, userName: req.body.obj.username, websiteLink: req.body.obj.websiteLink},
+                    $set: { userName: req.body.obj.username},
                 }
             )
             // const updateUserComments = await Feat.find.comments(
@@ -154,7 +154,7 @@ module.exports = {
                         $set: { img: await cloudinary(req.body.obj.profilePic)},
                     }
                 )
-                const updateUserFeats = await Feat.find(
+                const updateUserFeats = await Feat.updateMany(
                     {userId: req.body.id},
                     {
                         $set: { profileImg: await cloudinary(req.body.obj.profilePic)},
