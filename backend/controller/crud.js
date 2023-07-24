@@ -138,6 +138,15 @@ module.exports = {
                     $set: { bio: req.body.obj.bio, userName: req.body.obj.username, websiteLink: req.body.obj.websiteLink},
                 }
             )
+            const updateUserFeats = await Feat.find(
+                {userId: req.body.id},
+                {
+                    $set: { userName: req.body.obj.username, userName: req.body.obj.username, websiteLink: req.body.obj.websiteLink},
+                }
+            )
+            // const updateUserComments = await Feat.find.comments(
+
+            // )
              if(req.body.obj.profilePic !== undefined){
                 const updateImg = await User.findOneAndUpdate(
                     {_id: req.body.id},
@@ -145,6 +154,12 @@ module.exports = {
                         $set: { img: await cloudinary(req.body.obj.profilePic)},
                     }
                 )
+                const updateUserFeats = await Feat.find(
+                    {userId: req.body.id},
+                    {
+                        $set: { profileImg: await cloudinary(req.body.obj.profilePic)},
+                    }
+            )
             }
             if (!updateUser) {
                 return res.status(404).json({ error: 'User not found' });
