@@ -11,7 +11,7 @@ module.exports = {
                 likes: [],
                 reFeats: [],
                 userId: req.body.loginUser.userId,
-                name: req.body.loginUser.name,
+                kedin.com/in/aondrej-grant-ryan-70450a261/: req.body.loginUser.name,
                 profileImg: req.body.loginUser.img
             }
             if (req.body.imgUrl) {

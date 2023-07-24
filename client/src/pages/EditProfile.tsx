@@ -34,16 +34,16 @@ function EditProfile() {
     React.useEffect(() => {
         const fetchData = async () => {
         try {
-            const response = await fetch('http://localhost:2012/checkuser', {
+            const response = await fetch(`https://lockerroom2-0.onrender.com/checkuser/${localStorage.getItem('loginUser')}`, {
             method: 'GET',
             credentials: 'include',
             });
 
             if (response.ok) {
             const data = await response.json();
-            setUsername(data.userName)
-            setWebsite(data.websiteLink)
-            setBio(data.bio)
+            setUsername(data[0].userName)
+            setWebsite(data[0].websiteLink)
+            setBio(data[0].bio)
             } else {
             console.log('cool')
             }
@@ -67,7 +67,7 @@ function EditProfile() {
         obj.profilePic = img
       }
       try {
-            const response = await fetch(`http://localhost:2012/editprofile/${id}`, {
+            const response = await fetch(`https://lockerroom2-0.onrender.com/editprofile/${id}`, {
                 method: 'PUT',
                 headers: {'Content-Type': 'application/json'},
                 body: JSON.stringify({obj, id})
@@ -85,7 +85,7 @@ function EditProfile() {
           <AsideLeft />
        <div className="flex min-h-full flex-1 flex-col  px-6 py-3 lg:px-8">
             <h2 className="text-center text-2xl font-bold leading-9 tracking-tight text-gray-900">
-              Edit Player
+              Edit Profile
             </h2>
 
           <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
@@ -103,7 +103,7 @@ function EditProfile() {
                     type="name"
                     autoComplete="name"
                     required
-                    className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                    className="my-input block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                   />
                 </div>
               </div>
@@ -120,7 +120,7 @@ function EditProfile() {
                     name="bio"
                     type="name"
                     required
-                    className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                    className="my-input block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                   />
                 </div>
               </div>
@@ -136,12 +136,12 @@ function EditProfile() {
                     name="link"
                     type="name"
                     required
-                    className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                    className="my-input block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                   />
                 </div>
               </div>
                 <div>
-                  <label  className="block text-sm font-medium leading-6 text-gray-900">
+                  <label  className=" my-input block text-sm font-medium leading-6 text-gray-900">
                    img
                   </label>
                 <div className="mt-2">

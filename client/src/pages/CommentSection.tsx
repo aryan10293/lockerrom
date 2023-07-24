@@ -55,7 +55,7 @@ function CommentSection() {
             comment: content,
             date: Date.now(),
             userId: user?._id,
-            name: user?.userName,
+            userName: user?.userName,
             featId: id,
             img: user?.img
         };

@@ -243,7 +243,7 @@ interface FeatItems {
                                   const millisecondsPassed = currentTime.getTime() - targetTime.getTime();
                                   const hoursPassed = Math.floor( millisecondsPassed / (1000 * 60 * 60));
                               return (
-                                <div className=" bg-white shadow-lg rounded-lg mx-4 md:mx-auto my-5 max-w-md md:max-w-2xl " key={item._id}>
+                                <div className="bg-white shadow-lg rounded-lg mx-4 md:mx-auto my-5 max-w-md md:max-w-2xl " key={item._id}>
                                   <div className="  items-start px-4 py-6">
                                       <div className='flex justify-between'>
                                           <div className='flex'>
@@ -259,12 +259,12 @@ interface FeatItems {
                                       </div>                                   
                                       <div className="">
                                         <div>
-                                          <p className="mt-3 text-gray-700 text-sm">
+                                          <p className=" break-words mt-3 text-gray-700 text-sm">
                                               {item.text}
                                           </p>
                                         </div>
                                         <div>
-                                          {item.img !== undefined ? <img src={item.img} alt="lol" />: null}
+                                          {item.img !== undefined ? <img className='image' src={item.img} alt={item.text} />: null}
                                         </div>
                                         <div className="mt-4 flex items-center">
                                             <div className="flex mr-2  text-white text-sm mr-3" data-id={item._id}>
