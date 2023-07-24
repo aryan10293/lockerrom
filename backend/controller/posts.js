@@ -5,7 +5,7 @@ module.exports = {
     postFeat: async (req,res) => {
         console.log(req.body.imgUrl)
         try{
-            let obj = {
+            let featObj = {
                 text: req.body.content,
                 date: Date.now(),
                 likes: [],
@@ -15,9 +15,9 @@ module.exports = {
                 profileImg: req.body.loginUser.img
             }
             if (req.body.imgUrl) {
-                obj.img = await cloudinary(req.body.imgUrl);
+                featObj.img = await cloudinary(req.body.imgUrl);
             }
-           const createFeat =  await Feat.create(obj)
+           const createFeat =  await Feat.create(featObj)
             if (!createFeat) {
             return res.status(404).json({ error: 'Feat not posted' });
         }

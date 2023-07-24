@@ -8,7 +8,7 @@ const featSchema = new mongoose.Schema({
   userId: {type: String, required: true},
   img: {type: String},
   profileImg: {type: String, required: true},
-  name: {type:String, required: true},
+  userName: {type:String, required: true},
   comments: {type: Array, required: true, default: []}
 });
 
