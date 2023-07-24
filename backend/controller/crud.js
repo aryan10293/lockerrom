@@ -148,6 +148,7 @@ module.exports = {
             for (const feat of allFeats) {
                 feat.comments.forEach(async x => {
                     if(x.userId === req.body.id){
+                        console.log(x)
                         x.userName = req.body.obj.username
                         await Feat.save()
                     }
