@@ -132,42 +132,39 @@ module.exports = {
     },
     editProfile: async (req,res) => {
         try{
-            const updateUser = await User.findOneAndUpdate(
-                {_id: req.body.id},
-                {
-                    $set: { bio: req.body.obj.bio, userName: req.body.obj.username, websiteLink: req.body.obj.websiteLink},
-                }
-            )
-            const updateUserFeats = await Feat.updateMany(
-                {userId: req.body.id},
-                {
-                    $set: { userName: req.body.obj.username},
-                }
-            )
-            const filter = { "comments.userId": req.body.id };
-            const update = { $set: { "comments.$[elem].userName": req.body.obj.username } };
-            const options = { arrayFilters: [{ "elem.userId": req.body.id }] };
-            await Feat.updateMany(filter, update, options);
+            // const updateUser = await User.findOneAndUpdate(
+            //     {_id: req.body.id},
+            //     {
+            //         $set: { bio: req.body.obj.bio, userName: req.body.obj.username, websiteLink: req.body.obj.websiteLink},
+            //     }
+            // )
+            // const updateUserFeats = await Feat.updateMany(
+            //     {userId: req.body.id},
+            //     {
+            //         $set: { userName: req.body.obj.username},
+            //     }
+            // )
              if(req.body.obj.profilePic !== undefined){
-                const updateImg = await User.findOneAndUpdate(
+                const updateUser = await User.findOneAndUpdate(
                     {_id: req.body.id},
                     {
-                        $set: { img: await cloudinary(req.body.obj.profilePic)},
+                        $set: { img: await cloudinary(req.body.obj.profilePic), bio: req.body.obj.bio, userName: req.body.obj.username, websiteLink: req.body.obj.websiteLink},
                     }
                 )
                 const updateUserFeats = await Feat.updateMany(
                     {userId: req.body.id},
                     {
-                        $set: { profileImg: await cloudinary(req.body.obj.profilePic)},
+                        $set: { profileImg: await cloudinary(req.body.obj.profilePic), userName: req.body.obj.username},
                     }
-            )
+                )
+                const filter = { "comments.userId": req.body.id };
+                const update = { $set: { "comments.$[elem].userName": req.body.obj.username,  img: await cloudinary(req.body.obj.profilePic)} };
+                const options = { arrayFilters: [{ "elem.userId": req.body.id }] };
+                await Feat.updateMany(filter, update, options);
             }
             if (!updateUser) {
                 return res.status(404).json({ error: 'User not found' });
             }
-            const lol = await Feat.find(
-
-            )
             return res.status(200).json(updateUser);
         } catch(err){
             console.error(err)
