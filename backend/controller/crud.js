@@ -132,18 +132,6 @@ module.exports = {
     },
     editProfile: async (req,res) => {
         try{
-            // const updateUser = await User.findOneAndUpdate(
-            //     {_id: req.body.id},
-            //     {
-            //         $set: { bio: req.body.obj.bio, userName: req.body.obj.username, websiteLink: req.body.obj.websiteLink},
-            //     }
-            // )
-            // const updateUserFeats = await Feat.updateMany(
-            //     {userId: req.body.id},
-            //     {
-            //         $set: { userName: req.body.obj.username},
-            //     }
-            // )
              if(req.body.obj.profilePic !== undefined){
                 const updateUser = await User.findOneAndUpdate(
                     {_id: req.body.id},
@@ -159,6 +147,23 @@ module.exports = {
                 )
                 const filter = { "comments.userId": req.body.id };
                 const update = { $set: { "comments.$[elem].userName": req.body.obj.username,  "comments.$[elem].img": await cloudinary(req.body.obj.profilePic)} };
+                const options = { arrayFilters: [{ "elem.userId": req.body.id }] };
+                await Feat.updateMany(filter, update, options);
+            } else {
+                const updateUser = await User.findOneAndUpdate(
+                    {_id: req.body.id},
+                    {
+                        $set: { bio: req.body.obj.bio, userName: req.body.obj.username, websiteLink: req.body.obj.websiteLink},
+                    }
+                )
+                const updateUserFeats = await Feat.updateMany(
+                    {userId: req.body.id},
+                    {
+                        $set: { userName: req.body.obj.username},
+                    }
+                )
+                const filter = { "comments.userId": req.body.id };
+                const update = { $set: { "comments.$[elem].userName": req.body.obj.username} };
                 const options = { arrayFilters: [{ "elem.userId": req.body.id }] };
                 await Feat.updateMany(filter, update, options);
             }
