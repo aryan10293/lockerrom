@@ -158,7 +158,7 @@ module.exports = {
                     }
                 )
                 const filter = { "comments.userId": req.body.id };
-                const update = { $set: { "comments.$[elem].userName": req.body.obj.username,  img: await cloudinary(req.body.obj.profilePic)} };
+                const update = { $set: { "comments.$[elem].userName": req.body.obj.username,  "comments.$[elem].img": await cloudinary(req.body.obj.profilePic)} };
                 const options = { arrayFilters: [{ "elem.userId": req.body.id }] };
                 await Feat.updateMany(filter, update, options);
             }
