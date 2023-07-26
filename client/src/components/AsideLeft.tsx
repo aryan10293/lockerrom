@@ -1,7 +1,7 @@
 import { Link, NavLink } from "react-router-dom";
 import { BiEditAlt } from "react-icons/bi";
 import { AiOutlineHome, AiFillHome  } from "react-icons/ai";
-import { MdOutlineExplore, MdExplore, MdOutlineBookmarkBorder, MdOutlineBookmark } from "react-icons/md";
+import { MdOutlineExplore, MdExplore, MdOutlineBookmarkBorder, MdOutlineBookmark, MdFavoriteBorder } from "react-icons/md";
 import { FaRegUser, FaUser } from "react-icons/fa";
 import { MdMessage, MdDateRange } from 'react-icons/md';
 import React from "react";
@@ -116,17 +116,17 @@ export const AsideLeft = () => {
                         </NavLink>
                     </li>
                     <li>
-                        <NavLink to="/bookmarks" className="flex py-4 gap-3 px-3 cursor-pointer hover:bg-slate-200 rounded-[15rem] active:bg-slate-100">
+                        <NavLink to="/likes" className="flex py-4 gap-3 px-3 cursor-pointer hover:bg-slate-200 rounded-[15rem] active:bg-slate-100">
                             {({ isActive }) => 
                                 isActive ? (
                                     <>
-                                        <MdOutlineBookmark className="text-[1.6rem] font-bold"/> 
-                                        <h2 className="text-xl px-1 hidden xl:block font-bold"> Bookmarks </h2>
+                                        <MdFavoriteBorder className="text-[1.6rem] font-bold"/> 
+                                        <h2 className="text-xl px-1 hidden xl:block font-bold"> Likes </h2>
                                     </>
                                 ) : (
                                     <>
-                                        <MdOutlineBookmarkBorder className="text-[1.6rem]"/>
-                                        <h2 className="text-xl px-1 hidden xl:block"> Bookmarks </h2>  
+                                        <MdFavoriteBorder className="text-[1.6rem]"/>
+                                        <h2 className="text-xl px-1 hidden xl:block"> Likes </h2>  
                                     </>
                                 )}
                         </NavLink>

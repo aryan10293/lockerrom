@@ -9,6 +9,7 @@ import CommentSection from './pages/CommentSection';
 import EditProfile from './pages/EditProfile';
 import Message from './pages/Message';
 import PersonsalMessage from './pages/PersonalMessage';
+import Likes from './pages/Likes';
 function App() {
 
   return (
@@ -37,6 +38,9 @@ function App() {
           <Route 
           path="/messages/:id"
           element={ <PersonsalMessage /> } />
+          <Route 
+          path="/likes"
+          element={ <Likes /> } />
     </Routes>
   );
 }
