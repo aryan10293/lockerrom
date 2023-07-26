@@ -45,8 +45,8 @@ function PersonalMessage() {
 
         if (response.ok) {
           const data = await response.json();
-          setUser(data)
-          setMessageList(data.messages)
+          setUser(data[0])
+          setMessageList(data[0].messages)
         } else {
           console.log('cool')
         }
@@ -61,7 +61,7 @@ function PersonalMessage() {
     const fetchData = async () => {
       if(user?._id !== undefined && messaging?.userName !== undefined){
         try {
-          const response = await fetch(`http://localhost:2012/${user?._id}/${messaging?.userName}`, {
+          const response = await fetch(`https://lockerroom2-0.onrender.com/${user?._id}/${messaging?.userName}`, {
             method: 'GET',
             credentials: 'include',
           });
@@ -85,7 +85,7 @@ function PersonalMessage() {
   const addToConvo = async () => {
     if(user?._id !== undefined){
           try {
-          const response = await fetch(`http://localhost:2012/${user?._id}/${messaging?.userName}`, {
+          const response = await fetch(`https://lockerroom2-0.onrender.com/${user?._id}/${messaging?.userName}`, {
             method: 'GET',
             credentials: 'include',
           });
@@ -107,7 +107,7 @@ function PersonalMessage() {
     const fetchData = async () => {
       if(user?._id !== undefined && messaging?.userName !== undefined){
         try {
-          const response = await fetch(`http://localhost:2012/${user?._id}/${messaging?.userName}`, {
+          const response = await fetch(`https://lockerroom2-0.onrender.com/${user?._id}/${messaging?.userName}`, {
             method: 'GET',
             credentials: 'include',
           });
@@ -146,7 +146,7 @@ function PersonalMessage() {
         sender: user?._id
       }
         try {
-              await fetch(`http://localhost:2012/sendmessage/${id}`, {
+              await fetch(`https://lockerroom2-0.onrender.com/sendmessage/${id}`, {
               method: 'PUT',
               headers: {'Content-Type': 'application/json'},
               body: JSON.stringify({
@@ -185,6 +185,7 @@ function PersonalMessage() {
       id: string;
       name: string;
   }
+  console.log(messageList)
   return (
     <div className=" main-chat lg:h-screen  divide-solid">
       <div className="flex  lg:h-5/6  lg:my-auto shadow-md">
@@ -276,9 +277,7 @@ function PersonalMessage() {
                   <h2>{name.name}</h2>
                 </Link>
               )
-            })
-
-            }
+            })}
           </ul>
         </div>
       </div>

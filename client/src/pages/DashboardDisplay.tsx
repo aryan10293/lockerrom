@@ -160,7 +160,7 @@ interface FeatItems {
   
 }
   return (
- <div className="flex justify-center px-5 sm:px-32 md:mt-4">
+ <div className=" my-component flex justify-center px-5 sm:px-32 md:mt-4">
                 <div className="flex h-screen w-screen">
 
                     <AsideLeft />
@@ -225,10 +225,6 @@ interface FeatItems {
 
                                 <h1 className="text-xl"> Posts</h1>
 
-                                <GiSettingsKnobs
-                                    className="fill-blue-600 stroke-0 hover:stroke-2 text-2xl cursor-pointer"
-                                    >
-                                </GiSettingsKnobs>
 
                                 {/* filter modal */}
 
@@ -236,6 +232,7 @@ interface FeatItems {
                             </div>
 
                             {/* Show Posts */}
+                            <div className='overflow-y-auto max-h-[60vh]'>
                             {feat.map((item: FeatItems) => {
                                   const targetTimeString = item.date;
                                   const targetTime = new Date(targetTimeString);
@@ -292,7 +289,8 @@ interface FeatItems {
                               )
                             })
 
-                            }                           
+                            }                                
+                            </div>                         
 
                         </>
 

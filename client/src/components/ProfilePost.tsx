@@ -1,19 +1,21 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faHeart } from '@fortawesome/free-solid-svg-icons'
+import { faHeart, faComment } from '@fortawesome/free-solid-svg-icons'
 function ProfilePost(props: any) {
     interface FeatItems {
-        likes: any[],
+        likes: string[],
+        comments: string[]
         reFeats: any[],
         _id: string,
         text: string,
         date: string,
         _v: number,
         userId: string,
-        name:string,
+        userName:string,
         profileImg: string,
     } 
+    console.log(props.profile)
   return (
     <div>
         {props.profile.map((item: FeatItems) => {
@@ -29,8 +31,8 @@ function ProfilePost(props: any) {
                       <div className='flex'>
                         <img className=" inline w-12 h-12 rounded-full object-cover mr-4 shadow" src={item.profileImg} alt="avatar" />
                         <div>
-                            <h2 className="flex-1 text-lg font-semibold text-gray-900 -mt-1">{item.name}</h2>
-                            <Link to={`/profile/${item.userId}`} className="text-gray-700">@{item.name}</Link>
+                            <h2 className="flex-1 text-lg font-semibold text-gray-900 -mt-1">{item.userName}</h2>
+                            <Link to={`/profile/${item.userId}`} className="text-gray-700">@{item.userName}</Link>
                         </div>
                       </div>
                       <div className="flex inline-block items-center">
@@ -49,7 +51,8 @@ function ProfilePost(props: any) {
                           <span className='text-black'>{item.likes.length}</span>
                         </div>
                         <div className="flex mr-2 text-gray-700 text-sm mr-8">
-                          <span>   {item.reFeats.length}</span>
+                          <button className="text-grey-500  text-20"><FontAwesomeIcon icon={faComment} /></button>
+                          <span>   {item.comments.length}</span>
                         </div>
                         <div className="flex mr-2 text-gray-700 text-sm mr-4">
                           <svg fill="none" viewBox="0 0 24 24" className="w-4 h-4 mr-1" stroke="currentColor">

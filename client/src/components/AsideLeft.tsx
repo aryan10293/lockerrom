@@ -29,7 +29,7 @@ export const AsideLeft = () => {
 
             if (response.ok) {
                 const data = await response.json();
-                setUser(data);
+                setUser(data[0]);
             } else {
                 console.log('cool')
             }
@@ -132,12 +132,12 @@ export const AsideLeft = () => {
                         </NavLink>
                     </li>
                     <li>
-                        <NavLink to={`/`} className="flex py-4 gap-3 px-3 cursor-pointer hover:bg-slate-200 rounded-[15rem] active:bg-slate-100">
+                        <NavLink to={`/profile/${user?._id}`} className="flex py-4 gap-3 px-3 cursor-pointer hover:bg-slate-200 rounded-[15rem] active:bg-slate-100">
                             {({ isActive }) => 
                                 isActive ? (
                                     <>
                                         <FaUser className="text-[1.6rem] font-bold"/> 
-                                        <h2 className="text-xl px-1 hidden xl:block"> Profrvrrile </h2>
+                                        <h2 className="text-xl px-1 hidden xl:block"> Profile </h2>
                                     </>
                                 ) : (
                                     <>

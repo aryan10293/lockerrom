@@ -39,3 +39,6 @@
 .image{
   height: 200px;
 }
+#root{
+  background-color: white;
+}
