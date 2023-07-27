@@ -93,7 +93,7 @@ module.exports = {
         try{
             console.log(req.params.id)
             const userLikedPos = await User.find({_id: req.params.id})
-            console.log(userLikedPos)
+            console.log(userLikedPos[0].likes)
         } catch (error) {
             console.error('Error fetching user:', error);
         }
