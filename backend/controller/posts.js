@@ -100,7 +100,7 @@ module.exports = {
                 userLikesArray.push(likedPost)
             })
             console.log(userLikesArray)
-            //res.send(userLikesArray)
+            res.send(userLikesArray)
         } catch (error) {
             console.error('Error fetching user:', error);
         }
