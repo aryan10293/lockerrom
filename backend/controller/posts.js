@@ -93,13 +93,12 @@ module.exports = {
         let userLikesArray = []
         try{
             let userLikedPost = await User.find({_id: req.params.id})
-            userLikedPost = userLikedPost[0].likes[0]
-            let test = await Feat.find({_id: userLikedPost})
-            console.log(test)
-            // userLikedPost.forEach(async x => {
-            //     userLikes
-            // })
-            console.log()
+            userLikedPost = userLikedPost[0].likes
+            userLikedPost.forEach(async x => {
+                let likedPost = await Feat.find({_id: x})
+                userLikesArray.push(likedPost[0])
+            })
+            res.send(userLikesArray)
         } catch (error) {
             console.error('Error fetching user:', error);
         }
