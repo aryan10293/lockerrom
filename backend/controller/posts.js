@@ -91,8 +91,8 @@ module.exports = {
     },
     getLikedPost: async (req,res) => {
         try{
-            const userLikedPost = await User.find({_id: req.params.id})
-            console.log(userLikedPost)
+            const userLikedPos = await User.find({_id: req.params.id})
+            console.log(userLikedPos)
         } catch (error) {
             console.error('Error fetching user:', error);
         }
