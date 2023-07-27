@@ -96,7 +96,7 @@ module.exports = {
             userLikedPost = userLikedPost[0].likes
             userLikedPost.forEach(async x => {
                 let likedPost = await Feat.find({_id: x})
-                console.log(likedPost)
+                //console.log(likedPost)
                 userLikesArray.push(likedPost)
             })
             console.log(userLikesArray)
