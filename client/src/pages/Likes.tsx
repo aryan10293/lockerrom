@@ -4,7 +4,9 @@ import { AsideRight } from '../components/AsideRight';
 import { Link } from 'react-router-dom';
 function Likes() {
     const [user,setUser] = React.useState<User>()
-    const [likedItems, setLikedItems] = React.useState<LikedItems>()
+    const [likedItems, setLikedItems] = React.useState<string[]>()
+    const [likedPost, setLikedPost] = React.useState<any[]>([])
+    ///getUserLikedPost/:id
     React.useEffect(() => {
         const fetchData = async () => {
         try {
@@ -27,7 +29,29 @@ function Likes() {
         };
 
     fetchData();
-}, []);
+    }, []);
+    React.useEffect(() => {
+        const fetchData = async () => {
+        try {
+            const response = await fetch(`https://lockerroom2-0.onrender.com/getUserLikedPost/${localStorage.getItem('loginUser')}`, {
+            method: 'GET',
+            credentials: 'include',
+            });
+
+            if (response.ok) {
+            const data = await response.json();
+            console.log(data)
+            } else {
+            console.log('cool')
+
+            }
+        } catch (error) {
+            console.error('Error fetching data:', error);
+        }
+        };
+
+    fetchData();
+    }, []);    
     interface User {
     followers: any[];
     likes: any[];
@@ -54,7 +78,7 @@ function Likes() {
     profileImg: string
     
     }
-    console.log(likedItems)
+
   return (
  <div className=" my-component flex justify-center px-5 sm:px-32 md:mt-4">
                 <div className="flex h-screen w-screen">

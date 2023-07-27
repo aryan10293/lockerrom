@@ -88,5 +88,13 @@ module.exports = {
         } catch (error) {
             console.error('Error fetching user:', error);
         }
+    },
+    getLikedPost: async (req,res) => {
+        try{
+            const userLikedPost = await User.find({_id: req.params.id})
+            console.log(userLikedPost)
+        } catch (error) {
+            console.error('Error fetching user:', error);
+        }
     }
 }
