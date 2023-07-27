@@ -94,11 +94,10 @@ module.exports = {
         try{
             let userLikedPost = await User.find({_id: req.params.id})
             userLikedPost = userLikedPost[0].likes
-            userLikedPost.map(async x => {
-                let likedPost = await Feat.find({_id: x})
-                //console.log(likedPost)
-                return likedPost
-            })
+            for(let i = 0; i < userLikedPost.length; i++){
+                let likedPost = await Feat.find({_id: userLikedPost[i]})
+                userLikesArray.push(likedPost)
+            }
             console.log(userLikedPost)
             res.send(userLikedPost)
         } catch (error) {
