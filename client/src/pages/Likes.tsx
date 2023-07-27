@@ -4,7 +4,6 @@ import { AsideRight } from '../components/AsideRight';
 import { Link } from 'react-router-dom';
 function Likes() {
     const [user,setUser] = React.useState<User>()
-    const [likedItems, setLikedItems] = React.useState<string[]>()
     const [likedPost, setLikedPost] = React.useState<any[]>([])
     ///getUserLikedPost/:id
     React.useEffect(() => {
@@ -18,7 +17,6 @@ function Likes() {
             if (response.ok) {
             const data = await response.json();
             setUser(data[0]);
-            setLikedItems(data[0].likes)
             } else {
             console.log('cool')
 
@@ -40,7 +38,7 @@ function Likes() {
 
             if (response.ok) {
             const data = await response.json();
-            console.log(data)
+            setLikedPost(data)
             } else {
             console.log('cool')
 
