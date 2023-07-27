@@ -91,6 +91,7 @@ module.exports = {
     },
     getLikedPost: async (req,res) => {
         try{
+            console.log(req.params.id)
             const userLikedPos = await User.find(req.params.id)
             console.log(userLikedPos)
         } catch (error) {
