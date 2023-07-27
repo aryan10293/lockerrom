@@ -98,8 +98,8 @@ module.exports = {
                 let likedPost = await Feat.find({_id: userLikedPost[i]})
                 userLikesArray.push(likedPost)
             }
-            console.log(userLikedPost)
-            res.send(userLikedPost)
+            console.log(userLikesArray)
+            res.send(userLikesArray)
         } catch (error) {
             console.error('Error fetching user:', error);
         }
