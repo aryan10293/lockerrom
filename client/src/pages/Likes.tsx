@@ -33,7 +33,7 @@ function Likes() {
     React.useEffect(() => {
         const fetchData = async () => {
         try {
-            const response = await fetch(`https://lockerroom2-0.onrender.com/getUserLikedPost/${localStorage.getItem('loginUser')}`, {
+            const response = await fetch(`https://lockerroom2-0.onrender.com/getUserLikedPost/${localStorage.getItem('loginUser')}/likes`, {
             method: 'GET',
             credentials: 'include',
             });
