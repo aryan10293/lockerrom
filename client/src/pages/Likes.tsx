@@ -2,6 +2,8 @@ import React from 'react'
 import { AsideLeft } from '../components/AsideLeft';
 import { AsideRight } from '../components/AsideRight';
 import { Link } from 'react-router-dom';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faComment, faHeart } from '@fortawesome/free-solid-svg-icons';
 function Likes() {
     const [user,setUser] = React.useState<User>()
     const [likedPost, setLikedPost] = React.useState<any[]>([])
@@ -76,7 +78,7 @@ function Likes() {
     profileImg: string
     
     }
-
+console.log(likedPost)
   return (
  <div className=" my-component flex justify-center px-5 sm:px-32 md:mt-4">
                 <div className="flex h-screen w-screen">
@@ -112,8 +114,8 @@ function Likes() {
                             </div>
 
                             {/* Show Posts */}
-                            <div className='overflow-y-auto max-h-[60vh]'>
-                            {/* {feat.map((item: FeatItems) => {
+                            <div className='overflow-y-auto max-h-[80vh]'>
+                            {likedPost.map((item: LikedItems) => {
                                   const targetTimeString = item.date;
                                   const targetTime = new Date(targetTimeString);
                                   const currentTime = new Date();
@@ -146,9 +148,9 @@ function Likes() {
                                         <div className="mt-4 flex items-center">
                                             <div className="flex mr-2  text-white text-sm mr-3" data-id={item._id}>
                                               {item.likes.includes(user?._id) ? 
-                                                <button className="text-red-500 hover:text-gray-500 text-20" onClick={LikeOrUnlike}><FontAwesomeIcon icon={faHeart} /></button>
+                                                <button className="text-red-500 hover:text-gray-500 text-20" ><FontAwesomeIcon icon={faHeart} /></button>
                                               : 
-                                                <button className="text-gray-500 hover:text-red-500 text-20" onClick={LikeOrUnlike}><FontAwesomeIcon icon={faHeart} /></button> 
+                                                <button className="text-gray-500 hover:text-red-500 text-20" ><FontAwesomeIcon icon={faHeart} /></button> 
                                               }
                                               <span className='text-black'>{item.likes.length}</span>
                                             </div>
@@ -169,7 +171,7 @@ function Likes() {
                               )
                             })
 
-                            }                                 */}
+                            }
                             </div>                         
 
                         </>

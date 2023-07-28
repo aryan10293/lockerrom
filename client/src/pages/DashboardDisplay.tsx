@@ -165,7 +165,7 @@ interface FeatItems {
 
                     <AsideLeft />
 
-                    <main className="md:mx-4 w-full sm:basis-2/3">
+                    <main className="md:mx-4 w-full sm:basis-2/3 overflow-y-auto max-h-[100vh]">
 
                         <header className="m-4 hidden sm:flex">
                             <h1 className="text-xl font-semi-bold">{user?.userName}</h1>
@@ -232,7 +232,7 @@ interface FeatItems {
                             </div>
 
                             {/* Show Posts */}
-                            <div className='overflow-y-auto max-h-[60vh]'>
+                            <div className=''>
                             {feat.map((item: FeatItems) => {
                                   const targetTimeString = item.date;
                                   const targetTime = new Date(targetTimeString);
