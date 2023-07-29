@@ -214,7 +214,7 @@ function ProfileDisplay() {
                                 </div>
 
                                 <h1 className="text-2xl text-center mb-6">Your Posts</h1>
-                                    <ProfilePost profile={profilePost}/>
+                                    <ProfilePost profile={profilePost} userId={user?._id}/>
                                 
 
                             </div>

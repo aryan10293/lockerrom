@@ -1,8 +1,11 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { useParams } from 'react-router-dom';
 import { faHeart, faComment } from '@fortawesome/free-solid-svg-icons'
 function ProfilePost(props: any) {
+  let params = useParams()
+  const id = params.id || ''
     interface FeatItems {
         likes: string[],
         comments: string[]
@@ -15,10 +18,21 @@ function ProfilePost(props: any) {
         userName:string,
         profileImg: string,
     } 
-    
+    interface User {
+      followers: any[];
+      likes: any[];
+      following: any[];
+      events: any[];
+      _id: string | undefined;
+      userName: string;
+      email: string;
+      password: string;
+      img: string;
+      __v: number;
+    }
   return (
     <div className='overflow-y-auto max-h-[50vh]'>
-        {props.profile.map((item: FeatItems) => {
+        {props.profile.reverse().map((item: FeatItems) => {
               const targetTimeString = item.date;
               const targetTime = new Date(targetTimeString);
               const currentTime = new Date();
@@ -47,7 +61,11 @@ function ProfilePost(props: any) {
                     </div>
                     <div className="mt-4 flex items-center">
                         <div className="flex mr-2  text-white text-sm mr-3" data-id={item._id}> 
-                          <button className="text-red-500 hover:text-gray-500 text-20"><FontAwesomeIcon icon={faHeart} /></button>
+                            {item.likes.includes(id) ? 
+                          <button className="text-red-500 hover:text-gray-500 text-20" ><FontAwesomeIcon icon={faHeart} /></button>
+                        : 
+                          <button className="text-gray-500 hover:text-red-500 text-20" ><FontAwesomeIcon icon={faHeart} /></button> 
+                        }
                           <span className='text-black'>{item.likes.length}</span>
                         </div>
                         <div className="flex mr-2 text-gray-700 text-sm mr-8">
