@@ -10,6 +10,7 @@ import EditProfile from './pages/EditProfile';
 import Message from './pages/Message';
 import PersonsalMessage from './pages/PersonalMessage';
 import Likes from './pages/Likes';
+import Explore from './pages/Explore';
 import { Navigate } from 'react-router-dom';
 function App() {
   const [userId,setUserId] = React.useState(localStorage.getItem('loginUser')||null)
@@ -68,6 +69,9 @@ function App() {
           <Route 
           path="/likes"
           element={ userLogin ? <Likes /> : <Navigate to='/'/> } />
+          <Route 
+          path="/Explore"
+          element={ userLogin ? <Explore /> : <Navigate to='/'/> } />
     </Routes>
   );
 }
