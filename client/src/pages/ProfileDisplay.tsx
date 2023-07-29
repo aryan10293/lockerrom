@@ -229,12 +229,3 @@ function ProfileDisplay() {
 }
 
 export default ProfileDisplay
-                                    // <FollowInfoModal
-                                    //     currentUser={currentUser}
-                                    //     followersInfoModal={followersInfoModal}
-                                    //     showFollowing={showFollowing}
-                                    //     setFollowersInfoModal={setFollowersInfoModal}
-                                    // />
-                                    // <EditProfileModal currentUser={authUser} showUpdateProfile={showUpdateProfile} setShowUpdateProfile={setShowUpdateProfile} />
-                                    // {sortedPosts.map(post => <Post key={post._id} post={post} />)}
-                                    // <Loader show={upLoadingPhoto} />

@@ -15,9 +15,9 @@ function ProfilePost(props: any) {
         userName:string,
         profileImg: string,
     } 
-    console.log(props.profile)
+    
   return (
-    <div>
+    <div className='overflow-y-auto max-h-[50vh]'>
         {props.profile.map((item: FeatItems) => {
               const targetTimeString = item.date;
               const targetTime = new Date(targetTimeString);

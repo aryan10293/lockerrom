@@ -29,7 +29,7 @@ function Login() {
         if (login.ok) {
           const loginData = await login.json();
           localStorage.setItem('loginUser', loginData._id)
-          navigate('/dashboard', { state: { prop1: loginData} })
+          window.location.href = "/dashboard"
           setPassword('');
           setEmail('');
         } else {

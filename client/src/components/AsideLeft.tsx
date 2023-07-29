@@ -2,10 +2,14 @@ import { Link, NavLink } from "react-router-dom";
 import { BiEditAlt } from "react-icons/bi";
 import { AiOutlineHome, AiFillHome  } from "react-icons/ai";
 import { MdOutlineExplore, MdExplore, MdOutlineBookmarkBorder, MdOutlineBookmark, MdFavoriteBorder } from "react-icons/md";
-import { FaRegUser, FaUser } from "react-icons/fa";
+import { FaRegUser, FaUser, FaSignOutAlt } from "react-icons/fa";
 import { MdMessage, MdDateRange } from 'react-icons/md';
 import React from "react";
-
+    const handleLogout = async () => {
+        console.log('pink tape here to stay')
+        localStorage.clear()
+        window.location.href = "/"
+    }
 export const AsideLeft = () => {
         const [user,setUser] = React.useState<People>()
         interface People{
@@ -147,16 +151,21 @@ export const AsideLeft = () => {
                                 )}
                         </NavLink>
                     </li>
-                    <li className="my-2 mx-1">
-                        <button 
-                            className="hidden xl:block my-8 mx-0 p-2 rounded-[10rem] w-full text-x cursor-pointer text-center 
-                            font-semibold text-white bg-blue-600 hover:bg-blue-800">
-                            Post
-                        </button>
-
-                        <BiEditAlt 
-                            className="w-9 h-9 pl-0 rounded-full block xl:hidden cursor-pointer">
-                        </BiEditAlt>
+                    <li>
+                        <NavLink to={`/`} onClick={handleLogout} className="flex py-4 gap-3 px-3 cursor-pointer hover:bg-slate-200 rounded-[15rem] active:bg-slate-100">
+                            {({ isActive }) => 
+                                isActive ? (
+                                    <>
+                                        <FaSignOutAlt className="text-[1.6rem] font-bold"/> 
+                                        <h2 className="text-xl px-1 hidden xl:block"> Logout </h2>
+                                    </>
+                                ) : (
+                                    <>
+                                        <FaSignOutAlt className="text-[1.6rem]"/>
+                                        <h2 className="text-xl px-1 hidden xl:block"> Logout </h2>
+                                    </>
+                                )}
+                        </NavLink>
                     </li>
                 </ul>
             </nav>

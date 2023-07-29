@@ -33,7 +33,7 @@ function Register() {
         setPassword('')
         setEmail('')
         setName('')
-        //window.location.href = "/login"
+        window.location.href = "/"
         } catch(err) {
             console.error(err)
         }
