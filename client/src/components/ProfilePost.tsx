@@ -4,9 +4,66 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useParams } from 'react-router-dom';
 import { faHeart, faComment } from '@fortawesome/free-solid-svg-icons'
 function ProfilePost(props: any) {
+  const [userLikes, setUserLikes] = React.useState<string[]>([])
+  const [user, setUser] = React.useState<User>()
+  const [feats, setFeats] = React.useState<any[]>(props.profile)
   let params = useParams()
   const id = params.id || ''
-    interface FeatItems {
+React.useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await fetch(`https://lockerroom2-0.onrender.com/checkuser/${localStorage.getItem('loginUser')}`, {
+          method: 'GET',
+          credentials: 'include',
+        });
+
+        if (response.ok) {
+          const data = await response.json();
+          setUser(data[0])
+          setUserLikes(data[0].likes)
+        } else {
+          console.log('cool')
+
+        }
+      } catch (error) {
+        console.error('Error fetching data:', error);
+      }
+    };
+
+  fetchData();
+}, []);
+const LikeOrUnlike = async (e: React.MouseEvent<HTMLButtonElement>) => {
+      const loginUser = {
+        userId: user?._id,
+        name: user?.userName,
+        img: user?.img
+  }  
+  const feat = e.currentTarget.parentElement as HTMLElement;
+    const dataset = feat.dataset.id;
+    const action: string = userLikes?.includes(dataset || '') ? 'unlike' : 'like';
+    console.log(action)
+      try {
+            const response = await fetch(`https://lockerroom2-0.onrender.com/${action}`, {
+                method: 'PUT',
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify({dataset, loginUser})
+                })
+            const data = await response.json()
+            
+        } catch (error) {
+            console.log(error)
+        }
+        console.log(action)
+    if(action === 'like'){
+      if (dataset) {
+        setUserLikes([...userLikes, dataset]);
+      }
+    } else {
+      let newList = userLikes.filter(x => x !== dataset )
+      setUserLikes(newList)
+    }
+  }
+  interface FeatItems {
         likes: string[],
         comments: string[]
         reFeats: any[],
@@ -62,14 +119,14 @@ function ProfilePost(props: any) {
                     <div className="mt-4 flex items-center">
                         <div className="flex mr-2  text-white text-sm mr-3" data-id={item._id}> 
                             {item.likes.includes(id) ? 
-                          <button className="text-red-500 hover:text-gray-500 text-20" ><FontAwesomeIcon icon={faHeart} /></button>
+                          <button className="text-red-500 hover:text-gray-500 text-20" onClick={LikeOrUnlike}><FontAwesomeIcon icon={faHeart} /></button>
                         : 
-                          <button className="text-gray-500 hover:text-red-500 text-20" ><FontAwesomeIcon icon={faHeart} /></button> 
+                          <button className="text-gray-500 hover:text-red-500 text-20" onClick={LikeOrUnlike}><FontAwesomeIcon icon={faHeart} /></button> 
                         }
                           <span className='text-black'>{item.likes.length}</span>
                         </div>
                         <div className="flex mr-2 text-gray-700 text-sm mr-8">
-                          <button className="text-grey-500  text-20"><FontAwesomeIcon icon={faComment} /></button>
+                          <Link to={`/comments/${item._id}`}><button className="text-grey-500  text-20"><FontAwesomeIcon icon={faComment} /></button></Link>
                           <span>   {item.comments.length}</span>
                         </div>
                         <div className="flex mr-2 text-gray-700 text-sm mr-4">
