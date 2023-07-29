@@ -30,8 +30,7 @@ function Likes() {
 
     fetchData();
     }, []);
-    React.useEffect(() => {
-        const fetchData = async () => {
+    const getUserLikes = async () => {
         try {
             const response = await fetch(`https://lockerroom2-0.onrender.com/getUserLikedPost/${localStorage.getItem('loginUser')}/likes`, {
             method: 'GET',
@@ -49,9 +48,31 @@ function Likes() {
             console.error('Error fetching data:', error);
         }
         };
-
-    fetchData();
-    }, []);    
+    React.useEffect(() => {
+      getUserLikes();
+    }, []);   
+    
+    const handleLike = async (e: any) => {
+        const loginUser = {
+          userId: user?._id,
+          name: user?.userName,
+          img: user?.img
+        }
+        const dataset = e.currentTarget.parentElement.dataset.id
+        try {
+              const response = await fetch(`https://lockerroom2-0.onrender.com/${'unlike'}`, {
+                method: 'PUT',
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify({dataset, loginUser})
+                })
+            const data = await response.json()
+        } catch (error) {
+          console.log(error)
+        }
+           let newList = likedPost.filter(x => x !== dataset )
+          setLikedPost(newList)
+          getUserLikes()
+    }
     interface User {
     followers: any[];
     likes: any[];
@@ -148,7 +169,7 @@ console.log(likedPost)
                                         <div className="mt-4 flex items-center">
                                             <div className="flex mr-2  text-white text-sm mr-3" data-id={item._id}>
                                               {item.likes.includes(user?._id) ? 
-                                                <button className="text-red-500 hover:text-gray-500 text-20" ><FontAwesomeIcon icon={faHeart} /></button>
+                                                <button onClick={handleLike} className="text-red-500 hover:text-gray-500 text-20" ><FontAwesomeIcon icon={faHeart} /></button>
                                               : 
                                                 <button className="text-gray-500 hover:text-red-500 text-20" ><FontAwesomeIcon icon={faHeart} /></button> 
                                               }
