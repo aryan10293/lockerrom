@@ -146,6 +146,39 @@ console.log(comments)
         )}
       </div>
           {comments.map(item => {
+              let timeElasped: string = 'lol'
+              const targetTimeString = item.date;
+              const targetTime = new Date(targetTimeString);
+              const currentTime = new Date();
+              const millisecondsPassed = currentTime.getTime() - targetTime.getTime();
+              const secondsPassed = Math.floor(millisecondsPassed / 1000);
+              const minutesPassed = Math.floor(secondsPassed / 60);
+              const hoursPassed = Math.floor(minutesPassed / 60);
+              const daysPassed = Math.floor(hoursPassed / 24);
+              const weeksPassed = Math.floor(daysPassed / 7);
+
+              const monthsPassed = Math.floor(daysPassed / 30.44);
+
+              const yearsPassed = Math.floor(daysPassed / 365.25);
+              console.log(hoursPassed)
+              if(monthsPassed >= 12){
+                timeElasped = `${yearsPassed} years ago`
+                //timeElasped = `${minutesPassed} Minutes Ago`
+              } else if(weeksPassed >= 4){
+                timeElasped = `${monthsPassed} Months Ago`
+                //timeElasped = `${hoursPassed} Hours Ago`
+              } else if(daysPassed >= 7){
+                timeElasped = `${weeksPassed} Weeks Ago`
+                //timeElasped = `${daysPassed} Days Ago`
+              } else if(hoursPassed >= 24){
+                timeElasped = `${daysPassed} days Ago`
+              } else if(minutesPassed >= 60){
+                timeElasped = `${hoursPassed} Hours Ago`
+              } else if(secondsPassed >= 60){
+                timeElasped = `${minutesPassed} Minutes ago`
+              } else {
+                timeElasped = `${secondsPassed + 3} Seconda ago`
+              }
         return (
             <div className=" bg-white shadow-lg rounded-lg mx-4 md:mx-auto my-5 max-w-md md:max-w-2xl " >
                 <div className="  items-start px-4 py-6">
@@ -158,7 +191,7 @@ console.log(comments)
                         </div>
                         </div>
                         <div className="flex inline-block items-center">
-                        <small className="flex-10 text-sm text-gray-700">{item.date} hours ago</small>
+                        <small className="flex-10 text-sm text-gray-700">{timeElasped}</small>
                         </div>   
                     </div>                                   
                     <div className="">
