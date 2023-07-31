@@ -234,6 +234,7 @@ interface FeatItems {
                             {/* Show Posts */}
                             <div className=''>
                             {feat.map((item: FeatItems) => {
+                                  let timeElasped: string = 'lol'
                                   const targetTimeString = item.date;
                                   const targetTime = new Date(targetTimeString);
                                   const currentTime = new Date();
@@ -248,6 +249,9 @@ interface FeatItems {
 
                                   const yearsPassed = Math.floor(daysPassed / 365.25);
                                   console.log(hoursPassed)
+                                  if(secondsPassed >=60){
+                                    timeElasped = `${minutesPassed} Minutes Ago`
+                                  }
                               return (
                                 <div className="bg-white shadow-lg rounded-lg mx-4 md:mx-auto my-5 max-w-md md:max-w-2xl " key={item._id}>
                                   <div className="  items-start px-4 py-6">
@@ -260,7 +264,7 @@ interface FeatItems {
                                             </div>
                                           </div>
                                           <div className="flex inline-block items-center">
-                                            <small className="flex-10 text-sm text-gray-700">{hoursPassed} hours ago</small>
+                                            <small className="flex-10 text-sm text-gray-700">{timeElasped}</small>
                                           </div>   
                                       </div>                                   
                                       <div className="">
