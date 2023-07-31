@@ -93,7 +93,6 @@ function UserToFollow(props: any) {
             setFollowing(newList)
             }
     }
-    setPeople(people.slice(0,5))
     return (
         <>
           <div className="ml-5 mt-8 mb-4 flex flex-col w-10/12 justify-around ">
