@@ -134,7 +134,7 @@ function ProfileDisplay() {
                 let newList = following?.filter(x => x !== dataset )
                 setFollowing(newList)
                 }
-                setIsFollowing(user?.following.includes(profile?._id))
+                setIsFollowing(user?.following.includes(id))
         }
     const LikeOrUnlike = async (e: React.MouseEvent<HTMLButtonElement>) => {
       const loginUser = {
