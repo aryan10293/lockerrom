@@ -107,6 +107,11 @@ function ProfileDisplay() {
     const handleFollow = async () => {
                 const dataset = id;
                 const action: string = following?.includes(dataset || '') ? 'unfollow' : 'follow';
+                const loginUser = {
+                    userId: user?._id,
+                    name: user?.userName,
+                    img: user?.img
+                } 
                 console.log(action)
                 try {
                         const response = await fetch(`https://lockerroom2-0.onrender.com/${action}`, {
