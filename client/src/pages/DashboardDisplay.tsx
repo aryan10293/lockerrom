@@ -238,7 +238,16 @@ interface FeatItems {
                                   const targetTime = new Date(targetTimeString);
                                   const currentTime = new Date();
                                   const millisecondsPassed = currentTime.getTime() - targetTime.getTime();
-                                  const hoursPassed = Math.floor( millisecondsPassed / (1000 * 60 * 60));
+                                  const secondsPassed = Math.floor(millisecondsPassed / 1000);
+                                  const minutesPassed = Math.floor(secondsPassed / 60);
+                                  const hoursPassed = Math.floor(minutesPassed / 60);
+                                  const daysPassed = Math.floor(hoursPassed / 24);
+                                  const weeksPassed = Math.floor(daysPassed / 7);
+
+                                  const monthsPassed = Math.floor(daysPassed / 30.44);
+
+                                  const yearsPassed = Math.floor(daysPassed / 365.25);
+                                  console.log(hoursPassed)
                               return (
                                 <div className="bg-white shadow-lg rounded-lg mx-4 md:mx-auto my-5 max-w-md md:max-w-2xl " key={item._id}>
                                   <div className="  items-start px-4 py-6">
