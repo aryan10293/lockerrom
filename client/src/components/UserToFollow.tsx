@@ -70,6 +70,7 @@ function UserToFollow(props: any) {
     const handleFollow = async (e: React.MouseEvent<HTMLButtonElement>) => {
             const feat = e.currentTarget.parentElement as HTMLElement;
             const dataset = feat.dataset.id;
+            console.log(dataset)
             const action: string = following?.includes(dataset || '') ? 'unfollow' : 'follow';
             console.log(action)
             try {
