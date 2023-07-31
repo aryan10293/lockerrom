@@ -15,6 +15,7 @@ function ProfileDisplay() {
     const [profilePost, setProfilePost] = React.useState<any[]>([])
     const [userLikes, setUserLikes] = React.useState<string[]>([])
     const [following, setFollowing] = React.useState<any[]>([])
+    const [isFollowing, setIsFollowing] = React.useState<boolean>()
     let userTrue = false;
     const loginUser = localStorage.getItem('loginUser');
     if (loginUser !== null) {
@@ -133,7 +134,7 @@ function ProfileDisplay() {
                 let newList = following?.filter(x => x !== dataset )
                 setFollowing(newList)
                 }
-                renderPosr()
+                setIsFollowing(user?.following.includes(profile?._id))
         }
     const LikeOrUnlike = async (e: React.MouseEvent<HTMLButtonElement>) => {
       const loginUser = {
@@ -234,7 +235,7 @@ function ProfileDisplay() {
                                             className="border my-3 p-1 rounded-lg text-x cursor-pointer text-center font-semibold text-slate-600 bg-slate-200 hover:bg-slate-100" >
                                             Edit Profile
                                         </button> </Link>
-                                        ) : ( user?.following.includes(profile?._id)) ? (
+                                        ) : ( isFollowing) ? (
                                         <div>
                                             <button
                                                 className="mr-8 mt-4 px-3 w-18 h-8 bg-blue-600 hover:bg-blue-800 text-white rounded-xl shadow-md hover:shadow-lg transition duration-150 ease-in-out">
