@@ -168,7 +168,7 @@ interface FeatItems {
                     <main className="md:mx-4 w-full sm:basis-2/3 overflow-y-auto max-h-[100vh]">
 
                         <header className="m-4 hidden sm:flex">
-                            <h1 className="text-xl font-semi-bold">{user?.userName}</h1>
+                            <h1 className="text-xl font-semi-bold" id='top'>{user?.userName}</h1>
                         </header>
 
                         <header className="text-xl font-bold flex py-4 text-blue-600 sm:hidden">
@@ -297,7 +297,7 @@ interface FeatItems {
                     </main>
 
                     <AsideRight />
-                    <a href="/afaqqf">
+                    <a href="#top">
                         <AiOutlineArrowUp className="hidden sm:block fixed bottom-0 right-20 bg-blue-300 text-slate-50 text-5xl p-3 rounded-full mb-2 mr-20 hover:bg-blue-500" />
                     </a>
                 </div>

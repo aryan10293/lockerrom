@@ -88,22 +88,6 @@ export const AsideLeft = () => {
                         </NavLink>
                     </li>
                     <li>
-                        <NavLink to="/bookmarks" className="flex py-4 gap-3 px-3 cursor-pointer hover:bg-slate-200 rounded-[15rem] active:bg-slate-100">
-                            {({ isActive }) => 
-                                isActive ? (
-                                    <>
-                                        <MdDateRange className="text-[1.6rem] font-bold"/> 
-                                        <h2 className="text-xl px-1 hidden xl:block font-bold"> Calender </h2>
-                                    </>
-                                ) : (
-                                    <>
-                                        <MdDateRange className="text-[1.6rem]"/>
-                                        <h2 className="text-xl px-1 hidden xl:block"> Calender </h2>  
-                                    </>
-                                )}
-                        </NavLink>
-                    </li>
-                    <li>
                         <NavLink to="/message" className="flex py-4 gap-3 px-3 cursor-pointer hover:bg-slate-200 rounded-[15rem] active:bg-slate-100">
                             {({ isActive }) => 
                                 isActive ? (

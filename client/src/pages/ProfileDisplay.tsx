@@ -14,7 +14,11 @@ function ProfileDisplay() {
     const [userMessagingId, setUserMessagingId] = React.useState<string>('')
     const [profilePost, setProfilePost] = React.useState<any[]>([])
     const [userLikes, setUserLikes] = React.useState<string[]>([])
-
+    let userTrue = false;
+    const loginUser = localStorage.getItem('loginUser');
+    if (loginUser !== null) {
+    userTrue = true; // Assuming item.likes is an array of strings.
+    }
     React.useEffect(() => {
         const fetchData = async () => {
         try {
@@ -27,6 +31,7 @@ function ProfileDisplay() {
             const data = await response.json();
             setUserMessagingId(data[0]._id.slice(data[0]._id.length - 4))
             setUser(data[0]);
+            setUserLikes(data[0].likes)
             } else {
             console.log('cool')
             setUser(null);
@@ -106,7 +111,7 @@ const LikeOrUnlike = async (e: React.MouseEvent<HTMLButtonElement>) => {
   const feat = e.currentTarget.parentElement as HTMLElement;
     const dataset = feat.dataset.id;
     const action: string = userLikes?.includes(dataset || '') ? 'unlike' : 'like';
-    console.log(action)
+    console.log(userLikes, dataset)
       try {
             const response = await fetch(`https://lockerroom2-0.onrender.com/${action}`, {
                 method: 'PUT',
@@ -291,7 +296,7 @@ const LikeOrUnlike = async (e: React.MouseEvent<HTMLButtonElement>) => {
                     </div>
                     <div className="mt-4 flex items-center">
                         <div className="flex mr-2  text-white text-sm mr-3" data-id={item._id}> 
-                            {item.likes.includes(id) ? 
+                            {loginUser !== null && item.likes.includes(loginUser) ? 
                           <button className="text-red-500 hover:text-gray-500 text-20" onClick={LikeOrUnlike}><FontAwesomeIcon icon={faHeart} /></button>
                         : 
                           <button className="text-gray-500 hover:text-red-500 text-20" onClick={LikeOrUnlike}><FontAwesomeIcon icon={faHeart} /></button> 
