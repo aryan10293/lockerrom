@@ -248,7 +248,7 @@ interface FeatItems {
                                   const monthsPassed = Math.floor(daysPassed / 30.44);
 
                                   const yearsPassed = Math.floor(daysPassed / 365.25);
-                                  console.log(hoursPassed)
+
                                   if(monthsPassed >= 12){
                                     timeElasped = `${yearsPassed} years ago`
                                     //timeElasped = `${minutesPassed} Minutes Ago`

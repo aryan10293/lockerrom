@@ -14,6 +14,7 @@ function ProfileDisplay() {
     const [userMessagingId, setUserMessagingId] = React.useState<string>('')
     const [profilePost, setProfilePost] = React.useState<any[]>([])
     const [userLikes, setUserLikes] = React.useState<string[]>([])
+    const [following, setFollowing] = React.useState<any[]>([])
     let userTrue = false;
     const loginUser = localStorage.getItem('loginUser');
     if (loginUser !== null) {
@@ -32,6 +33,7 @@ function ProfileDisplay() {
             setUserMessagingId(data[0]._id.slice(data[0]._id.length - 4))
             setUser(data[0]);
             setUserLikes(data[0].likes)
+            setFollowing(data[0].following)
             } else {
             console.log('cool')
             setUser(null);
@@ -102,9 +104,31 @@ function ProfileDisplay() {
             console.error(error)
         }
     }
-    const handleFollow = async (e: React.MouseEvent<HTMLButtonElement>) => {
-        console.log(e)
-    }
+    const handleFollow = async () => {
+                const dataset = id;
+                const action: string = following?.includes(dataset || '') ? 'unfollow' : 'follow';
+                console.log(action)
+                try {
+                        const response = await fetch(`https://lockerroom2-0.onrender.com/${action}`, {
+                            method: 'PUT',
+                            headers: {'Content-Type': 'application/json'},
+                            body: JSON.stringify({dataset, loginUser})
+                            })
+                        const data = await response.json()
+                        console.log(data)
+                    } catch (error) {
+                        console.log(error)
+                    }
+                    console.log(action)
+                if(action === 'follow'){
+                if (dataset && following) {
+                    setFollowing([...following, dataset]);
+                }
+                } else {
+                let newList = following?.filter(x => x !== dataset )
+                setFollowing(newList)
+                }
+        }
     const LikeOrUnlike = async (e: React.MouseEvent<HTMLButtonElement>) => {
       const loginUser = {
         userId: user?._id,
