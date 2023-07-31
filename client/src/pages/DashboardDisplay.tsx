@@ -249,18 +249,21 @@ interface FeatItems {
 
                                   const yearsPassed = Math.floor(daysPassed / 365.25);
                                   console.log(hoursPassed)
-                                  if(secondsPassed >=60){
-                                    timeElasped = `${minutesPassed} Minutes Ago`
-                                  } else if(minutesPassed >= 60){
-                                    timeElasped = `${hoursPassed} Hours Ago`
-                                  } else if(hoursPassed >= 24){
-                                    timeElasped = `${daysPassed} Days Ago`
-                                  } else if(daysPassed >= 7){
-                                    timeElasped = `${weeksPassed} Weeks Ago`
+                                  if(monthsPassed >= 12){
+                                    timeElasped = `${yearsPassed} years ago`
+                                    //timeElasped = `${minutesPassed} Minutes Ago`
                                   } else if(weeksPassed >= 4){
                                     timeElasped = `${monthsPassed} Months Ago`
-                                  } else if(monthsPassed >= 12){
-                                    timeElasped = `${yearsPassed} years ago`
+                                    //timeElasped = `${hoursPassed} Hours Ago`
+                                  } else if(daysPassed >= 7){
+                                    timeElasped = `${weeksPassed} Weeks Ago`
+                                    //timeElasped = `${daysPassed} Days Ago`
+                                  } else if(hoursPassed >= 24){
+                                    timeElasped = `${daysPassed} days Ago`
+                                  } else if(minutesPassed >= 60){
+                                    timeElasped = `${hoursPassed} Hours Ago`
+                                  } else if(secondsPassed >= 60){
+                                    timeElasped = `${minutesPassed} Minutes ago`
                                   } else {
                                     timeElasped = `${secondsPassed} Seconda ago`
                                   }
