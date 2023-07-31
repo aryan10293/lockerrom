@@ -251,6 +251,18 @@ interface FeatItems {
                                   console.log(hoursPassed)
                                   if(secondsPassed >=60){
                                     timeElasped = `${minutesPassed} Minutes Ago`
+                                  } else if(minutesPassed >= 60){
+                                    timeElasped = `${hoursPassed} Hours Ago`
+                                  } else if(hoursPassed >= 24){
+                                    timeElasped = `${daysPassed} Days Ago`
+                                  } else if(daysPassed >= 7){
+                                    timeElasped = `${weeksPassed} Weeks Ago`
+                                  } else if(weeksPassed >= 4){
+                                    timeElasped = `${monthsPassed} Months Ago`
+                                  } else if(monthsPassed >= 12){
+                                    timeElasped = `${yearsPassed} years ago`
+                                  } else {
+                                    timeElasped = `${secondsPassed} Seconda ago`
                                   }
                               return (
                                 <div className="bg-white shadow-lg rounded-lg mx-4 md:mx-auto my-5 max-w-md md:max-w-2xl " key={item._id}>
