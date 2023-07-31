@@ -102,12 +102,15 @@ function ProfileDisplay() {
             console.error(error)
         }
     }
-const LikeOrUnlike = async (e: React.MouseEvent<HTMLButtonElement>) => {
+    const handleFollow = async (e: React.MouseEvent<HTMLButtonElement>) => {
+        console.log(e)
+    }
+    const LikeOrUnlike = async (e: React.MouseEvent<HTMLButtonElement>) => {
       const loginUser = {
         userId: user?._id,
         name: user?.userName,
         img: user?.img
-  }  
+      }  
   const feat = e.currentTarget.parentElement as HTMLElement;
     const dataset = feat.dataset.id;
     const action: string = userLikes?.includes(dataset || '') ? 'unlike' : 'like';
@@ -132,8 +135,8 @@ const LikeOrUnlike = async (e: React.MouseEvent<HTMLButtonElement>) => {
       let newList = userLikes.filter(x => x !== dataset )
       setUserLikes(newList)
     }
-    renderPosr()
-  }
+     renderPosr()
+    }
     interface User {
         followers: any[];
         likes: any[];
@@ -218,6 +221,7 @@ const LikeOrUnlike = async (e: React.MouseEvent<HTMLButtonElement>) => {
                                         ) : (
                                         <div>
                                             <button
+                                                onClick={handleFollow}
                                                 className="mr-8 mt-4 px-3 w-18 h-8 bg-blue-600 hover:bg-blue-800 text-white rounded-xl shadow-md hover:shadow-lg transition duration-150 ease-in-out">
                                                 Follow
                                             </button>
