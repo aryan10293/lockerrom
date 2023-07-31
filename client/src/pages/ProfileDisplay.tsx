@@ -133,6 +133,7 @@ function ProfileDisplay() {
                 let newList = following?.filter(x => x !== dataset )
                 setFollowing(newList)
                 }
+                renderPosr()
         }
     const LikeOrUnlike = async (e: React.MouseEvent<HTMLButtonElement>) => {
       const loginUser = {
