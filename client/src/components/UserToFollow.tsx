@@ -97,7 +97,7 @@ function UserToFollow(props: any) {
     return (
         <>
           <div className="ml-5 mt-8 mb-4 flex flex-col w-10/12 justify-around ">
-            {people.map((item: People) => {
+            {people.slice(0, 5).map((item: People) => {
                 return (
                     <>
                         {(user?._id !== item._id) && (!following?.includes(item._id)) ? (
