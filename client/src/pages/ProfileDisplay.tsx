@@ -252,7 +252,8 @@ function ProfileDisplay() {
                                                 </Link>
                                             </button>
                                         </div> 
-                                        ) : (
+                                        ) : null}
+                                        {!isFollowing ? (
                                         <div>
                                             <button
                                                 onClick={handleFollow}
@@ -260,7 +261,7 @@ function ProfileDisplay() {
                                                 Follow
                                             </button>
                                         </div>
-                                        )}
+                                        ) : null}
 
                                         {/* Modal for Edit Profile */}
 
