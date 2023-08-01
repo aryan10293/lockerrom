@@ -107,6 +107,7 @@ function ProfileDisplay() {
         }
     }
     const handleFollow = async () => {
+        console.log('lol')
                 const dataset = id;
                 const action: string = following?.includes(dataset || '') ? 'unfollow' : 'follow';
                 const loginUser = {
@@ -236,9 +237,10 @@ function ProfileDisplay() {
                                             className="border my-3 p-1 rounded-lg text-x cursor-pointer text-center font-semibold text-slate-600 bg-slate-200 hover:bg-slate-100" >
                                             Edit Profile
                                         </button> </Link>
-                                        ) : ( isFollowing) ? (
+                                        ) : isFollowing ? (
                                         <div>
                                             <button
+                                                onClick={handleFollow}
                                                 className="mr-8 mt-4 px-3 w-18 h-8 bg-blue-600 hover:bg-blue-800 text-white rounded-xl shadow-md hover:shadow-lg transition duration-150 ease-in-out">
                                                 Unfollow
                                             </button>
