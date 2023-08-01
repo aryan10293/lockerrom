@@ -35,6 +35,7 @@ function ProfileDisplay() {
             setUser(data[0]);
             setUserLikes(data[0].likes)
             setFollowing(data[0].following)
+            setIsFollowing(data[0].following.includes(id))
             } else {
             console.log('cool')
             setUser(null);
@@ -127,17 +128,15 @@ function ProfileDisplay() {
                     }
                     console.log(action)
                 if(action === 'follow'){
-                if (dataset && following) {
-                    setFollowing([...following, dataset]);
-                }
+                    if (dataset && following) {
+                        setFollowing([...following, dataset]);
+                    }
                 } else {
                 let newList = following?.filter(x => x !== dataset )
                 setFollowing(newList)
                 }
+                setIsFollowing(user?.following.includes(id))
         }
-          React.useEffect(() => {
-            setIsFollowing(user?.following.includes(id));
-        }, []);
     const LikeOrUnlike = async (e: React.MouseEvent<HTMLButtonElement>) => {
       const loginUser = {
         userId: user?._id,
