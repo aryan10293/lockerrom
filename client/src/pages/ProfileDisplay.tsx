@@ -15,7 +15,7 @@ function ProfileDisplay() {
     const [profilePost, setProfilePost] = React.useState<any[]>([])
     const [userLikes, setUserLikes] = React.useState<string[]>([])
     const [following, setFollowing] = React.useState<any[]>([])
-    const [isFollowing, setIsFollowing] = React.useState<boolean>()
+    const [isFollowing, setIsFollowing] = React.useState<boolean>(false)
     let userTrue = false;
     const loginUser = localStorage.getItem('loginUser');
     if (loginUser !== null) {
@@ -136,8 +136,11 @@ function ProfileDisplay() {
                 let newList = following?.filter(x => x !== dataset )
                 setFollowing(newList)
                 }
-                setIsFollowing(user?.following.includes(id))
+                //setIsFollowing(following.includes(id))
         }
+        React.useEffect(() => {
+            setIsFollowing(following.includes(id));
+        }, [following, id]);
     const LikeOrUnlike = async (e: React.MouseEvent<HTMLButtonElement>) => {
       const loginUser = {
         userId: user?._id,
