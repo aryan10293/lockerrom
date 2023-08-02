@@ -167,7 +167,7 @@ function Likes() {
                                   } else if(secondsPassed >= 60){
                                     timeElasped = `${minutesPassed} Minutes ago`
                                   } else {
-                                    timeElasped = `${secondsPassed + 3} Seconda ago`
+                                    timeElasped = `${secondsPassed + 3} Seconds ago`
                                   }
                               return (
                                 <div className="bg-white shadow-lg rounded-lg mx-4 md:mx-auto my-5 max-w-md md:max-w-2xl " key={item._id}>

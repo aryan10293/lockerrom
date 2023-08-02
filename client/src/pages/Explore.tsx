@@ -192,7 +192,7 @@ console.log(user)
                                   } else if(secondsPassed >= 60){
                                     timeElasped = `${minutesPassed} Minutes ago`
                                   } else {
-                                    timeElasped = `${secondsPassed + 3} Seconda ago`
+                                    timeElasped = `${secondsPassed + 3} Seconds ago`
                                   }
 
                                 return (
