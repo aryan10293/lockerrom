@@ -108,7 +108,7 @@ function UserToFollow(props: any) {
                                     alt={`drej`}
                                     onClick={() => navigate(`/profile/${item._id}`)} />
 
-                                <div className="w-40 flex flex-col px-2 ">
+                                <div className="w-40 flex flex-col px-2  lol">
                                     <Link to={`/profile/${item._id}`}>
                                         <h2 className="font-semibold">{item.userName}</h2>
                                         <h2> @{item.userName} </h2>
