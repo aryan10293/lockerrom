@@ -26,7 +26,7 @@ Platform to help connect athletes!
 
 
 ## Optimizations
-I want to optimize the UI to give it a modern look and feel. I want to focus on enhancing the UX with user-friendly display messages and interactions, replacing the old-fashioned alert messages. This way, our users will have a smoother and more enjoyable experience. 
+I want to add an athlete calendar and activity tab! To plan running events and more, and let followers join in. Display workout routines on your profile. Also, work on the routing and blocking pages if not logged in and not sending athletes back to the home page after page refresh.
 
 ## Lessons Learned
 
