@@ -47,14 +47,18 @@ Demo password: 12345678
 2. cd backend
 3. run `npm install`
 4. go to config folder and make a .env file
-5. go get a mongo db string
-6. add DB_STRING in env file
-7. add port 
+DB_STRING = 
+PORT = 2012
+CLOUDINARY_API_KEY = 
+CLOUDINARY_API_SECRET = 
+CLOUDINARY_NAME = 
+5. need a mongo db string, and cloudinary api keys and port
+6. add all those variables to the .env file
 
 ## Usage
 
 1. run `node server.js`
-2. Navigate to `localhost:${added port}`
+2. Navigate to `localhost:2012`
 
 <!-- 
 ## More Projects
