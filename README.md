@@ -1,5 +1,5 @@
-<a href="https://ecommerce-2t1a.vercel.app/" target="_blank">Visit Here</a>
-<a href="https://ecommerce-2t1a.vercel.app/" target="_blank">
+<a href="https://lockerroom.vercel.app/" target="_blank">Visit Here</a>
+<a href="https://lockerroom.vercel.app/" target="_blank">
 <!--
 <img src="https://github.com/aryan10293/ecommerce/assets/64954226/24b9570f-0bd9-4125-b75b-7ea7bf9ccfff" width="100%" alt="https://ecommerce-2t1a.vercel.app/"/>
 -->
@@ -7,10 +7,21 @@
 
 </a>
 
-Platform to help increase local business online sales. 
+Platform to help connect athletes! 
 
 
-## Tech used: ![HTML BADGE](https://img.shields.io/static/v1?label=|&message=HTML&color=23555f&style=plastic&logo=html5) ![CSS BADGE](https://img.shields.io/static/v1?label=|&message=CSS&color=285f65&style=plastic&logo=css3) ![REACT BADGE](https://img.shields.io/static/v1?label=|&message=REACT&color=61dafb&style=plastic&logo=react) ![JAVASCRIPT BADGE](https://img.shields.io/static/v1?label=|&message=JAVASCRIPT&color=3c7f5d&style=plastic&logo=javascript) ![TAILWIND CSS BADGE](https://img.shields.io/static/v1?label=|&message=TAILWIND%20CSS&color=38b2ac&style=plastic&logo=tailwind-css) ![NODEJS BADGE](https://img.shields.io/static/v1?label=|&message=NODE.JS&color=339933&style=plastic&logo=node.js) ![EXPRESS BADGE](https://img.shields.io/static/v1?label=|&message=EXPRESS&color=bbb111&style=plastic&logo=express) ![MONGODB BADGE](https://img.shields.io/static/v1?label=|&message=MONGODB&color=cdd148&style=plastic&logo=mongodb)
+## Tech used:
+![HTML BADGE](https://img.shields.io/static/v1?label=|&message=HTML&color=23555f&style=plastic&logo=html5)
+![CSS BADGE](https://img.shields.io/static/v1?label=|&message=CSS&color=285f65&style=plastic&logo=css3)
+![REACT BADGE](https://img.shields.io/static/v1?label=|&message=REACT&color=61dafb&style=plastic&logo=react)
+![JAVASCRIPT BADGE](https://img.shields.io/static/v1?label=|&message=JAVASCRIPT&color=3c7f5d&style=plastic&logo=javascript)
+![TYPESCRIPT BADGE](https://img.shields.io/static/v1?label=|&message=TYPESCRIPT&color=3178C6&style=plastic&logo=typescript)
+![TAILWIND CSS BADGE](https://img.shields.io/static/v1?label=|&message=TAILWIND%20CSS&color=38b2ac&style=plastic&logo=tailwind-css)
+![NODEJS BADGE](https://img.shields.io/static/v1?label=|&message=NODE.JS&color=339933&style=plastic&logo=node.js)
+![EXPRESS BADGE](https://img.shields.io/static/v1?label=|&message=EXPRESS&color=bbb111&style=plastic&logo=express)
+![MONGODB BADGE](https://img.shields.io/static/v1?label=|&message=MONGODB&color=cdd148&style=plastic&logo=mongodb)
+![WEBSOCKET BADGE](https://img.shields.io/static/v1?label=|&message=WEBSOCKET&color=7289DA&style=plastic&logo=websocket)
+
 
 
 
