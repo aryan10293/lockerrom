@@ -30,7 +30,7 @@ I want to add an athlete calendar and activity tab! To plan running events and m
 
 ## Lessons Learned
 
-In this project, I learned to call APIs effectively in React and optimized the useEffect hook for better performance. I also enjoyed the rewarding challenge of securing user accounts and ensuring their safety throughout the application.
+In this project, I delved into the fascinating world of WebSocket for seamless messaging. The real challenge, however, was mastering the art of updating user information effectively. From handling user images to ensuring all posts and comments displayed the correct, updated photos.
 
 
 ## Demo Login
@@ -52,7 +52,7 @@ PORT = 2012
 CLOUDINARY_API_KEY = 
 CLOUDINARY_API_SECRET = 
 CLOUDINARY_NAME = 
-5. need a mongo db string, and cloudinary api keys and port
+5. need a Mongo db string, and CLOUDINARY API keys, and port
 6. add all those variables to the .env file
 
 ## Usage
